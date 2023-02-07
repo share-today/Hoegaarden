@@ -1,0 +1,28 @@
+PODS:
+  - FSCalendar (2.8.4)
+  - Pageboy (4.0.2)
+  - SnapKit (5.6.0)
+  - Tabman (3.0.1):
+    - Pageboy (~> 4.0.2)
+
+DEPENDENCIES:
+  - FSCalendar
+  - SnapKit
+  - Tabman (~> 3.0)
+
+SPEC REPOS:
+  trunk:
+    - FSCalendar
+    - Pageboy
+    - SnapKit
+    - Tabman
+
+SPEC CHECKSUMS:
+  FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
+  Pageboy: 34ff11e8d1041b81769d5bcde9b19a0cb7218bd9
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  Tabman: a5880789298f81d3f2cdd6510b54ae637cfd8e09
+
+PODFILE CHECKSUM: f7971deab64b90cb89806900503548feefd07d66
+
+COCOAPODS: 1.11.3
