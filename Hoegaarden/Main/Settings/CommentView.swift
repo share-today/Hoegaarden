@@ -10,6 +10,7 @@ import AVFoundation
 
 class CommentView: UIViewController {
     
+    var alert = SweetAlert()
     let textViewPlaceHolder = "앱의 발전을 위해 좋은 의견 많이 부탁드\n려요. :)"
     
     private var commentLabel: UILabel = {
@@ -66,30 +67,30 @@ class CommentView: UIViewController {
     }()
     
     private var contentCountLabel: UILabel = {
-        let countLabel = UILabel()
-        countLabel.text = "0/100"
-        countLabel.textColor = .black
-        countLabel.font = UIFont(name: "Cafe24SsurroundAir", size: 12)
-        countLabel.translatesAutoresizingMaskIntoConstraints = false
-        return countLabel
+        let label = UILabel()
+        label.text = "0/100"
+        label.textColor = .black
+        label.font = UIFont(name: "Cafe24SsurroundAir", size: 12)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private var sendLabel: UILabel = {
-        let sendLabel = UILabel()
-        sendLabel.text = "보내기"
-        sendLabel.textColor = .lightGray
-        sendLabel.font = UIFont(name: "Cafe24Ssurround", size: 14)
-        sendLabel.translatesAutoresizingMaskIntoConstraints = false
-        return sendLabel
+        let label = UILabel()
+        label.text = "보내기"
+        label.textColor = UIColor(red: 0.592, green: 0.592, blue: 0.592, alpha: 1)
+        label.font = UIFont(name: "Cafe24Ssurround", size: 14)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private var sendButton: UIButton = {
-        let sendBtn = UIButton()
+        let button = UIButton()
         let image = UIImage(named: "arrow-right-circle")
-        sendBtn.setImage(image, for: .normal)
-        sendBtn.tintColor = .lightGray
-        sendBtn.translatesAutoresizingMaskIntoConstraints = false
-        return sendBtn
+        button.setImage(image, for: .normal)
+        button.tintColor = .lightGray
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     private func updateCountLabel(characterCount: Int) {
@@ -99,17 +100,25 @@ class CommentView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(commentLabel)
-        view.addSubview(lineView)
-        view.addSubview(commentView)
-        
         setup()
+        addViews()
+        setupAddTarget()
         configureNavigationBarButton()
         setConstraints()
     }
     
     func setup() {
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    }
+    
+    func addViews() {
+        view.addSubview(commentLabel)
+        view.addSubview(lineView)
+        view.addSubview(commentView)
+    }
+    
+    func setupAddTarget() {
+        sendButton.addTarget(self, action: #selector(sendButtonClicked), for: .touchUpInside)
     }
     
     func configureNavigationBarButton() {
@@ -119,14 +128,6 @@ class CommentView: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: image, style: .done,
             target: self, action: #selector(showPrevious))
-    }
-    
-    @objc func showPrevious() {
-        let controller = SettingController()
-        controller.modalPresentationStyle = .fullScreen
-        let nav = UINavigationController(rootViewController: controller)
-        nav.modalPresentationStyle = .overFullScreen
-        present(nav, animated: true, completion: nil)
     }
     
     private func setConstraints() {
@@ -176,6 +177,25 @@ class CommentView: UIViewController {
             sendButton.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
+    
+    @objc func showPrevious() {
+        let controller = SettingController()
+        controller.modalPresentationStyle = .fullScreen
+        let nav = UINavigationController(rootViewController: controller)
+        nav.modalPresentationStyle = .overFullScreen
+        present(nav, animated: false, completion: nil)
+    }
+    
+    @objc func sendButtonClicked() {
+        alert.showAlert("", subTitle: "의견을 보낼까요?\n주신 의견들은 꼼꼼히 읽어볼게요.",
+                        style: AlertStyle.customImage(imageFile: "send"),
+                        buttonTitle: "취소", buttonColor: .white,
+                        otherButtonTitle: "보내기", otherButtonColor: .black) { (isOtherButton) -> Void in
+            if isOtherButton == true { } else {
+                // 의견이 접수됐습니다. 토스트 띄우기
+            }
+        }
+    }
 }
 
 
@@ -189,6 +209,7 @@ extension CommentView: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
+        
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             textView.text = textViewPlaceHolder
             textView.textColor = .black
@@ -206,8 +227,30 @@ extension CommentView: UITextViewDelegate {
             AudioServicesPlayAlertSound(SystemSoundID(4095))
             return false
         }
+        
+        if characterCount > 9 {
+            completion(isOn: true)
+        } else {
+            completion(isOn: false)
+        }
+        
         updateCountLabel(characterCount: characterCount)
         
         return true
+    }
+    
+    func completion(isOn: Bool) {
+        switch isOn {
+        case true:
+            let image = UIImage(named: "arrow-right-circle_black")
+            sendButton.isUserInteractionEnabled = true
+            sendButton.setImage(image, for: .normal)
+            sendLabel.textColor = .black
+        case false:
+            let image = UIImage(named: "arrow-right-circle")
+            sendButton.isUserInteractionEnabled = false
+            sendButton.setImage(image, for: .normal)
+            sendLabel.textColor = UIColor(red: 0.592, green: 0.592, blue: 0.592, alpha: 1)
+        }
     }
 }

@@ -49,7 +49,7 @@ class SomeoneYesterday: UIView {
         return contentLabel
     }()
     
-    private var someoneYesterdayMoreButton: UIButton = {
+    lazy var someoneYesterdayMoreButton: UIButton = {
         let moreButton = UIButton()
         let image = UIImage(named: "more")
         moreButton.setImage(image, for: .normal)
@@ -57,7 +57,7 @@ class SomeoneYesterday: UIView {
         return moreButton
     }()
     
-    private lazy var someoneYesterdayCommentView: UIView = {
+    private var someoneYesterdayCommentView: UIView = {
        let comView = UIView()
         comView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.8)
         comView.layer.cornerRadius = 8
@@ -120,11 +120,11 @@ class SomeoneYesterday: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup() {
+    private func setup() {
         backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     
-    func addViews() {
+    private func addViews() {
         [someoneYesterdayView].forEach { addSubview($0) }
     }
     
@@ -189,7 +189,7 @@ class SomeoneYesterday: UIView {
     }
     
     private func updateCountLabel(characterCount: Int) {
-        someoneYesterdayContentCountLabel.text = "\(characterCount)/100"
+        someoneYesterdayContentCountLabel.text = "\(characterCount)/50"
     }
 }
 
@@ -206,12 +206,18 @@ extension SomeoneYesterday: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             textView.text = textViewPlaceHolder
-            textView.textColor = .black
-            updateCountLabel(characterCount: 0)
+            textView.textColor = .lightGray
+            someoneYesterdayContentCountLabel.text = "0/50"
+            completion(isOn: false)
         }
     }
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        if text == "\n" {
+            textView.resignFirstResponder()
+        }
+        
         let inputString = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard let oldString = textView.text, let newRange = Range(range, in: oldString) else { return true }
         let newString = oldString.replacingCharacters(in: newRange, with: inputString).trimmingCharacters(in: .whitespacesAndNewlines)
@@ -221,7 +227,29 @@ extension SomeoneYesterday: UITextViewDelegate {
             AudioServicesPlayAlertSound(SystemSoundID(4095))
             return false
         }
+        
+        if characterCount >= 1 {
+            completion(isOn: true)
+        } else if characterCount == 0 {
+            completion(isOn: false)
+        }
+        
         updateCountLabel(characterCount: characterCount)
         return true
+    }
+    
+    func completion(isOn: Bool) {
+        switch isOn {
+        case true:
+            let image = UIImage(named: "arrow-right-circle_black")
+            someoneYesterdaySendButton.isUserInteractionEnabled = true
+            someoneYesterdaySendButton.setImage(image, for: .normal)
+            someoneYesterdaySendLabel.textColor = .black
+        case false:
+            let image = UIImage(named: "arrow-right-circle")
+            someoneYesterdaySendButton.isUserInteractionEnabled = false
+            someoneYesterdaySendButton.setImage(image, for: .normal)
+            someoneYesterdaySendLabel.textColor = UIColor(red: 0.592, green: 0.592, blue: 0.592, alpha: 1)
+        }
     }
 }

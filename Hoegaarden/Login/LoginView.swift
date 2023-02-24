@@ -20,49 +20,49 @@ class LoginView: UIView {
         return view
     }()
     
-    private var titleLabel: UILabel = {
-        let tl = UILabel()
-        tl.text = "하루 공유"
-        tl.textColor = .black
-        tl.font = UIFont(name: "Cafe24Ssurround", size: 40)
-        tl.translatesAutoresizingMaskIntoConstraints = false
-        return tl
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "하루 공유"
+        label.textColor = .black
+        label.font = UIFont(name: "Cafe24Ssurround", size: 40)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
-    lazy var imageViewTop: UIImageView = {
+    private var imageViewTop: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "SubtractTop")
+        imageView.image = UIImage(named: "subtractTop")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    lazy var imageViewBottom: UIImageView = {
+    private var imageViewBottom: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "SubtractBottom")
+        imageView.image = UIImage(named: "subtractBottom")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
     lazy var kakaoStartButton: UIButton = {
-        let kb = UIButton(type: .custom)
-        kb.setImage(#imageLiteral(resourceName: "kakao"), for: .normal)
-        kb.setTitle("  카카오톡으로 로그인", for: .normal)
-        kb.setTitleColor(.black, for: .normal)
-        kb.backgroundColor = .yellow
-        kb.layer.cornerRadius = 4
-        kb.titleLabel?.font = UIFont(name: "Cafe24Ssurround", size: 16)
-        return kb
+        let button = UIButton(type: .custom)
+        button.setImage(#imageLiteral(resourceName: "kakao"), for: .normal)
+        button.setTitle("  카카오톡으로 로그인", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .yellow
+        button.layer.cornerRadius = 4
+        button.titleLabel?.font = Font.bold.of(size: 16)
+        return button
     }()
     
     lazy var appleStartButton: UIButton = {
-        let ab = UIButton(type: .custom)
-        ab.setImage(#imageLiteral(resourceName: "apple"), for: .normal)
-        ab.setTitle("  Apple로 로그인", for: .normal)
-        ab.setTitleColor(.white, for: .normal)
-        ab.backgroundColor = .black
-        ab.layer.cornerRadius = 4
-        ab.titleLabel?.font = UIFont(name: "Cafe24Ssurround", size: 16)
-        return ab
+        let button = UIButton(type: .custom)
+        button.setImage(#imageLiteral(resourceName: "apple"), for: .normal)
+        button.setTitle("  Apple로 로그인", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .black
+        button.layer.cornerRadius = 4
+        button.titleLabel?.font = Font.bold.of(size: 16)
+        return button
     }()
     
     private lazy var stackView: UIStackView = {

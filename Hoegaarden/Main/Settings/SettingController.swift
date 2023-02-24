@@ -8,7 +8,9 @@
 import UIKit
 
 class SettingController: UIViewController {
-
+    
+    private let toast = Toast()
+    private var alert = SweetAlert()
     var delegate: HomeControllerDelegate?
     
     private var scrollView: UIScrollView = {
@@ -194,26 +196,28 @@ class SettingController: UIViewController {
     }()
     
     lazy var logoutButton: UIButton = {
-        let lb = UIButton(type: .custom)
-        lb.setTitle("로그아웃", for: .normal)
-        lb.setTitleColor(.black, for: .normal)
-        lb.backgroundColor = .clear
-        lb.titleLabel?.font = UIFont(name: "Cafe24SsurroundAir", size: 16)
-        lb.translatesAutoresizingMaskIntoConstraints = false
-        return lb
+        let button = UIButton(type: .custom)
+        button.setTitle("로그아웃", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .clear
+        button.titleLabel?.font = UIFont(name: "Cafe24SsurroundAir", size: 16)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(logoutButtonTapped), for: .touchUpInside)
+        return button
     }()
     
     lazy var unregisterButton: UIButton = {
-        let ub = UIButton(type: .custom)
-        ub.setTitle("회원 탈퇴", for: .normal)
-        ub.setTitleColor(.lightGray, for: .normal)
-        ub.backgroundColor = .clear
-        ub.titleLabel?.font = UIFont(name: "Cafe24SsurroundAir", size: 16)
-        ub.translatesAutoresizingMaskIntoConstraints = false
-        return ub
+        let button = UIButton(type: .custom)
+        button.setTitle("회원 탈퇴", for: .normal)
+        button.setTitleColor(.lightGray, for: .normal)
+        button.backgroundColor = .clear
+        button.titleLabel?.font = UIFont(name: "Cafe24SsurroundAir", size: 16)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(unregisterButtonTapped), for: .touchUpInside)
+        return button
     }()
     
-    @objc func commentButtonTapped() {
+    @objc private func commentButtonTapped() {
         let commentVC = CommentView()
         commentVC.modalPresentationStyle = .fullScreen
         let nav = UINavigationController(rootViewController: commentVC)
@@ -221,7 +225,7 @@ class SettingController: UIViewController {
         present(nav, animated: true, completion: nil)
     }
     
-    @objc func tosButtonTapped() {
+    @objc private func tosButtonTapped() {
         let tosVC = TOSView()
         tosVC.modalPresentationStyle = .fullScreen
         let nav = UINavigationController(rootViewController: tosVC)
@@ -229,7 +233,7 @@ class SettingController: UIViewController {
         present(nav, animated: true, completion: nil)
     }
     
-    @objc func privacyButtonTapped() {
+    @objc private func privacyButtonTapped() {
         let privacyVC = PrivacyView()
         privacyVC.modalPresentationStyle = .fullScreen
         let nav = UINavigationController(rootViewController: privacyVC)
@@ -243,6 +247,30 @@ class SettingController: UIViewController {
         let nav = UINavigationController(rootViewController: openVC)
         nav.modalPresentationStyle = .overFullScreen
         present(nav, animated: true, completion: nil)
+    }
+    
+    @objc private func logoutButtonTapped() {
+        self.alert.showAlert("", subTitle: "로그아웃 하겠어요?",
+                             style: AlertStyle.customImage(imageFile: "warning"),
+                             buttonTitle: "취소", buttonColor: .white,
+                             otherButtonTitle: "로그아웃", otherButtonColor: .black) { (isOtherButton) -> Void in
+            if isOtherButton == true { }
+            else {
+                
+            }
+        }
+    }
+    
+    @objc private func unregisterButtonTapped() {
+        self.alert.showAlert("", subTitle: "정말 탈퇴하겠어요?",
+                             style: AlertStyle.customImage(imageFile: "warning"),
+                             buttonTitle: "취소", buttonColor: .white,
+                             otherButtonTitle: "탈퇴", otherButtonColor: .black) { (isOtherButton) -> Void in
+            if isOtherButton == true { }
+            else {
+                
+            }
+        }
     }
     
     override func viewDidLoad() {

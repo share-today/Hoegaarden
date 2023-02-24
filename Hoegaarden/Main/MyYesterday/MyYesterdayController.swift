@@ -6,13 +6,13 @@
 //
 
 import UIKit
-import SnapKit
 
-class MyYesterdayController: UIViewController {
+class MyYesterdayController: UIViewController  {
     
     let page: Int
     private let myYesterday = MyYesterday()
     private let toast = Toast()
+    private var alert = SweetAlert()
     
     init(page: Int) {
         self.page = page
@@ -24,7 +24,7 @@ class MyYesterdayController: UIViewController {
     }
     
     override func loadView() {
-        view =  myYesterday
+        view = myYesterday
     }
     
     override func viewDidLoad() {
@@ -33,12 +33,37 @@ class MyYesterdayController: UIViewController {
         setupAddTarget()
     }
     
-    func setupAddTarget() {
-        myYesterday.myYesterdayCommentHeartButton.addTarget(self, action: #selector(heartButtonTapped), for: .touchUpInside)
-        myYesterday.myYesterdayCommentMoreButton.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
+    private func setupAddTarget() {
+        myYesterday.myYesterdayMoreButton.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
+        myYesterday.myYesterdayCommentHeartButton.addTarget(self, action: #selector(commentHeartButtonTapped), for: .touchUpInside)
+        myYesterday.myYesterdayCommentMoreButton.addTarget(self, action: #selector(commmetMoreButtonTapped), for: .touchUpInside)
     }
-
-    @objc func heartButtonTapped() {
+    
+    @objc private func moreButtonTapped() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let deleteAction = UIAlertAction(title: "삭제하기", style: .default) { action in
+            self.alert.showAlert("", subTitle: "이야기를 지우고 싶은가요?\n삭제하면 복구가 어려워요.",
+                                 style: AlertStyle.customImage(imageFile: "trash"),
+                                 buttonTitle: "취소", buttonColor: .white,
+                                 otherButtonTitle: "삭제하기", otherButtonColor: .black) { (isOtherButton) -> Void in
+                if isOtherButton == true {
+                    
+                } else {
+                    self.toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
+                                         message: "삭제가 완료됐습니다.")
+                }
+            }
+        }
+        
+        alertController.addAction(deleteAction)
+        
+        alertController.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = .white
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    @objc func commentHeartButtonTapped() {
         if myYesterday.myYesterdayCommentHeartButton.isSelected == true {
             myYesterday.myYesterdayCommentHeartButton.isSelected = false
             myYesterday.myYesterdayCommentHeartButton.setImage(UIImage(named: "heart"), for: .normal)
@@ -46,35 +71,48 @@ class MyYesterdayController: UIViewController {
         } else {
             myYesterday.myYesterdayCommentHeartButton.isSelected = true
             myYesterday.myYesterdayCommentHeartButton.setImage(UIImage(named: "heart.selected"), for: .normal)
-            toast.showToast(with: UIImage(imageLiteralResourceName: "heart.selected"))
-            toast.showToast(message: "당신의 마음을 전달했습니다.")
+            toast.showToast(image: UIImage(imageLiteralResourceName: "heart.selected"),
+                            message: "당신의 마음을 전달했습니다.")
         }
     }
     
-    @objc func moreButtonTapped() {
-        let action = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    @objc func commmetMoreButtonTapped() {
         
-//        action.addAction(UIAlertAction(title: "누군가에게 보내기", style: .default))
-//        action.addAction(UIAlertAction(title: "수정하기", style: .default))
-//        action.addAction(UIAlertAction(title: "삭제하기", style: .default))
-//        action.view.tintColor = .black
-//        present(action, animated: true)
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        let send = UIAlertAction(title: "누군가에게 보내기", style: .default) { action in
+        let reportAction = UIAlertAction(title: "신고하기", style: .default) { action in
+            self.alert.showAlert("", subTitle: "누군가의 이야기로 불쾌했나요?\n게시물을 즉시 삭제하고, 검토를 통해\n해당 사용자를 제재할게요.",
+                                 style: AlertStyle.customImage(imageFile: "frown"),
+                                 buttonTitle: "취소", buttonColor: .white,
+                                 otherButtonTitle: "신고하기", otherButtonColor: .black) { (isOtherButton) -> Void in
+                if isOtherButton == true {
+                    
+                } else {
+                    self.toast.showToast(image: UIImage(imageLiteralResourceName: "check-circle"),
+                                         message: "신고가 완료됐습니다.")
+                }
+            }
         }
-
-        let modify = UIAlertAction(title: "수정하기", style: .default)  { action in
-
-        }
-
-        let delete = UIAlertAction(title: "삭제하기", style: .default)  { action in
-
-        }
-
-        action.addAction(send)
-        action.addAction(modify)
-        action.addAction(delete)
         
-        present(action, animated: true)
+        let deleteAction = UIAlertAction(title: "삭제하기", style: .destructive) { action in
+            self.alert.showAlert("", subTitle: "누군가의 이야기가 맘에 들지 않나요?\n지금 즉시 삭제할 수 있어요.",
+                                 style: AlertStyle.customImage(imageFile: "trash"),
+                                 buttonTitle: "취소", buttonColor: .white,
+                                 otherButtonTitle: "삭제하기", otherButtonColor: .black) { (isOtherButton) -> Void in
+                if isOtherButton == true {
+                    
+                } else {
+                    self.toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
+                                         message: "삭제가 완료됐습니다.")
+                }
+            }
+        }
+        
+        alertController.addAction(reportAction)
+        alertController.addAction(deleteAction)
+        
+        alertController.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = .white
+        
+        present(alertController, animated: true, completion: nil)
     }
 }

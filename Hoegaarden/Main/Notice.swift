@@ -55,9 +55,7 @@ class Notice: UIViewController {
     @objc func showPrevious() {
         let controller = HomeSide()
         controller.modalPresentationStyle = .overFullScreen
-        let nav = UINavigationController(rootViewController: controller)
-        nav.modalPresentationStyle = .overFullScreen
-        present(nav, animated: false, completion: nil)
+        self.present(controller, animated: false)
     }
     
     func setConstraints() {

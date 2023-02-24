@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class MyYesterday: UIView {
     
     private lazy var myYesterdayView: UIView = {
@@ -42,7 +41,7 @@ class MyYesterday: UIView {
         return contentLabel
     }()
     
-    private var myYesterdayMoreButton: UIButton = {
+    lazy var myYesterdayMoreButton: UIButton = {
         let moreButton = UIButton()
         let image = UIImage(named: "more")
         moreButton.setImage(image, for: .normal)
@@ -91,6 +90,8 @@ class MyYesterday: UIView {
         moreButton.translatesAutoresizingMaskIntoConstraints = false
         return moreButton
     }()
+    
+    let alertActionSheet = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

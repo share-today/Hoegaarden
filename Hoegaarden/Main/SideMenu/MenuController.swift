@@ -10,7 +10,6 @@ import UIKit
 class MenuController: UIViewController {
     
     var delegate: HomeControllerDelegate?
-    
     var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -54,6 +53,7 @@ class MenuController: UIViewController {
 
 
 extension MenuController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return SideMenuOptions.allCases.count
     }

@@ -44,7 +44,7 @@ class SettingSide: UIViewController {
         if shouldExpand {
             // show menu
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) {
-                self.centerController.view.frame.origin.x -= (self.centerController.view.frame.width - 300) }
+                self.centerController.view.frame.origin.x -= (self.menuController.view.frame.width - 300) }
         } else {
             // hide menu
             UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut) {

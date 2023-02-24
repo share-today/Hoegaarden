@@ -10,9 +10,10 @@ import AVFoundation
 
 class MyToday: UIView {
     
+    private let toast = Toast()
+    private let toastWithButton = ToastWithButton()
     let textViewPlaceHolder = "누군가에게 털어놓고 싶은 일이\n있었나요?"
     
-    // 나의 오늘 텍스트 필드뷰
     private lazy var myTodayView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 0.904, green: 0.931, blue: 1, alpha: 1)
@@ -33,7 +34,7 @@ class MyToday: UIView {
         view.clipsToBounds = true
         view.addSubview(todayDateLabel)
         view.addSubview(inputContent)
-        view.addSubview(contentCountButton)
+        view.addSubview(contentCountLabel)
         view.addSubview(sendLabel)
         view.addSubview(sendButton)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -41,11 +42,11 @@ class MyToday: UIView {
     }()
     
     private var todayDateLabel: UILabel = {
-        let dateLabel = UILabel()
-        dateLabel.textColor = .black
-        dateLabel.font = UIFont(name: "Cafe24SsurroundAir", size: 12)
-        dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        return dateLabel
+        let label = UILabel()
+        label.textColor = .black
+        label.font = UIFont(name: "Cafe24SsurroundAir", size: 12)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     lazy var inputContent: UITextView = {
@@ -62,34 +63,31 @@ class MyToday: UIView {
         return textView
     }()
     
-    private var contentCountButton: UIButton = {
-        let countButton = UIButton()
-        countButton.setTitle("0/100", for: .normal)
-        countButton.setTitleColor(.black, for: .normal)
-        countButton.titleLabel?.font = UIFont(name: "Cafe24SsurroundAir", size: 12)
-        countButton.setUnderLine()
-        countButton.translatesAutoresizingMaskIntoConstraints = false
-        return countButton
+    lazy var contentCountLabel: UILabel = {
+        let label = UILabel()
+        label.text = "0/100"
+        label.textColor = .black
+        label.font = UIFont(name: "Cafe24SsurroundAir", size: 12)
+        label.attributedText = NSMutableAttributedString(string: "0/100", attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
-    // 보내기 버튼 레이블
-    private var sendLabel: UILabel = {
-        let sendLabel = UILabel()
-        sendLabel.text = "보내기"
-        sendLabel.textColor = .lightGray
-        sendLabel.font = UIFont(name: "Cafe24Ssurround", size: 14)
-        sendLabel.translatesAutoresizingMaskIntoConstraints = false
-        return sendLabel
+    lazy var sendLabel: UILabel = {
+        let label = UILabel()
+        label.text = "보내기"
+        label.textColor = UIColor(red: 0.592, green: 0.592, blue: 0.592, alpha: 1)
+        label.font = UIFont(name: "Cafe24Ssurround", size: 14)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
-    // 보내기 버튼
-    private var sendButton: UIButton = {
-        let sendBtn = UIButton()
+    lazy var sendButton: UIButton = {
+        let button = UIButton()
         let image = UIImage(named: "arrow-right-circle")
-        sendBtn.setImage(image, for: .normal)
-        sendBtn.tintColor = .lightGray
-        sendBtn.translatesAutoresizingMaskIntoConstraints = false
-        return sendBtn
+        button.setImage(image, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     override init(frame: CGRect) {
@@ -97,20 +95,27 @@ class MyToday: UIView {
         
         setup()
         addViews()
+        setTapGesture()
         setConstraints()
         getcurrentDate()
+        completion(isOn: false)
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup() {
+    private func setup() {
         backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     
-    func addViews() {
+    private func addViews() {
         [myTodayView].forEach { addSubview($0) }
+    }
+    
+    private func setTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTextView(_:)))
+        addGestureRecognizer(tapGesture)
     }
     
     private func setConstraints() {
@@ -135,8 +140,8 @@ class MyToday: UIView {
         ])
         
         NSLayoutConstraint.activate([
-            contentCountButton.bottomAnchor.constraint(equalTo: myTodayView.bottomAnchor, constant: -24),
-            contentCountButton.leadingAnchor.constraint(equalTo: myTodayView.leadingAnchor, constant: 24)
+            contentCountLabel.bottomAnchor.constraint(equalTo: myTodayView.bottomAnchor, constant: -24),
+            contentCountLabel.leadingAnchor.constraint(equalTo: myTodayView.leadingAnchor, constant: 24)
         ])
         
         NSLayoutConstraint.activate([
@@ -163,7 +168,11 @@ class MyToday: UIView {
     
     // 글자수 세기
     private func updateCountLabel(characterCount: Int) {
-        contentCountButton.setTitle("\(characterCount)/100", for: .normal)
+        contentCountLabel.text = "\(characterCount)/100"
+    }
+    
+    @objc private func didTapTextView(_ sender: Any) {
+        endEditing(true)
     }
 }
 
@@ -177,39 +186,61 @@ extension MyToday: UITextViewDelegate {
         }
     }
 
-    func textViewDidEndEditing(_ textView: UITextView) {
+    private func textViewDidEndEditing(_ textView: UITextView) -> Bool {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             textView.text = textViewPlaceHolder
-            textView.textColor = .black
-            updateCountLabel(characterCount: 0)
+            textView.textColor = .lightGray
+            completion(isOn: false)
         }
+        return true
     }
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        if text == "\n" {
+            textView.resignFirstResponder()
+        }
+        
         let inputString = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard let oldString = textView.text, let newRange = Range(range, in: oldString) else { return true }
         let newString = oldString.replacingCharacters(in: newRange, with: inputString).trimmingCharacters(in: .whitespacesAndNewlines)
-
+        
         let characterCount = newString.count
         guard characterCount <= 100 else {
             AudioServicesPlayAlertSound(SystemSoundID(4095))
             return false
         }
+        
+        if characterCount > 9 {
+            // 10글자 이상일 때 텍스트 및 버튼 블랙 처리 & 버튼 활성화 처리
+            completion(isOn: true)
+        } else if characterCount < 10 {
+            // 10글자 이하일 때 텍스트 및 버튼 라이트 그레이 처리 & 버튼 비활성화 처리
+            completion(isOn: false)
+        }
+        
+        if characterCount > 89 {
+            self.toastWithButton.showButtonToast(image: UIImage(imageLiteralResourceName: "ad"),
+                                                 message: "최대 500자를 작성해보세요.",
+                                                 buttonTitle: "광고 보기") 
+        }
+        
         updateCountLabel(characterCount: characterCount)
-
         return true
     }
-}
-
-
-extension UIButton {
-    func setUnderLine() {
-        guard let title = title(for: .normal) else { return }
-        let attributedString = NSMutableAttributedString(string: title)
-        attributedString.addAttribute(.underlineStyle,
-                                       value: NSUnderlineStyle.single.rawValue,
-                                       range: NSRange(location: 0, length: title.count)
-        )
-        setAttributedTitle(attributedString, for: .normal)
+    
+    func completion(isOn: Bool) {
+        switch isOn {
+        case true:
+            let image = UIImage(named: "arrow-right-circle_black")
+            sendButton.isUserInteractionEnabled = true
+            sendButton.setImage(image, for: .normal)
+            sendLabel.textColor = .black
+        case false:
+            let image = UIImage(named: "arrow-right-circle")
+            sendButton.isUserInteractionEnabled = false
+            sendButton.setImage(image, for: .normal)
+            sendLabel.textColor = UIColor(red: 0.592, green: 0.592, blue: 0.592, alpha: 1)
+        }
     }
 }

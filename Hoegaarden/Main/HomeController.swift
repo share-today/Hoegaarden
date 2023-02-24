@@ -18,23 +18,30 @@ class HomeController: TabmanViewController, PageboyViewControllerDataSource, TMB
         MyYesterdayController(page: 2),
         SomeoneYesterdayController(page: 3)
     ]
-
+    
+    lazy var lineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dataSource = self
-        
         configureBar()
+        configureView()
         configureNavigationBarButton()
     }
     
     func configureBar() {
+        dataSource = self
         let bar = TMBarView.ButtonBar()
         
-        bar.layout.contentInset = UIEdgeInsets(top: 80.0, left: 20.0, bottom: 4.0, right: 16.0)
+        bar.layout.contentInset = UIEdgeInsets(top: 80.0, left: 24.0, bottom: 4.0, right: 16.0)
         bar.layout.interButtonSpacing = 50.0
         bar.fadesContentEdges = true
-        bar.clipsToBounds = true
+        bar.clipsToBounds = false
         bar.layer.borderWidth = 0
         bar.buttons.customize {
             $0.tintColor = UIColor(red: 0.169, green: 0.169, blue: 0.169, alpha: 1)
@@ -45,9 +52,19 @@ class HomeController: TabmanViewController, PageboyViewControllerDataSource, TMB
         }
         bar.indicator.weight = .heavy
         bar.indicator.tintColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
-        bar.indicator.overscrollBehavior = .compress
         bar.backgroundColor = .white
         addBar(bar.systemBar(), dataSource: self, at: .top)
+    }
+    
+    func configureView() {
+        view.addSubview(lineView)
+        NSLayoutConstraint.activate([
+            lineView.topAnchor.constraint(equalTo: view.topAnchor, constant: 227),
+            lineView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            lineView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            lineView.widthAnchor.constraint(equalToConstant: 351),
+            lineView.heightAnchor.constraint(equalToConstant: 1)
+        ])
     }
     
     func configureNavigationBarButton() {
