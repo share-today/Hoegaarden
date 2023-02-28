@@ -11,13 +11,14 @@ import AVFoundation
 class CommentView: UIViewController {
     
     var alert = SweetAlert()
+    private let toast = Toast()
     let textViewPlaceHolder = "앱의 발전을 위해 좋은 의견 많이 부탁드\n려요. :)"
     
     private var commentLabel: UILabel = {
         let label = UILabel()
         label.text = "의견 보내기"
         label.textColor = .black
-        label.font = UIFont(name: "Cafe24Ssurround", size: 16)
+        label.font = Font.bold.of(size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -57,7 +58,7 @@ class CommentView: UIViewController {
         textView.backgroundColor = .clear
         textView.text = textViewPlaceHolder
         textView.textColor = .lightGray
-        textView.font = UIFont(name: "Cafe24SsurroundAir", size: 16)
+        textView.font = Font.air.of(size: 16)
         textView.autocapitalizationType = .none
         textView.autocorrectionType = .no
         textView.spellCheckingType = .no
@@ -70,7 +71,7 @@ class CommentView: UIViewController {
         let label = UILabel()
         label.text = "0/100"
         label.textColor = .black
-        label.font = UIFont(name: "Cafe24SsurroundAir", size: 12)
+        label.font = Font.air.of(size: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -79,7 +80,7 @@ class CommentView: UIViewController {
         let label = UILabel()
         label.text = "보내기"
         label.textColor = UIColor(red: 0.592, green: 0.592, blue: 0.592, alpha: 1)
-        label.font = UIFont(name: "Cafe24Ssurround", size: 14)
+        label.font = Font.bold.of(size: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -192,7 +193,12 @@ class CommentView: UIViewController {
                         buttonTitle: "취소", buttonColor: .white,
                         otherButtonTitle: "보내기", otherButtonColor: .black) { (isOtherButton) -> Void in
             if isOtherButton == true { } else {
-                // 의견이 접수됐습니다. 토스트 띄우기
+                let controller = SettingController()
+                controller.modalPresentationStyle = .fullScreen
+                self.present(controller, animated: false)
+                
+                self.toast.showToast(image: UIImage(imageLiteralResourceName: "check-circle"),
+                                     message: "의견이 접수됐습니다.")
             }
         }
     }
@@ -208,16 +214,22 @@ extension CommentView: UITextViewDelegate {
         }
     }
     
-    func textViewDidEndEditing(_ textView: UITextView) {
-        
+    private func textViewDidEndEditing(_ textView: UITextView) -> Bool {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             textView.text = textViewPlaceHolder
-            textView.textColor = .black
-            updateCountLabel(characterCount: 0)
+            textView.textColor = .lightGray
+            completion(isOn: false)
         }
+        return true
     }
+
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        if text == "\n" {
+            textView.resignFirstResponder()
+        }
+        
         let inputString = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard let oldString = textView.text, let newRange = Range(range, in: oldString) else { return true }
         let newString = oldString.replacingCharacters(in: newRange, with: inputString).trimmingCharacters(in: .whitespacesAndNewlines)

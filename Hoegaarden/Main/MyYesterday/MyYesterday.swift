@@ -25,7 +25,7 @@ class MyYesterday: UIView {
         let dateLabel = UILabel()
         dateLabel.text = "00년 00월 00일"
         dateLabel.textColor = .black
-        dateLabel.font = UIFont(name: "Cafe24SsurroundAir", size: 12)
+        dateLabel.font = Font.air.of(size: 12)
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         return dateLabel
     }()
@@ -35,7 +35,7 @@ class MyYesterday: UIView {
         contentLabel.text = "오늘은 상사에게 후배에게 하루종일 시달\n려서 지쳤어요. 중간에 껴서 새우등 터지\n고 있는데 어디가서 말해봤자 제 이미지\n만 안 좋아지겠죠?"
         contentLabel.textColor = .black
         contentLabel.backgroundColor = UIColor(red: 0.904, green: 0.931, blue: 1, alpha: 1)
-        contentLabel.font = UIFont(name: "Cafe24SsurroundAir", size: 16)
+        contentLabel.font = Font.air.of(size: 16)
         contentLabel.numberOfLines = 0
         contentLabel.translatesAutoresizingMaskIntoConstraints = false
         return contentLabel
@@ -67,7 +67,7 @@ class MyYesterday: UIView {
         let commentLabel = UILabel()
         commentLabel.text = "모두가 당신의 힘든 점들을 모를 거라 생각하겠\n지만, 누군가는 분명 알고 있을 거에요."
         commentLabel.textColor = .black
-        commentLabel.font = UIFont(name: "Cafe24SsurroundAir", size: 14)
+        commentLabel.font = Font.air.of(size: 14)
         commentLabel.backgroundColor = .clear
         commentLabel.numberOfLines = 0
         commentLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -90,8 +90,6 @@ class MyYesterday: UIView {
         moreButton.translatesAutoresizingMaskIntoConstraints = false
         return moreButton
     }()
-    
-    let alertActionSheet = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -135,7 +133,6 @@ class MyYesterday: UIView {
         ])
         
         NSLayoutConstraint.activate([
-            myYesterdayMoreButton.topAnchor.constraint(equalTo: myYesterdayView.topAnchor, constant: 200),
             myYesterdayMoreButton.bottomAnchor.constraint(equalTo: myYesterdayView.bottomAnchor, constant: -24),
             myYesterdayMoreButton.trailingAnchor.constraint(equalTo: myYesterdayView.trailingAnchor, constant: -30)
         ])

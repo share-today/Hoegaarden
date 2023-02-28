@@ -33,8 +33,9 @@
 		1CD9725D2964489600A4D62F /* BundleStoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9725C2964489600A4D62F /* BundleStoryController.swift */; };
 		1CDA995029764CBE00E75D92 /* Cafe24Ssurround.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CDA994F29764CBE00E75D92 /* Cafe24Ssurround.ttf */; };
 		1CDA99542976BA6400E75D92 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDA99532976BA6400E75D92 /* Font.swift */; };
-		1CDC90A129A8A4EF0093A0D3 /* Cafe24SsurroundAir.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CDC90A029A8A4EF0093A0D3 /* Cafe24SsurroundAir.ttf */; };
 		1CDC90AA29A8FF1C0093A0D3 /* ToastWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDC90A929A8FF1C0093A0D3 /* ToastWithButton.swift */; };
+		1CDC90AE29ADC1310093A0D3 /* Cafe24SsurroundAir.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CDC90AD29ADC1310093A0D3 /* Cafe24SsurroundAir.ttf */; };
+		1CDC90B029ADE7E60093A0D3 /* AlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDC90AF29ADE7E60093A0D3 /* AlertAction.swift */; };
 		1CE84D302982556A009B31BC /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84D2F2982556A009B31BC /* CommentView.swift */; };
 		1CE84D32298276F1009B31BC /* TOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84D31298276F1009B31BC /* TOSView.swift */; };
 		1CE84D34298282DE009B31BC /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84D33298282DE009B31BC /* Notice.swift */; };
@@ -72,8 +73,9 @@
 		1CD9725C2964489600A4D62F /* BundleStoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleStoryController.swift; sourceTree = "<group>"; };
 		1CDA994F29764CBE00E75D92 /* Cafe24Ssurround.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cafe24Ssurround.ttf; sourceTree = "<group>"; };
 		1CDA99532976BA6400E75D92 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
-		1CDC90A029A8A4EF0093A0D3 /* Cafe24SsurroundAir.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cafe24SsurroundAir.ttf; sourceTree = "<group>"; };
 		1CDC90A929A8FF1C0093A0D3 /* ToastWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWithButton.swift; sourceTree = "<group>"; };
+		1CDC90AD29ADC1310093A0D3 /* Cafe24SsurroundAir.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cafe24SsurroundAir.ttf; sourceTree = "<group>"; };
+		1CDC90AF29ADE7E60093A0D3 /* AlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertAction.swift; sourceTree = "<group>"; };
 		1CE84D2F2982556A009B31BC /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		1CE84D31298276F1009B31BC /* TOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOSView.swift; sourceTree = "<group>"; };
 		1CE84D33298282DE009B31BC /* Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
@@ -150,7 +152,6 @@
 				1CD9723029642C6600A4D62F /* SceneDelegate.swift */,
 				1CD9724329642D0500A4D62F /* Login */,
 				1CD9724229642CF900A4D62F /* Main */,
-				1CDC90A829A8F4430093A0D3 /* Module */,
 				1CDA994E29764C5600E75D92 /* Font */,
 				1CD9723429642C6600A4D62F /* Main.storyboard */,
 				1CD9723729642C6800A4D62F /* Assets.xcassets */,
@@ -170,6 +171,7 @@
 				1CD97258296446F300A4D62F /* HomeSide.swift */,
 				1CD9724E2964450900A4D62F /* HomeController.swift */,
 				1CE84D33298282DE009B31BC /* Notice.swift */,
+				1CDC90A829A8F4430093A0D3 /* Module */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -222,7 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				1CDA99532976BA6400E75D92 /* Font.swift */,
-				1CDC90A029A8A4EF0093A0D3 /* Cafe24SsurroundAir.ttf */,
+				1CDC90AD29ADC1310093A0D3 /* Cafe24SsurroundAir.ttf */,
 				1CDA994F29764CBE00E75D92 /* Cafe24Ssurround.ttf */,
 			);
 			path = Font;
@@ -231,6 +233,7 @@
 		1CDC90A829A8F4430093A0D3 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				1CDC90AF29ADE7E60093A0D3 /* AlertAction.swift */,
 				1C3B0116299B7ACA0052C3AD /* AlertFile.swift */,
 				1C62F532298BADAB003EB5A7 /* Toast.swift */,
 				1CDC90A929A8FF1C0093A0D3 /* ToastWithButton.swift */,
@@ -320,7 +323,7 @@
 			files = (
 				1CD9723B29642C6800A4D62F /* LaunchScreen.storyboard in Resources */,
 				1CDA995029764CBE00E75D92 /* Cafe24Ssurround.ttf in Resources */,
-				1CDC90A129A8A4EF0093A0D3 /* Cafe24SsurroundAir.ttf in Resources */,
+				1CDC90AE29ADC1310093A0D3 /* Cafe24SsurroundAir.ttf in Resources */,
 				1CD9723829642C6800A4D62F /* Assets.xcassets in Resources */,
 				1CD9723629642C6600A4D62F /* Main.storyboard in Resources */,
 			);
@@ -378,6 +381,7 @@
 				1CD9722F29642C6600A4D62F /* AppDelegate.swift in Sources */,
 				1CD9724F2964450900A4D62F /* HomeController.swift in Sources */,
 				1C27EB86296574C0001847D7 /* SomeoneYesterdayController.swift in Sources */,
+				1CDC90B029ADE7E60093A0D3 /* AlertAction.swift in Sources */,
 				1CE84D34298282DE009B31BC /* Notice.swift in Sources */,
 				1C27EB8229657477001847D7 /* MyYesterday.swift in Sources */,
 				1C7221B3298901ED002C326E /* PrivacyView.swift in Sources */,

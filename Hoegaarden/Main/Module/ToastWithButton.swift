@@ -20,11 +20,6 @@ class ToastWithButton {
             toastView.backgroundColor = .white
             toastView.layer.cornerRadius = 8
             
-            toastView.layer.shadowColor = UIColor.black.cgColor
-            toastView.layer.shadowOpacity = 0.6
-            toastView.layer.shadowOffset = CGSize(width: 2, height: 2)
-            toastView.layer.shadowRadius = 4
-            
             window.addSubview(toastView)
             window.bringSubviewToFront(toastView)
             
@@ -32,7 +27,7 @@ class ToastWithButton {
                 $0.width.equalTo(327)
                 $0.height.equalTo(58)
                 $0.centerX.equalToSuperview()
-                $0.bottom.equalToSuperview().offset(-330)
+                $0.bottom.equalToSuperview().offset(-320)
             })
             
             let img = UIImageView()

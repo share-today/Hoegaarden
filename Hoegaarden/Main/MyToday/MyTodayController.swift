@@ -65,9 +65,7 @@ extension MyTodayController {
                         style: AlertStyle.customImage(imageFile: "ad"),
                         buttonTitle: "취소", buttonColor: .white,
                         otherButtonTitle: "광고 보기", otherButtonColor: .black) { (isOtherButton) -> Void in
-            if isOtherButton == true {
-                
-            } else {
+            if isOtherButton == true { } else {
                 // AD
                 
             }

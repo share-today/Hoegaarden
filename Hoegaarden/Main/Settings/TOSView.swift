@@ -13,7 +13,7 @@ class TOSView: UIViewController {
         let label = UILabel()
         label.text = "이용 약관"
         label.textColor = .black
-        label.font = UIFont(name: "Cafe24Ssurround", size: 16)
+        label.font = Font.bold.of(size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -38,7 +38,7 @@ class TOSView: UIViewController {
         cl.text = "Lorem Ipsum is simply dummy text of \nthe printing and typesetting industry. \nLorem Ipsum has been the industry's \nstandard dummy text ever since the \n1500s, when an unknown printer took \na galley of type and scrambled it to \nmake a type specimen book. It has \nsurvived not only five centuries, but \nalso the leap into electronic \ntypesetting, remaining essentially \nunchanged. It was popularised in the \n1960s with the release of Letraset \nsheets containing Lorem Ipsum \npassages, and more recently with \ndesktop publishing software like Aldus \nPageMaker including versions of \nLorem Ipsum."
         cl.numberOfLines = 0
         cl.textColor = .black
-        cl.font = UIFont(name: "Cafe24SsurroundAir", size: 16)
+        cl.font = Font.air.of(size: 16)
         cl.translatesAutoresizingMaskIntoConstraints = false
         return cl
     }()

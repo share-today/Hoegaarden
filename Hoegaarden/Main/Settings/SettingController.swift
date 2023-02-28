@@ -29,7 +29,7 @@ class SettingController: UIViewController {
         let label = UILabel()
         label.text = "시스템 설정"
         label.textColor = .black
-        label.font = UIFont(name: "Cafe24Ssurround", size: 16)
+        label.font = Font.bold.of(size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -45,7 +45,7 @@ class SettingController: UIViewController {
         let label = UILabel()
         label.text = "알림"
         label.textColor = .black
-        label.font = UIFont(name: "Cafe24SsurroundAir", size: 16)
+        label.font = Font.air.of(size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -72,106 +72,106 @@ class SettingController: UIViewController {
     }()
     
     private var csLabel: UILabel = {
-        let csl = UILabel()
-        csl.text = "고객 센터"
-        csl.textColor = .black
-        csl.font = UIFont(name: "Cafe24Ssurround", size: 16)
-        csl.translatesAutoresizingMaskIntoConstraints = false
-        return csl
+        let label = UILabel()
+        label.text = "고객 센터"
+        label.textColor = .black
+        label.font = Font.bold.of(size: 16)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private lazy var secondView: UIView = {
-        let sv = UIView()
-        sv.backgroundColor = .black
-        sv.translatesAutoresizingMaskIntoConstraints = false
-        return sv
+        let view = UIView()
+        view.backgroundColor = .black
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     lazy var commentButton: UIButton = {
-        let cb = UIButton(type: .custom)
-        cb.setTitle("의견 보내기", for: .normal)
-        cb.setTitleColor(.black, for: .normal)
-        cb.backgroundColor = .clear
-        cb.titleLabel?.font = UIFont(name: "Cafe24SsurroundAir", size: 16)
-        cb.addTarget(self, action: #selector(commentButtonTapped), for: .touchUpInside)
-        cb.translatesAutoresizingMaskIntoConstraints = false
-        return cb
+        let button = UIButton(type: .custom)
+        button.setTitle("의견 보내기", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .clear
+        button.titleLabel?.font = Font.air.of(size: 16)
+        button.addTarget(self, action: #selector(commentButtonTapped), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     lazy var faqButton: UIButton = {
-        let fb = UIButton(type: .custom)
-        fb.setTitle("FAQ", for: .normal)
-        fb.setTitleColor(.black, for: .normal)
-        fb.backgroundColor = .clear
-        fb.titleLabel?.font = UIFont(name: "Cafe24SsurroundAir", size: 16)
-        fb.translatesAutoresizingMaskIntoConstraints = false
-        return fb
+        let button = UIButton(type: .custom)
+        button.setTitle("FAQ", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .clear
+        button.titleLabel?.font = Font.air.of(size: 16)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     lazy var cheerButton: UIButton = {
-        let cb = UIButton(type: .custom)
-        cb.setTitle("응원하기", for: .normal)
-        cb.setTitleColor(.black, for: .normal)
-        cb.backgroundColor = .clear
-        cb.titleLabel?.font = UIFont(name: "Cafe24SsurroundAir", size: 16)
-        cb.translatesAutoresizingMaskIntoConstraints = false
-        return cb
+        let button = UIButton(type: .custom)
+        button.setTitle("응원하기", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .clear
+        button.titleLabel?.font = Font.air.of(size: 16)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     private var appInfoLabel: UILabel = {
-        let il = UILabel()
-        il.text = "앱 정보"
-        il.textColor = .black
-        il.font = UIFont(name: "Cafe24Ssurround", size: 16)
-        il.translatesAutoresizingMaskIntoConstraints = false
-        return il
+        let label = UILabel()
+        label.text = "앱 정보"
+        label.textColor = .black
+        label.font = Font.bold.of(size: 16)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private lazy var thirdView: UIView = {
-        let tv = UIView()
-        tv.backgroundColor = .black
-        tv.translatesAutoresizingMaskIntoConstraints = false
-        return tv
+        let view = UIView()
+        view.backgroundColor = .black
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     lazy var tosButton: UIButton = {
-        let tb = UIButton(type: .custom)
-        tb.setTitle("이용 약관", for: .normal)
-        tb.setTitleColor(.black, for: .normal)
-        tb.backgroundColor = .clear
-        tb.titleLabel?.font = UIFont(name: "Cafe24SsurroundAir", size: 16)
-        tb.translatesAutoresizingMaskIntoConstraints = false
-        tb.addTarget(self, action: #selector(tosButtonTapped), for: .touchUpInside)
-        return tb
+        let button = UIButton(type: .custom)
+        button.setTitle("이용 약관", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .clear
+        button.titleLabel?.font = Font.air.of(size: 16)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(tosButtonTapped), for: .touchUpInside)
+        return button
     }()
     
     lazy var privacyButton: UIButton = {
-        let pb = UIButton(type: .custom)
-        pb.setTitle("개인정보 처리 방침", for: .normal)
-        pb.setTitleColor(.black, for: .normal)
-        pb.backgroundColor = .clear
-        pb.titleLabel?.font = UIFont(name: "Cafe24SsurroundAir", size: 16)
-        pb.translatesAutoresizingMaskIntoConstraints = false
-        pb.addTarget(self, action: #selector(privacyButtonTapped), for: .touchUpInside)
-        return pb
+        let button = UIButton(type: .custom)
+        button.setTitle("개인정보 처리 방침", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .clear
+        button.titleLabel?.font = Font.air.of(size: 16)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(privacyButtonTapped), for: .touchUpInside)
+        return button
     }()
     
     lazy var openButton: UIButton = {
-        let ob = UIButton(type: .custom)
-        ob.setTitle("오픈소스 라이센스", for: .normal)
-        ob.setTitleColor(.black, for: .normal)
-        ob.backgroundColor = .clear
-        ob.titleLabel?.font = UIFont(name: "Cafe24SsurroundAir", size: 16)
-        ob.translatesAutoresizingMaskIntoConstraints = false
-        ob.addTarget(self, action: #selector(openButtonTapped), for: .touchUpInside)
-        return ob
+        let button = UIButton(type: .custom)
+        button.setTitle("오픈소스 라이센스", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .clear
+        button.titleLabel?.font = Font.air.of(size: 16)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(openButtonTapped), for: .touchUpInside)
+        return button
     }()
     
     private var appVersionLabel: UILabel = {
         let label = UILabel()
         label.text = "앱 버전"
         label.textColor = .black
-        label.font = UIFont(name: "Cafe24SsurroundAir", size: 16)
+        label.font = Font.air.of(size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -180,7 +180,7 @@ class SettingController: UIViewController {
         let label = UILabel()
         label.text = "v 1.0"
         label.textColor = .lightGray
-        label.font = UIFont(name: "Cafe24SsurroundAir", size: 16)
+        label.font = Font.air.of(size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -200,7 +200,7 @@ class SettingController: UIViewController {
         button.setTitle("로그아웃", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
-        button.titleLabel?.font = UIFont(name: "Cafe24SsurroundAir", size: 16)
+        button.titleLabel?.font = Font.air.of(size: 16)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(logoutButtonTapped), for: .touchUpInside)
         return button
@@ -211,7 +211,7 @@ class SettingController: UIViewController {
         button.setTitle("회원 탈퇴", for: .normal)
         button.setTitleColor(.lightGray, for: .normal)
         button.backgroundColor = .clear
-        button.titleLabel?.font = UIFont(name: "Cafe24SsurroundAir", size: 16)
+        button.titleLabel?.font = Font.air.of(size: 16)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(unregisterButtonTapped), for: .touchUpInside)
         return button

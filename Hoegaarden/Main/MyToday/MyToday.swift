@@ -19,10 +19,8 @@ class MyToday: UIView {
         view.backgroundColor = UIColor(red: 0.904, green: 0.931, blue: 1, alpha: 1)
         let layer = CAGradientLayer()
         layer.frame = view.bounds
-        layer.colors = [
-          UIColor(red: 0.904, green: 0.931, blue: 1, alpha: 1),
-          UIColor(red: 0.846, green: 0.888, blue: 0.996, alpha: 1)
-        ]
+        layer.colors = [UIColor(red: 0.904, green: 0.931, blue: 1, alpha: 1),
+                        UIColor(red: 0.846, green: 0.888, blue: 0.996, alpha: 1)]
         layer.locations = [0.5, 1.0]
         layer.startPoint = CGPoint(x: 0.5, y: 0.0)
         layer.endPoint = CGPoint(x: 0.5, y: 1.0)
@@ -44,7 +42,7 @@ class MyToday: UIView {
     private var todayDateLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = UIFont(name: "Cafe24SsurroundAir", size: 12)
+        label.font = Font.air.of(size: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -54,7 +52,7 @@ class MyToday: UIView {
         textView.backgroundColor = .clear
         textView.text = textViewPlaceHolder
         textView.textColor = .lightGray
-        textView.font = UIFont(name: "Cafe24SsurroundAir", size: 16)
+        textView.font = Font.air.of(size: 16)
         textView.autocapitalizationType = .none
         textView.autocorrectionType = .no
         textView.spellCheckingType = .no
@@ -67,7 +65,7 @@ class MyToday: UIView {
         let label = UILabel()
         label.text = "0/100"
         label.textColor = .black
-        label.font = UIFont(name: "Cafe24SsurroundAir", size: 12)
+        label.font = Font.air.of(size: 12)
         label.attributedText = NSMutableAttributedString(string: "0/100", attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -77,7 +75,7 @@ class MyToday: UIView {
         let label = UILabel()
         label.text = "보내기"
         label.textColor = UIColor(red: 0.592, green: 0.592, blue: 0.592, alpha: 1)
-        label.font = UIFont(name: "Cafe24Ssurround", size: 14)
+        label.font = Font.bold.of(size: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -219,10 +217,10 @@ extension MyToday: UITextViewDelegate {
             completion(isOn: false)
         }
         
-        if characterCount > 89 {
+        if characterCount == 90 {
             self.toastWithButton.showButtonToast(image: UIImage(imageLiteralResourceName: "ad"),
                                                  message: "최대 500자를 작성해보세요.",
-                                                 buttonTitle: "광고 보기") 
+                                                 buttonTitle: "광고 보기")
         }
         
         updateCountLabel(characterCount: characterCount)

@@ -13,7 +13,7 @@ class SideMenuCell: UITableViewCell {
         let label = UILabel()
         label.text = "menuOptions"
         label.textColor = .black
-        label.font = UIFont(name: "Cafe24SsurroundAir", size: 13)
+        label.font = Font.air.of(size: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

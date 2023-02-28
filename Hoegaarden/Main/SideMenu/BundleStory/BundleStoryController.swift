@@ -26,14 +26,14 @@ class BundleStoryController: UIViewController, FSCalendarDataSource, FSCalendarD
         calendar.appearance.headerDateFormat = "YY년 MM월"
         calendar.appearance.headerTitleColor = .black
         calendar.appearance.headerTitleAlignment = .left
-        calendar.appearance.headerTitleFont = UIFont(name: "Cafe24Ssurround", size: 16)
+        calendar.appearance.headerTitleFont = Font.bold.of(size: 16)
         calendar.appearance.headerSeparatorColor = .clear
         
         calendar.appearance.weekdayTextColor = .black
-        calendar.appearance.weekdayFont = UIFont(name: "Cafe24SsurroundAir", size: 16)
+        calendar.appearance.weekdayFont = Font.air.of(size: 16)
         
         calendar.appearance.titleDefaultColor = .lightGray
-        calendar.appearance.titleFont = UIFont(name: "Cafe24SsurroundAir", size: 16)
+        calendar.appearance.titleFont = Font.air.of(size: 16)
         calendar.appearance.titleTodayColor = .black
         calendar.appearance.todayColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
         calendar.appearance.selectionColor = .clear
@@ -48,7 +48,7 @@ class BundleStoryController: UIViewController, FSCalendarDataSource, FSCalendarD
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .white
         button.layer.cornerRadius = 4
-        button.titleLabel?.font = UIFont(name: "Cafe24Ssurround", size: 14)
+        button.titleLabel?.font = Font.bold.of(size: 14)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(todayButtonTapped), for: .touchUpInside)
         return button

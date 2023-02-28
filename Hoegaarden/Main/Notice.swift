@@ -13,7 +13,7 @@ class Notice: UIViewController {
         let label = UILabel()
         label.text = "알림"
         label.textColor = .black
-        label.font = UIFont(name: "Cafe24Ssurround", size: 16)
+        label.font = Font.bold.of(size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

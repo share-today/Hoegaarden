@@ -24,7 +24,7 @@ class LoginView: UIView {
         let label = UILabel()
         label.text = "하루 공유"
         label.textColor = .black
-        label.font = UIFont(name: "Cafe24Ssurround", size: 40)
+        label.font = Font.bold.of(size: 40)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

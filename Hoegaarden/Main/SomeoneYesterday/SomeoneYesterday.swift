@@ -10,6 +10,8 @@ import AVFoundation
 
 class SomeoneYesterday: UIView {
     
+    private let toast = Toast()
+    private let toastWithButton = ToastWithButton()
     let textViewPlaceHolder = "누군가에게 털어놓고 싶은 일이\n있었나요?"
     
     private lazy var someoneYesterdayView: UIView = {
@@ -19,6 +21,7 @@ class SomeoneYesterday: UIView {
         view.clipsToBounds = true
         view.addSubview(someoneYesterdayDateLabel)
         view.addSubview(someoneYesterdayContentLabel)
+        view.addSubview(someoneYesterdayHeartButton)
         view.addSubview(someoneYesterdayMoreButton)
         view.addSubview(someoneYesterdayCommentView)
         view.addSubview(someoneYesterdayInputContent)
@@ -30,12 +33,12 @@ class SomeoneYesterday: UIView {
     }()
     
     private var someoneYesterdayDateLabel: UILabel = {
-        let dateLabel = UILabel()
-        dateLabel.text = "00년 00월 00일"
-        dateLabel.textColor = .black
-        dateLabel.font = UIFont(name: "Cafe24SsurroundAir", size: 12)
-        dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        return dateLabel
+        let label = UILabel()
+        label.text = "00년 00월 00일"
+        label.textColor = .black
+        label.font = Font.air.of(size: 12)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private var someoneYesterdayContentLabel: UILabel = {
@@ -44,9 +47,18 @@ class SomeoneYesterday: UIView {
         contentLabel.numberOfLines = 0
         contentLabel.textColor = .black
         contentLabel.backgroundColor = UIColor(red: 1, green: 0.904, blue: 0.904, alpha: 1)
-        contentLabel.font = UIFont(name: "Cafe24SsurroundAir", size: 16)
+        contentLabel.font = Font.air.of(size: 16)
         contentLabel.translatesAutoresizingMaskIntoConstraints = false
         return contentLabel
+    }()
+    
+    lazy var someoneYesterdayHeartButton: UIButton = {
+        let heartButton = UIButton()
+        let image = UIImage(named: "heart")
+        heartButton.setImage(image, for: .normal)
+        heartButton.tintColor = .black
+        heartButton.translatesAutoresizingMaskIntoConstraints = false
+        return heartButton
     }()
     
     lazy var someoneYesterdayMoreButton: UIButton = {
@@ -73,7 +85,7 @@ class SomeoneYesterday: UIView {
         textView.backgroundColor = .clear
         textView.text = textViewPlaceHolder
         textView.textColor = .lightGray
-        textView.font = UIFont(name: "Cafe24SsurroundAir", size: 16)
+        textView.font = Font.air.of(size: 16)
         textView.autocapitalizationType = .none
         textView.autocorrectionType = .no
         textView.spellCheckingType = .no
@@ -82,30 +94,31 @@ class SomeoneYesterday: UIView {
         return textView
     }()
     
-    private var someoneYesterdayContentCountLabel: UILabel = {
-        let cl = UILabel()
-        cl.textColor = .black
-        cl.font = UIFont(name: "Cafe24SsurroundAir", size: 12)
-        cl.attributedText = NSMutableAttributedString(string: "0/50", attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
-        cl.translatesAutoresizingMaskIntoConstraints = false
-        return cl
+    lazy var someoneYesterdayContentCountLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.font = Font.air.of(size: 12)
+        label.attributedText = NSMutableAttributedString(string: "0/50", attributes:
+            [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private var someoneYesterdaySendLabel: UILabel = {
-        let sl = UILabel()
-        sl.text = "보내기"
-        sl.textColor = .lightGray
-        sl.font = UIFont(name: "Cafe24Ssurround", size: 14)
-        sl.translatesAutoresizingMaskIntoConstraints = false
-        return sl
+        let label = UILabel()
+        label.text = "보내기"
+        label.textColor = .lightGray
+        label.font = Font.bold.of(size: 14)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
-    private var someoneYesterdaySendButton: UIButton = {
-        let sb = UIButton()
+    lazy var someoneYesterdaySendButton: UIButton = {
+        let button = UIButton()
         let image = UIImage(named: "arrow-right-circle")
-        sb.setImage(image, for: .normal)
-        sb.translatesAutoresizingMaskIntoConstraints = false
-        return sb
+        button.setImage(image, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     override init(frame: CGRect) {
@@ -113,6 +126,7 @@ class SomeoneYesterday: UIView {
         
         setup()
         addViews()
+        setTapGesture()
         setConstraints()
     }
     
@@ -126,6 +140,11 @@ class SomeoneYesterday: UIView {
     
     private func addViews() {
         [someoneYesterdayView].forEach { addSubview($0) }
+    }
+    
+    private func setTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTextView(_:)))
+        addGestureRecognizer(tapGesture)
     }
     
     private func setConstraints() {
@@ -147,6 +166,11 @@ class SomeoneYesterday: UIView {
             someoneYesterdayContentLabel.bottomAnchor.constraint(equalTo: someoneYesterdayView.bottomAnchor, constant: -260),
             someoneYesterdayContentLabel.leadingAnchor.constraint(equalTo: someoneYesterdayView.leadingAnchor, constant: 24),
             someoneYesterdayContentLabel.trailingAnchor.constraint(equalTo: someoneYesterdayView.trailingAnchor, constant: -24)
+        ])
+        
+        NSLayoutConstraint.activate([
+            someoneYesterdayHeartButton.topAnchor.constraint(equalTo: someoneYesterdayView.topAnchor, constant: 180),
+            someoneYesterdayHeartButton.trailingAnchor.constraint(equalTo: someoneYesterdayView.trailingAnchor, constant: -70)
         ])
         
         NSLayoutConstraint.activate([
@@ -191,6 +215,10 @@ class SomeoneYesterday: UIView {
     private func updateCountLabel(characterCount: Int) {
         someoneYesterdayContentCountLabel.text = "\(characterCount)/50"
     }
+    
+    @objc private func didTapTextView(_ sender: Any) {
+        endEditing(true)
+    }
 }
 
 
@@ -203,13 +231,13 @@ extension SomeoneYesterday: UITextViewDelegate {
         }
     }
 
-    func textViewDidEndEditing(_ textView: UITextView) {
+    private func textViewDidEndEditing(_ textView: UITextView) -> Bool {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             textView.text = textViewPlaceHolder
             textView.textColor = .lightGray
-            someoneYesterdayContentCountLabel.text = "0/50"
             completion(isOn: false)
         }
+        return true
     }
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -232,6 +260,12 @@ extension SomeoneYesterday: UITextViewDelegate {
             completion(isOn: true)
         } else if characterCount == 0 {
             completion(isOn: false)
+        }
+        
+        if characterCount == 40 {
+            self.toastWithButton.showButtonToast(image: UIImage(imageLiteralResourceName: "ad"),
+                                                 message: "최대 300자를 작성해보세요.",
+                                                 buttonTitle: "광고 보기")
         }
         
         updateCountLabel(characterCount: characterCount)
