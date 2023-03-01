@@ -69,7 +69,7 @@ class SettingSide: UIViewController {
     }
     
     func showHomeController() {
-        let homeVC = HomeSide()
+        let homeVC = Side()
         homeVC.modalPresentationStyle = .fullScreen
         self.present(homeVC, animated: true)
     }

@@ -11,8 +11,6 @@ import UIKit
 
 class ReportAndDeleteAlertAction: UIViewController {
     
-    var alert = SweetAlert()
-    
     private lazy var backgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.darkGray.withAlphaComponent(0.7)
@@ -142,8 +140,6 @@ class ReportAndDeleteAlertAction: UIViewController {
 
 class ModifyAndDeleteAlertAction: UIViewController {
     
-    var alert = SweetAlert()
-    
     private lazy var backgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.darkGray.withAlphaComponent(0.7)
@@ -272,8 +268,6 @@ class ModifyAndDeleteAlertAction: UIViewController {
 // MARK: - 삭제하기 ActionSheet
 
 class DeleteAlertAction: UIViewController {
-    
-    var alert = SweetAlert()
     
     private lazy var backgroundView: UIView = {
         let view = UIView()

@@ -27,14 +27,18 @@ final class LoginViewController: UIViewController {
     }
     
     @objc func kakaoLoginButtonTapped() {
-        let nextVC = HomeSide()
+        let nextVC = HomeController()
         nextVC.modalPresentationStyle = .fullScreen
-        self.present(nextVC, animated: true)
+        let nav = UINavigationController(rootViewController: nextVC)
+        nav.modalPresentationStyle = .overFullScreen
+        present(nav, animated: true, completion: nil)
     }
     
     @objc func appleLoginButtonTapped() {
-        let nextVC = HomeSide()
+        let nextVC = HomeController()
         nextVC.modalPresentationStyle = .fullScreen
-        self.present(nextVC, animated: true)
+        let nav = UINavigationController(rootViewController: nextVC)
+        nav.modalPresentationStyle = .overFullScreen
+        present(nav, animated: true, completion: nil)
     }
 }

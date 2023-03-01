@@ -69,9 +69,7 @@ class BundleSide: UIViewController {
     }
     
     func showHomeController() {
-        let homeVC = HomeSide()
-        homeVC.modalPresentationStyle = .fullScreen
-        self.present(homeVC, animated: true)
+       
     }
     
     func showBundleStoryController() {

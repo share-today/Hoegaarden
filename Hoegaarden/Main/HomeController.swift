@@ -91,6 +91,9 @@ class HomeController: TabmanViewController, PageboyViewControllerDataSource, TMB
     
     @objc func showSideMenu() {
         delegate?.handleMenuToggle(forMenuOptions: nil)
+//        let vc = Side()
+//        vc.modalPresentationStyle = .overFullScreen
+//        self.present(vc, animated: false, completion: nil)
     }
     
     // MARK: - PageboyViewControllerDataSource
