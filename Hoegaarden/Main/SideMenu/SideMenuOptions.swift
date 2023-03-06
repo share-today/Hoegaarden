@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol HomeControllerDelegate {
-    func handleMenuToggle(forMenuOptions menuOption: SideMenuOptions?)
-}
-
 enum SideMenuOptions: Int, CaseIterable {
     case home
     case bundleStory

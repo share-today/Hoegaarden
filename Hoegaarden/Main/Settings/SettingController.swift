@@ -11,7 +11,6 @@ class SettingController: UIViewController {
     
     private let toast = Toast()
     private var alert = SweetAlert()
-    var delegate: HomeControllerDelegate?
     
     private var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -256,7 +255,9 @@ class SettingController: UIViewController {
                              otherButtonTitle: "로그아웃", otherButtonColor: .black) { (isOtherButton) -> Void in
             if isOtherButton == true { }
             else {
-                
+                let loginVC = LoginViewController()
+                loginVC.modalPresentationStyle = .overFullScreen
+                self.present(loginVC, animated: true)
             }
         }
     }
@@ -435,6 +436,10 @@ class SettingController: UIViewController {
     }
 
     @objc func showSideMenu() {
-        delegate?.handleMenuToggle(forMenuOptions: nil)
+        let side = SettingSide()
+        side.modalPresentationStyle = .fullScreen
+        let nav = UINavigationController(rootViewController: side)
+        nav.modalPresentationStyle = .overFullScreen
+        present(nav, animated: false, completion: nil)
     }
 }

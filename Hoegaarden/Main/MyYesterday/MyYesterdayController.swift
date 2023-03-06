@@ -58,7 +58,7 @@ class MyYesterdayController: UIViewController  {
             if isOtherButton == true {
 
             } else {
-                self.reportAndDeleteAlertAction.hideActionSheetAndGoBack()
+                self.dismiss(animated: false, completion: nil)
                 self.toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
                                      message: "삭제가 완료됐습니다.")
             }
@@ -90,6 +90,7 @@ class MyYesterdayController: UIViewController  {
                         buttonTitle: "취소", buttonColor: .white,
                         otherButtonTitle: "신고하기", otherButtonColor: .black) { (isOtherButton) -> Void in
             if isOtherButton == true { } else {
+                self.dismiss(animated: false, completion: nil)
                 self.toast.showToast(image: UIImage(imageLiteralResourceName: "check-circle"),
                                      message: "신고가 완료됐습니다.")
             }
@@ -102,6 +103,7 @@ class MyYesterdayController: UIViewController  {
                         buttonTitle: "취소", buttonColor: .white,
                         otherButtonTitle: "삭제하기", otherButtonColor: .black) { (isOtherButton) -> Void in
             if isOtherButton == true { } else {
+                self.dismiss(animated: false, completion: nil)
                 self.toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
                                      message: "삭제가 완료됐습니다.")
             }

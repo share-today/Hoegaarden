@@ -68,9 +68,9 @@ class SomeoneYesterdayController: UIViewController {
                         style: AlertStyle.customImage(imageFile: "frown"),
                         buttonTitle: "취소", buttonColor: .white,
                         otherButtonTitle: "삭제하기", otherButtonColor: .black) { (isOtherButton) -> Void in
-            if isOtherButton == true {
-
-            } else {
+            if isOtherButton == true { }
+            else {
+                self.dismiss(animated: false, completion: nil)
                 self.toast.showToast(image: UIImage(imageLiteralResourceName: "check-circle"),
                                      message: "신고가 완료됐습니다.")
             }
@@ -83,6 +83,7 @@ class SomeoneYesterdayController: UIViewController {
                         buttonTitle: "취소", buttonColor: .white,
                         otherButtonTitle: "삭제하기", otherButtonColor: .black) { (isOtherButton) -> Void in
             if isOtherButton == true { } else {
+                self.dismiss(animated: false, completion: nil)
                 self.toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
                                      message: "삭제가 완료됐습니다.")
             }
@@ -99,10 +100,6 @@ class SomeoneYesterdayController: UIViewController {
                                      message: "전송이 완료됐습니다.")
             }
         }
-    }
-    
-    @objc private func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
-        dismiss(animated: true, completion: nil)
     }
 }
 

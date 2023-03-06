@@ -10,9 +10,7 @@ import SnapKit
 import FSCalendar
 
 class BundleStoryController: UIViewController, FSCalendarDataSource, FSCalendarDelegate {
-    
-    var delegate: HomeControllerDelegate?
-    
+        
     private let calendar: FSCalendar = {
         let calendar = FSCalendar()
         
@@ -93,7 +91,11 @@ class BundleStoryController: UIViewController, FSCalendarDataSource, FSCalendarD
     }
     
     @objc func showSideMenu() {
-        delegate?.handleMenuToggle(forMenuOptions: nil)
+        let side = BundleSide()
+        side.modalPresentationStyle = .fullScreen
+        let nav = UINavigationController(rootViewController: side)
+        nav.modalPresentationStyle = .overFullScreen
+        present(nav, animated: false, completion: nil)
     }
     
     // 현재 달 이전은 안 보여주기

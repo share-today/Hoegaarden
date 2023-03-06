@@ -10,9 +10,7 @@ import Tabman
 import Pageboy
 
 class HomeController: TabmanViewController, PageboyViewControllerDataSource, TMBarDataSource {
-    
-    var delegate: HomeControllerDelegate?
-    
+        
     private lazy var viewControllers: [UIViewController] = [
         MyTodayController(page: 1),
         MyYesterdayController(page: 2),
@@ -37,7 +35,7 @@ class HomeController: TabmanViewController, PageboyViewControllerDataSource, TMB
     func configureBar() {
         dataSource = self
         let bar = TMBarView.ButtonBar()
-        
+
         bar.layout.contentInset = UIEdgeInsets(top: 80.0, left: 24.0, bottom: 4.0, right: 16.0)
         bar.layout.interButtonSpacing = 50.0
         bar.fadesContentEdges = true
@@ -50,7 +48,7 @@ class HomeController: TabmanViewController, PageboyViewControllerDataSource, TMB
             $0.font = Font.air.of(size: 16)
             $0.selectedFont = Font.bold.of(size: 16)
         }
-        bar.indicator.weight = .heavy
+//        bar.indicator.size = .custom(value: CGRect(x: 0, y: 0, width: 72, height: 150))
         bar.indicator.tintColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
         bar.backgroundColor = .white
         addBar(bar.systemBar(), dataSource: self, at: .top)
@@ -82,7 +80,7 @@ class HomeController: TabmanViewController, PageboyViewControllerDataSource, TMB
     }
     
     @objc func showNotice() {
-        let noticeVC = Notice()
+        let noticeVC = Notification()
         noticeVC.modalPresentationStyle = .fullScreen
         let nav = UINavigationController(rootViewController: noticeVC)
         nav.modalPresentationStyle = .overFullScreen
@@ -90,10 +88,9 @@ class HomeController: TabmanViewController, PageboyViewControllerDataSource, TMB
     }
     
     @objc func showSideMenu() {
-        delegate?.handleMenuToggle(forMenuOptions: nil)
-//        let vc = Side()
-//        vc.modalPresentationStyle = .overFullScreen
-//        self.present(vc, animated: false, completion: nil)
+        let vc = HomeSide()
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc, animated: false, completion: nil)
     }
     
     // MARK: - PageboyViewControllerDataSource
@@ -126,3 +123,60 @@ class HomeController: TabmanViewController, PageboyViewControllerDataSource, TMB
         }
     }
 }
+
+
+
+//import Tabman
+//import Pageboy
+//
+//class MyViewController: TabmanViewController, PageboyViewControllerDataSource {
+//
+//    private let tabTitles = ["Tab 1", "Tab 2", "Tab 3"]
+//    private var viewControllers = [UIViewController]()
+//
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//
+//        // Add child view controllers to viewControllers array
+//        // ...
+//
+//        // Customize appearance of the bar
+//        let bar = self.bar as! TMBar
+//        bar.layout.transitionStyle = .snap
+//        bar.layout.contentMode = .fit
+//
+//        // Create indicator view and add it to the bar
+//        let indicator = TMBarIndicatorView()
+//        indicator.tintColor = UIColor.red
+//        indicator.indicatorSize = CGSize(width: 50, height: 5)
+//        bar.addIndicator(indicator, to: .top)
+//
+//        // Set up indicator to restrict scroll range and disable edges
+//        indicator.layoutIfNeeded()
+//        let indicatorWidth = indicator.bounds.width
+//        let tabWidth = bar.bounds.width / CGFloat(tabTitles.count)
+//        let margin = (tabWidth - indicatorWidth) / 2.0
+//        let insets = UIEdgeInsets(top: 0, left: margin, bottom: 0, right: margin)
+//        indicator.indicatorInset = insets
+//        indicator.indicatorEndInset = insets
+//
+//        // Set up page view controller
+//        self.dataSource = self
+//        self.viewControllers = viewControllers
+//
+//        // Reload data
+//        self.reloadData()
+//    }
+//
+//    func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
+//        return viewControllers.count
+//    }
+//
+//    func viewController(for pageboyViewController: PageboyViewController, at index: PageboyViewController.PageIndex) -> UIViewController? {
+//        return viewControllers[index]
+//    }
+//
+//    func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
+//        return nil
+//    }
+//}
