@@ -7,23 +7,13 @@
 
 import UIKit
 
-class MyYesterdayController: UIViewController  {
+class MyYesterdayController: UIViewController {
     
-    let page: Int
     private let myYesterday = MyYesterday()
     private let deleteAlertAction = DeleteAlertAction()
     private let reportAndDeleteAlertAction = ReportAndDeleteAlertAction()
     private let toast = Toast()
-    private var alert = SweetAlert()
-    
-    init(page: Int) {
-        self.page = page
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    private let alert = SweetAlert()
     
     override func loadView() {
         view = myYesterday
@@ -44,6 +34,19 @@ class MyYesterdayController: UIViewController  {
         reportAndDeleteAlertAction.deleteButton.addTarget(self, action: #selector(commentDeleteTapped), for: .touchUpInside)
     }
     
+    private func emptyStateView() {
+        let label = UILabel()
+        label.text = "어제는 이야기를 들려주지 않았어요."
+        label.textColor = .black
+        label.font = Font.air.of(size: 16)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
     @objc private func moreButtonTapped() {
         let actionsheetVC = deleteAlertAction
         actionsheetVC.modalPresentationStyle = .overFullScreen
@@ -55,10 +58,14 @@ class MyYesterdayController: UIViewController  {
                         style: AlertStyle.customImage(imageFile: "trash"),
                         buttonTitle: "취소", buttonColor: .white,
                         otherButtonTitle: "삭제하기", otherButtonColor: .black) { (isOtherButton) -> Void in
-            if isOtherButton == true {
-
-            } else {
+            if isOtherButton == true { }
+            else {
                 self.dismiss(animated: false, completion: nil)
+                self.emptyStateView()
+                
+                self.myYesterday.myYesterdayView.isHidden = true
+                self.myYesterday.myYesterdayCommentView.isHidden = true
+                
                 self.toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
                                      message: "삭제가 완료됐습니다.")
             }
@@ -89,7 +96,8 @@ class MyYesterdayController: UIViewController  {
                         style: AlertStyle.customImage(imageFile: "frown"),
                         buttonTitle: "취소", buttonColor: .white,
                         otherButtonTitle: "신고하기", otherButtonColor: .black) { (isOtherButton) -> Void in
-            if isOtherButton == true { } else {
+            if isOtherButton == true { }
+            else {
                 self.dismiss(animated: false, completion: nil)
                 self.toast.showToast(image: UIImage(imageLiteralResourceName: "check-circle"),
                                      message: "신고가 완료됐습니다.")
@@ -97,12 +105,13 @@ class MyYesterdayController: UIViewController  {
         }
     }
     
-    @objc func commentDeleteTapped() {
+    @objc private func commentDeleteTapped() {
         alert.showAlert("", subTitle: "누군가의 이야기가 맘에 들지 않나요?\n지금 즉시 삭제할 수 있어요.",
                         style: AlertStyle.customImage(imageFile: "trash"),
                         buttonTitle: "취소", buttonColor: .white,
                         otherButtonTitle: "삭제하기", otherButtonColor: .black) { (isOtherButton) -> Void in
-            if isOtherButton == true { } else {
+            if isOtherButton == true { }
+            else {
                 self.dismiss(animated: false, completion: nil)
                 self.toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
                                      message: "삭제가 완료됐습니다.")

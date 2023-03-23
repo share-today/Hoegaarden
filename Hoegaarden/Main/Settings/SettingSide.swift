@@ -56,46 +56,38 @@ class SettingSide: UIViewController {
         setConstraints()
     }
     
-    func addViews() {
+    private func addViews() {
         view.addSubview(backgroundView)
         view.addSubview(sideMenuView)
-        view.addSubview(xButton)
-        view.addSubview(tableView)
+        sideMenuView.addSubview(xButton)
+        sideMenuView.addSubview(tableView)
     }
     
-    func setBackgroundView() {
+    private func setBackgroundView() {
         let backgroundTap = UITapGestureRecognizer(target: self, action: #selector(backViewTapped(_:)))
         backgroundView.addGestureRecognizer(backgroundTap)
         backgroundView.isUserInteractionEnabled = true
     }
     
-    func setConstraints() {
-        
+    private func setConstraints() {
         NSLayoutConstraint.activate([
             backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
             backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        ])
-        
-        NSLayoutConstraint.activate([
+            
             sideMenuView.topAnchor.constraint(equalTo: view.topAnchor),
-            sideMenuView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             sideMenuView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            sideMenuView.widthAnchor.constraint(equalToConstant: 200)
-        ])
-        
-        NSLayoutConstraint.activate([
+            sideMenuView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            sideMenuView.widthAnchor.constraint(equalToConstant: 200),
+            
             xButton.topAnchor.constraint(equalTo: sideMenuView.safeAreaLayoutGuide.topAnchor, constant: 20),
-            xButton.trailingAnchor.constraint(equalTo: sideMenuView.trailingAnchor, constant: -30)
-        ])
-        
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: sideMenuView.topAnchor, constant: 220),
-            tableView.bottomAnchor.constraint(equalTo: sideMenuView.bottomAnchor, constant: -220),
-            tableView.leadingAnchor.constraint(equalTo: sideMenuView.leadingAnchor, constant: 50),
-            tableView.trailingAnchor.constraint(equalTo: sideMenuView.trailingAnchor, constant: -50),
-            tableView.heightAnchor.constraint(equalToConstant: 228)
+            xButton.trailingAnchor.constraint(equalTo: sideMenuView.trailingAnchor, constant: -30),
+            
+            tableView.topAnchor.constraint(equalTo: sideMenuView.safeAreaLayoutGuide.topAnchor, constant: 240),
+            tableView.leadingAnchor.constraint(equalTo: sideMenuView.leadingAnchor, constant: 30),
+            tableView.trailingAnchor.constraint(equalTo: sideMenuView.trailingAnchor, constant: -30),
+            tableView.bottomAnchor.constraint(equalTo: sideMenuView.bottomAnchor, constant: -220)
         ])
     }
     
@@ -127,22 +119,37 @@ extension SettingSide: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MenuOptionCell", for: indexPath) as! SideMenuCell
         let menuOption = SideMenuOptions(rawValue: indexPath.row)
         cell.sideMenuLabel.text = menuOption?.sideMenuLabel
+        
+        if menuOption == .settings {
+            cell.sideMenuLabel.isHidden = true
+        }
+        
+        let option = SideMenuOptions.allCases[indexPath.row]
+        cell.textLabel?.text = option.sideMenuLabel
+        if option == .settings {
+            cell.textLabel?.font = Font.bold.of(size: 17)
+            cell.textLabel?.textColor = .black
+            cell.textLabel?.textAlignment = .center
+            cell.setSettingIndicator()
+        } else {
+            cell.textLabel?.isHidden = true
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            let homeVC = HomeController()
+            let homeVC = HomeViewController()
             homeVC.modalPresentationStyle = .fullScreen
             let nav = UINavigationController(rootViewController: homeVC)
-            nav.modalPresentationStyle = .overFullScreen
+            nav.modalPresentationStyle = .fullScreen
             present(nav, animated: true, completion: nil)
         case 1:
             let bundleVC = BundleStoryController()
             bundleVC.modalPresentationStyle = .fullScreen
             let nav = UINavigationController(rootViewController: bundleVC)
-            nav.modalPresentationStyle = .overFullScreen
+            nav.modalPresentationStyle = .fullScreen
             present(nav, animated: true, completion: nil)
         case 2:
            dismiss(animated: false)

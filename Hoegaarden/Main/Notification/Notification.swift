@@ -9,6 +9,19 @@ import UIKit
 
 class Notification: UIViewController {
     
+    private lazy var backgroundImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "backgroundImage")
+        imageView.isUserInteractionEnabled = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.addSubview(noticeLabel)
+        imageView.addSubview(lineView)
+        imageView.addSubview(yesterdayHeartView)
+        imageView.addSubview(commentHeartView)
+        imageView.addSubview(noticeView)
+        return imageView
+    }()
+    
     private var noticeLabel: UILabel = {
         let label = UILabel()
         label.text = "알림"
@@ -74,7 +87,7 @@ class Notification: UIViewController {
     
     private lazy var commentHeartContent: UILabel = {
         let label = UILabel()
-        label.text = "❤️ 당신이 보내준 코멘트가 누군가의 마음에 닿았\n어요."
+        label.text = "❤️ 당신이 보내준 코멘트가 누군가의 마음에 닿았어요."
         label.font = Font.air.of(size: 14)
         label.textColor = .black
         label.numberOfLines = 0
@@ -109,6 +122,7 @@ class Notification: UIViewController {
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
         button.titleLabel?.font = Font.air.of(size: 14)
+        button.contentHorizontalAlignment = .left
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(noticeButtonClicked), for: .touchUpInside)
         return button
@@ -123,19 +137,15 @@ class Notification: UIViewController {
         setConstraints()
     }
     
-    func setup() {
+    private func setup() {
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     
-    func addViews() {
-        view.addSubview(noticeLabel)
-        view.addSubview(lineView)
-        view.addSubview(yesterdayHeartView)
-        view.addSubview(commentHeartView)
-        view.addSubview(noticeView)
+    private func addViews() {
+        view.addSubview(backgroundImage)
     }
     
-    func configureNavigationBarButton() {
+    private func configureNavigationBarButton() {
         let image = UIImage(systemName: "arrow.backward")?.withTintColor(.black, renderingMode: .alwaysOriginal)
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -144,28 +154,25 @@ class Notification: UIViewController {
             target: self, action: #selector(showPrevious))
     }
     
-    @objc func showPrevious() {
-        let nextVC = HomeController()
-        nextVC.modalPresentationStyle = .fullScreen
-        let nav = UINavigationController(rootViewController: nextVC)
-        nav.modalPresentationStyle = .overFullScreen
-        present(nav, animated: false, completion: nil)
-    }
-    
-    func setConstraints() {
+    private func setConstraints() {
         NSLayoutConstraint.activate([
-            noticeLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 130),
-            noticeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36),
+            backgroundImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            backgroundImage.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            backgroundImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            backgroundImage.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            
+            noticeLabel.topAnchor.constraint(equalTo: backgroundImage.topAnchor, constant: 80),
+            noticeLabel.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 36),
             
             lineView.topAnchor.constraint(equalTo: noticeLabel.bottomAnchor, constant: 12),
-            lineView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            lineView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            lineView.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 24),
+            lineView.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor, constant: 0),
             lineView.widthAnchor.constraint(equalToConstant: 351),
             lineView.heightAnchor.constraint(equalToConstant: 1),
             
             yesterdayHeartView.topAnchor.constraint(equalTo: lineView.topAnchor, constant: 17),
-            yesterdayHeartView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            yesterdayHeartView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            yesterdayHeartView.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 24),
+            yesterdayHeartView.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor, constant: -24),
             yesterdayHeartView.widthAnchor.constraint(equalToConstant: 327),
             yesterdayHeartView.heightAnchor.constraint(equalToConstant: 96),
             
@@ -177,8 +184,8 @@ class Notification: UIViewController {
             yesterdayHeartContent.trailingAnchor.constraint(equalTo: yesterdayHeartView.trailingAnchor, constant: -16),
             
             commentHeartView.topAnchor.constraint(equalTo: yesterdayHeartView.bottomAnchor, constant: 17),
-            commentHeartView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            commentHeartView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            commentHeartView.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 24),
+            commentHeartView.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor, constant: -24),
             commentHeartView.widthAnchor.constraint(equalToConstant: 327),
             commentHeartView.heightAnchor.constraint(equalToConstant: 118),
             
@@ -190,8 +197,8 @@ class Notification: UIViewController {
             commentHeartContent.trailingAnchor.constraint(equalTo: commentHeartView.trailingAnchor, constant: -16),
             
             noticeView.topAnchor.constraint(equalTo: commentHeartView.bottomAnchor, constant: 17),
-            noticeView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            noticeView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            noticeView.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 24),
+            noticeView.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor, constant: -24),
             noticeView.widthAnchor.constraint(equalToConstant: 327),
             noticeView.heightAnchor.constraint(equalToConstant: 96),
             
@@ -210,5 +217,9 @@ class Notification: UIViewController {
         let nav = UINavigationController(rootViewController: controller)
         nav.modalPresentationStyle = .overFullScreen
         present(nav, animated: true, completion: nil)
+    }
+    
+    @objc private func showPrevious() {
+       dismiss(animated: false)
     }
 }

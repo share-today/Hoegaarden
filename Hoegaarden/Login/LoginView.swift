@@ -9,6 +9,18 @@ import UIKit
 
 class LoginView: UIView {
     
+    private lazy var backgroundImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "backgroundImage")
+        imageView.isUserInteractionEnabled = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.addSubview(titleView)
+        imageView.addSubview(imageViewTop)
+        imageView.addSubview(imageViewBottom)
+        imageView.addSubview(stackView)
+        return imageView
+    }()
+    
     private lazy var titleView: UIView = {
        let view = UIView()
         view.backgroundColor = .clear
@@ -20,7 +32,7 @@ class LoginView: UIView {
         return view
     }()
     
-    lazy var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "하루 공유"
         label.textColor = .black
@@ -89,47 +101,44 @@ class LoginView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup() {
+    private func setup() {
         backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     
-    func addViews() {
-        [titleView, stackView, imageViewTop, imageViewBottom].forEach { addSubview($0) }
+    private func addViews() {
+        [backgroundImage].forEach { addSubview($0) }
     }
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            titleView.topAnchor.constraint(equalTo: topAnchor, constant: 220),
+            backgroundImage.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            backgroundImage.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            backgroundImage.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            backgroundImage.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            
+            titleView.topAnchor.constraint(equalTo: backgroundImage.safeAreaLayoutGuide.topAnchor, constant: 180),
             titleView.widthAnchor.constraint(equalToConstant: 224),
             titleView.heightAnchor.constraint(equalToConstant: 100),
-            titleView.centerXAnchor.constraint(equalTo: centerXAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
+            titleView.centerXAnchor.constraint(equalTo: backgroundImage.centerXAnchor),
+            
             titleLabel.centerXAnchor.constraint(equalTo: titleView.centerXAnchor),
-            titleLabel.centerYAnchor.constraint(equalTo: titleView.centerYAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
+            titleLabel.centerYAnchor.constraint(equalTo: titleView.centerYAnchor),
+            
             imageViewTop.topAnchor.constraint(equalTo: titleView.topAnchor, constant: 70),
             imageViewTop.leadingAnchor.constraint(equalTo: titleView.leadingAnchor, constant: 180),
             imageViewTop.widthAnchor.constraint(equalToConstant: 78),
-            imageViewTop.heightAnchor.constraint(equalToConstant: 38)
-        ])
-        
-        NSLayoutConstraint.activate([
+            imageViewTop.heightAnchor.constraint(equalToConstant: 38),
+            
             imageViewBottom.topAnchor.constraint(equalTo: imageViewTop.bottomAnchor, constant: 3),
             imageViewBottom.leadingAnchor.constraint(equalTo: titleView.leadingAnchor, constant: 180),
             imageViewBottom.widthAnchor.constraint(equalToConstant: 78),
-            imageViewBottom.heightAnchor.constraint(equalToConstant: 38)
-        ])
-        
-        NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 30),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
+            imageViewBottom.heightAnchor.constraint(equalToConstant: 38),
+            
+            stackView.bottomAnchor.constraint(equalTo: backgroundImage.safeAreaLayoutGuide.bottomAnchor, constant: -80),
+            stackView.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 30),
+            stackView.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor, constant: -30),
             stackView.heightAnchor.constraint(equalToConstant: textViewHeight*3),
-            stackView.centerXAnchor.constraint(equalTo: centerXAnchor),
-            stackView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 240)
+            stackView.centerXAnchor.constraint(equalTo: backgroundImage.centerXAnchor)
         ])
     }
 }

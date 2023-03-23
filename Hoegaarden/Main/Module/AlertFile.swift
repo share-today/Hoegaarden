@@ -162,21 +162,6 @@ open class SweetAlert: UIViewController {
         self.closeAlert(sender.tag)
     }
     
-//    open override func viewWillLayoutSubviews() {
-//        super.viewWillLayoutSubviews()
-//
-//        var sz = UIScreen.main.bounds.size
-//        let sver = UIDevice.current.systemVersion as NSString
-//        let ver = sver.floatValue
-//        if ver < 8.0 {
-//            if UIApplication.shared.statusBarOrientation.isLandscape {
-//                let ssz = sz
-//                sz = CGSize(width: ssz.height, height: ssz.width)
-//            }
-//        }
-//        self.resizeAndRelayout()
-//    }
-    
     func closeAlert(_ buttonIndex: Int){
         if userAction !=  nil {
             let isOtherButton = buttonIndex == 0 ? true : false

@@ -56,45 +56,38 @@ class HomeSide: UIViewController {
         setConstraints()
     }
     
-    func addViews() {
+    private func addViews() {
         view.addSubview(backgroundView)
         view.addSubview(sideMenuView)
-        view.addSubview(xButton)
-        view.addSubview(tableView)
+        sideMenuView.addSubview(xButton)
+        sideMenuView.addSubview(tableView)
     }
     
-    func setBackgroundView() {
+    private func setBackgroundView() {
         let backgroundTap = UITapGestureRecognizer(target: self, action: #selector(backViewTapped(_:)))
         backgroundView.addGestureRecognizer(backgroundTap)
         backgroundView.isUserInteractionEnabled = true
     }
     
-    func setConstraints() {
-        
+    private func setConstraints() {
         NSLayoutConstraint.activate([
             backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
-            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        ])
-        
-        NSLayoutConstraint.activate([
+            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                
             sideMenuView.topAnchor.constraint(equalTo: view.topAnchor),
-            sideMenuView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             sideMenuView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            sideMenuView.widthAnchor.constraint(equalToConstant: 200)
-        ])
-        
-        NSLayoutConstraint.activate([
+            sideMenuView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            sideMenuView.widthAnchor.constraint(equalToConstant: 200),
+            
             xButton.topAnchor.constraint(equalTo: sideMenuView.safeAreaLayoutGuide.topAnchor, constant: 20),
-            xButton.trailingAnchor.constraint(equalTo: sideMenuView.trailingAnchor, constant: -30)
-        ])
-        
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: sideMenuView.topAnchor, constant: 220),
-            tableView.bottomAnchor.constraint(equalTo: sideMenuView.bottomAnchor, constant: -220),
-            tableView.leadingAnchor.constraint(equalTo: sideMenuView.leadingAnchor, constant: 50),
-            tableView.trailingAnchor.constraint(equalTo: sideMenuView.trailingAnchor, constant: -50)
+            xButton.trailingAnchor.constraint(equalTo: sideMenuView.trailingAnchor, constant: -30),
+            
+            tableView.topAnchor.constraint(equalTo: sideMenuView.safeAreaLayoutGuide.topAnchor, constant: 240),
+            tableView.leadingAnchor.constraint(equalTo: sideMenuView.leadingAnchor, constant: 30),
+            tableView.trailingAnchor.constraint(equalTo: sideMenuView.trailingAnchor, constant: -30),
+            tableView.bottomAnchor.constraint(equalTo: sideMenuView.bottomAnchor, constant: -220)
         ])
     }
     
@@ -102,7 +95,7 @@ class HomeSide: UIViewController {
         self.dismiss(animated: false)
     }
     
-    @objc func backViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
+    @objc private func backViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn, animations: {
             self.backgroundView.alpha = 0.0
             self.view.layoutIfNeeded()
@@ -126,6 +119,22 @@ extension HomeSide: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MenuOptionCell", for: indexPath) as! SideMenuCell
         let menuOption = SideMenuOptions(rawValue: indexPath.row)
         cell.sideMenuLabel.text = menuOption?.sideMenuLabel
+        
+        if menuOption == .home {
+            cell.sideMenuLabel.isHidden = true
+        }
+        
+        let option = SideMenuOptions.allCases[indexPath.row]
+        cell.textLabel?.text = option.sideMenuLabel
+        if option == .home {
+            cell.textLabel?.font = Font.bold.of(size: 17)
+            cell.textLabel?.textColor = .black
+            cell.textLabel?.textAlignment = .center
+            cell.setHomeIndicator()
+        } else {
+            cell.textLabel?.isHidden = true
+           
+        }
         return cell
     }
     
@@ -133,15 +142,11 @@ extension HomeSide: UITableViewDelegate, UITableViewDataSource {
         switch indexPath.row {
         case 0:
             dismiss(animated: false)
-            let indicatorView = UIView(frame: CGRect(x: 0, y: 0, width: 72, height: 18))
-            indicatorView.backgroundColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
-            indicatorView.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(indicatorView)
         case 1:
             let bundleVC = BundleStoryController()
             bundleVC.modalPresentationStyle = .fullScreen
             let nav = UINavigationController(rootViewController: bundleVC)
-            nav.modalPresentationStyle = .overFullScreen
+            nav.modalPresentationStyle = .fullScreen
             present(nav, animated: true, completion: nil)
         case 2:
             let settingVC = SettingController()

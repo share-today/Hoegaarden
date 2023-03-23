@@ -12,27 +12,83 @@ class SomeoneYesterday: UIView {
     
     private let toast = Toast()
     private let toastWithButton = ToastWithButton()
+    var isCountLabelUpdated = true
     let textViewPlaceHolder = "누군가에게 털어놓고 싶은 일이\n있었나요?"
     
-    private lazy var someoneYesterdayView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 1, green: 0.904, blue: 0.904, alpha: 1)
+    lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView(frame: CGRect(x: 20, y: 150, width: 327, height: 450))
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.backgroundColor = .lightGray
+        scrollView.contentSize = CGSize(width: frame.width * 3, height: 200)
+        scrollView.isPagingEnabled = true
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(someoneYesterdayView)
+        scrollView.addSubview(someoneYesterdayView2)
+        scrollView.addSubview(someoneYesterdayView3)
+        return scrollView
+    }()
+    
+    lazy var someoneYesterdayView: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 327, height: 450))
+        view.backgroundColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
         view.layer.cornerRadius = 8
         view.clipsToBounds = true
-        view.addSubview(someoneYesterdayDateLabel)
-        view.addSubview(someoneYesterdayContentLabel)
-        view.addSubview(someoneYesterdayHeartButton)
-        view.addSubview(someoneYesterdayMoreButton)
-        view.addSubview(someoneYesterdayCommentView)
-        view.addSubview(someoneYesterdayInputContent)
-        view.addSubview(someoneYesterdayContentCountLabel)
-        view.addSubview(someoneYesterdaySendLabel)
-        view.addSubview(someoneYesterdaySendButton)
         view.translatesAutoresizingMaskIntoConstraints = false
+//        view.addSubview(someoneYesterdayDateLabel)
+//        view.addSubview(someoneYesterdayContentLabel)
+//        view.addSubview(someoneYesterdayHeartButton)
+//        view.addSubview(someoneYesterdayMoreButton)
+//        view.addSubview(someoneYesterdayCommentView)
+//        view.addSubview(someoneYesterdayInputContent)
+//        view.addSubview(someoneYesterdayContentCountLabel)
+//        view.addSubview(someoneYesterdaySendLabel)
+//        view.addSubview(someoneYesterdaySendButton)
+//        view.addSubview(fillContentWillCommentLabel)
+//        view.addSubview(fillContentWillCommentMoreButton)
         return view
     }()
     
-    private var someoneYesterdayDateLabel: UILabel = {
+    lazy var someoneYesterdayView2: UIView = {
+        let view = UIView(frame: CGRect(x: frame.width, y: 0, width: 327, height: 450))
+        view.backgroundColor = UIColor(red: 1, green: 0.904, blue: 0.904, alpha: 1)
+        view.layer.cornerRadius = 8
+        view.clipsToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.addSubview(someoneYesterdayDateLabel)
+//        view.addSubview(someoneYesterdayContentLabel)
+//        view.addSubview(someoneYesterdayHeartButton)
+//        view.addSubview(someoneYesterdayMoreButton)
+//        view.addSubview(someoneYesterdayCommentView)
+//        view.addSubview(someoneYesterdayInputContent)
+//        view.addSubview(someoneYesterdayContentCountLabel)
+//        view.addSubview(someoneYesterdaySendLabel)
+//        view.addSubview(someoneYesterdaySendButton)
+//        view.addSubview(fillContentWillCommentLabel)
+//        view.addSubview(fillContentWillCommentMoreButton)
+        return view
+    }()
+    
+    lazy var someoneYesterdayView3: UIView = {
+        let view = UIView(frame: CGRect(x: frame.width * 2, y: 0, width: 327, height: 450))
+        view.backgroundColor = UIColor(red: 1, green: 0.904, blue: 0.904, alpha: 1)
+        view.layer.cornerRadius = 8
+        view.clipsToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+//        view.addSubview(someoneYesterdayDateLabel)
+//        view.addSubview(someoneYesterdayContentLabel)
+//        view.addSubview(someoneYesterdayHeartButton)
+//        view.addSubview(someoneYesterdayMoreButton)
+//        view.addSubview(someoneYesterdayCommentView)
+//        view.addSubview(someoneYesterdayInputContent)
+//        view.addSubview(someoneYesterdayContentCountLabel)
+//        view.addSubview(someoneYesterdaySendLabel)
+//        view.addSubview(someoneYesterdaySendButton)
+//        view.addSubview(fillContentWillCommentLabel)
+//        view.addSubview(fillContentWillCommentMoreButton)
+        return view
+    }()
+    
+    private lazy var someoneYesterdayDateLabel: UILabel = {
         let label = UILabel()
         label.text = "00년 00월 00일"
         label.textColor = .black
@@ -41,47 +97,43 @@ class SomeoneYesterday: UIView {
         return label
     }()
     
-    private var someoneYesterdayContentLabel: UILabel = {
-        let contentLabel = UILabel()
-        contentLabel.text = "하고 싶은 일이 있는데 뜻대로 되지 않아\n요. 친구들은 그저 제 배경만 보고 부러워\n하지만 그 안에서의 저는 죽을 맛입니다."
-        contentLabel.numberOfLines = 0
-        contentLabel.textColor = .black
-        contentLabel.backgroundColor = UIColor(red: 1, green: 0.904, blue: 0.904, alpha: 1)
-        contentLabel.font = Font.air.of(size: 16)
-        contentLabel.translatesAutoresizingMaskIntoConstraints = false
-        return contentLabel
+    private lazy var someoneYesterdayContentLabel: UILabel = {
+        let label = UILabel()
+        label.text = "하고 싶은 일이 있는데 뜻대로 되지 않아요. 친구들은 그저 제 배경만 보고 부러워 하지만 그 안에서의 저는 죽을 맛입니다."
+        label.textColor = .black
+        label.font = Font.air.of(size: 16)
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     lazy var someoneYesterdayHeartButton: UIButton = {
-        let heartButton = UIButton()
+        let button = UIButton()
         let image = UIImage(named: "heart")
-        heartButton.setImage(image, for: .normal)
-        heartButton.tintColor = .black
-        heartButton.translatesAutoresizingMaskIntoConstraints = false
-        return heartButton
+        button.setImage(image, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     lazy var someoneYesterdayMoreButton: UIButton = {
-        let moreButton = UIButton()
+        let button = UIButton()
         let image = UIImage(named: "more")
-        moreButton.setImage(image, for: .normal)
-        moreButton.translatesAutoresizingMaskIntoConstraints = false
-        return moreButton
+        button.setImage(image, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
-    private var someoneYesterdayCommentView: UIView = {
-       let comView = UIView()
-        comView.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.8)
-        comView.layer.cornerRadius = 8
-        comView.clipsToBounds = true
-        comView.translatesAutoresizingMaskIntoConstraints = false
-        return comView
+    var someoneYesterdayCommentView: UIView = {
+       let view = UIView()
+        view.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.8)
+        view.layer.cornerRadius = 8
+        view.clipsToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     lazy var someoneYesterdayInputContent: UITextView = {
         var textView = UITextView()
-        var paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = 1.27
         textView.backgroundColor = .clear
         textView.text = textViewPlaceHolder
         textView.textColor = .lightGray
@@ -104,7 +156,7 @@ class SomeoneYesterday: UIView {
         return label
     }()
     
-    private var someoneYesterdaySendLabel: UILabel = {
+    lazy var someoneYesterdaySendLabel: UILabel = {
         let label = UILabel()
         label.text = "보내기"
         label.textColor = .lightGray
@@ -121,25 +173,45 @@ class SomeoneYesterday: UIView {
         return button
     }()
     
+    lazy var fillContentWillCommentLabel: UILabel = {
+       let label = UILabel()
+        label.text = ""
+        label.textColor = .black
+        label.font = Font.air.of(size: 16)
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var fillContentWillCommentMoreButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(named: "more")
+        button.setImage(image, for: .normal)
+        button.isHidden = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         setup()
         addViews()
         setTapGesture()
-        setConstraints()
+//        setConstraints()
+        completion(isOn: false)
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func setup() {
         backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     
     private func addViews() {
-        [someoneYesterdayView].forEach { addSubview($0) }
+        [scrollView].forEach { addSubview($0) }
     }
     
     private func setTapGesture() {
@@ -149,71 +221,95 @@ class SomeoneYesterday: UIView {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            someoneYesterdayView.topAnchor.constraint(equalTo: topAnchor, constant: 240),
+            someoneYesterdayView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             someoneYesterdayView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
             someoneYesterdayView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
             someoneYesterdayView.widthAnchor.constraint(equalToConstant: 327),
-            someoneYesterdayView.heightAnchor.constraint(equalToConstant: 450)
-        ])
-        
-        NSLayoutConstraint.activate([
+            someoneYesterdayView.heightAnchor.constraint(equalToConstant: 450),
+            
             someoneYesterdayDateLabel.topAnchor.constraint(equalTo: someoneYesterdayView.topAnchor, constant: 24),
-            someoneYesterdayDateLabel.leadingAnchor.constraint(equalTo: someoneYesterdayView.leadingAnchor, constant: 24)
-        ])
-        
-        NSLayoutConstraint.activate([
+            someoneYesterdayDateLabel.leadingAnchor.constraint(equalTo: someoneYesterdayView.leadingAnchor, constant: 24),
+            
             someoneYesterdayContentLabel.topAnchor.constraint(equalTo: someoneYesterdayView.topAnchor, constant: 68),
             someoneYesterdayContentLabel.bottomAnchor.constraint(equalTo: someoneYesterdayView.bottomAnchor, constant: -260),
             someoneYesterdayContentLabel.leadingAnchor.constraint(equalTo: someoneYesterdayView.leadingAnchor, constant: 24),
-            someoneYesterdayContentLabel.trailingAnchor.constraint(equalTo: someoneYesterdayView.trailingAnchor, constant: -24)
-        ])
-        
-        NSLayoutConstraint.activate([
+            someoneYesterdayContentLabel.trailingAnchor.constraint(equalTo: someoneYesterdayView.trailingAnchor, constant: -24),
+            
             someoneYesterdayHeartButton.topAnchor.constraint(equalTo: someoneYesterdayView.topAnchor, constant: 180),
-            someoneYesterdayHeartButton.trailingAnchor.constraint(equalTo: someoneYesterdayView.trailingAnchor, constant: -70)
-        ])
-        
-        NSLayoutConstraint.activate([
+            someoneYesterdayHeartButton.trailingAnchor.constraint(equalTo: someoneYesterdayView.trailingAnchor, constant: -70),
+            
             someoneYesterdayMoreButton.topAnchor.constraint(equalTo: someoneYesterdayView.topAnchor, constant: 180),
-            someoneYesterdayMoreButton.trailingAnchor.constraint(equalTo: someoneYesterdayView.trailingAnchor, constant: -30)
-        ])
-        
-        NSLayoutConstraint.activate([
+            someoneYesterdayMoreButton.trailingAnchor.constraint(equalTo: someoneYesterdayView.trailingAnchor, constant: -30),
+            
             someoneYesterdayCommentView.topAnchor.constraint(equalTo: someoneYesterdayView.topAnchor, constant: 230),
             someoneYesterdayCommentView.bottomAnchor.constraint(equalTo: someoneYesterdayView.bottomAnchor, constant: -24),
             someoneYesterdayCommentView.leadingAnchor.constraint(equalTo: someoneYesterdayView.leadingAnchor, constant: 16),
             someoneYesterdayCommentView.trailingAnchor.constraint(equalTo: someoneYesterdayView.trailingAnchor, constant: -16),
             someoneYesterdayCommentView.widthAnchor.constraint(equalToConstant: 295),
-            someoneYesterdayCommentView.heightAnchor.constraint(equalToConstant: 200)
-        ])
-        
-        NSLayoutConstraint.activate([
+            someoneYesterdayCommentView.heightAnchor.constraint(equalToConstant: 200),
+            
             someoneYesterdayInputContent.topAnchor.constraint(equalTo: someoneYesterdayCommentView.topAnchor, constant: 24),
             someoneYesterdayInputContent.bottomAnchor.constraint(equalTo: someoneYesterdayCommentView.bottomAnchor, constant: -60),
             someoneYesterdayInputContent.leadingAnchor.constraint(equalTo: someoneYesterdayCommentView.leadingAnchor, constant: 24),
-            someoneYesterdayInputContent.trailingAnchor.constraint(equalTo: someoneYesterdayCommentView.trailingAnchor, constant: -24)
-        ])
-        
-        NSLayoutConstraint.activate([
+            someoneYesterdayInputContent.trailingAnchor.constraint(equalTo: someoneYesterdayCommentView.trailingAnchor, constant: -24),
+            
             someoneYesterdayContentCountLabel.bottomAnchor.constraint(equalTo: someoneYesterdayCommentView.bottomAnchor, constant: -24),
-            someoneYesterdayContentCountLabel.leadingAnchor.constraint(equalTo: someoneYesterdayCommentView.leadingAnchor, constant: 24)
-        ])
-        
-        NSLayoutConstraint.activate([
+            someoneYesterdayContentCountLabel.leadingAnchor.constraint(equalTo: someoneYesterdayCommentView.leadingAnchor, constant: 24),
+            
             someoneYesterdaySendLabel.bottomAnchor.constraint(equalTo: someoneYesterdayCommentView.bottomAnchor, constant: -24),
-            someoneYesterdaySendLabel.trailingAnchor.constraint(equalTo: someoneYesterdayCommentView.trailingAnchor, constant: -50)
-        ])
-
-        NSLayoutConstraint.activate([
+            someoneYesterdaySendLabel.trailingAnchor.constraint(equalTo: someoneYesterdayCommentView.trailingAnchor, constant: -50),
+            
             someoneYesterdaySendButton.bottomAnchor.constraint(equalTo: someoneYesterdayCommentView.bottomAnchor, constant: -24),
             someoneYesterdaySendButton.trailingAnchor.constraint(equalTo: someoneYesterdayCommentView.trailingAnchor, constant: -25),
-            someoneYesterdaySendButton.widthAnchor.constraint(equalToConstant: 20),
-            someoneYesterdaySendButton.heightAnchor.constraint(equalToConstant: 20)
+            
+            fillContentWillCommentLabel.topAnchor.constraint(equalTo: someoneYesterdayCommentView.topAnchor, constant: 24),
+            fillContentWillCommentLabel.leadingAnchor.constraint(equalTo: someoneYesterdayCommentView.leadingAnchor, constant: 24),
+            fillContentWillCommentLabel.trailingAnchor.constraint(equalTo: someoneYesterdayCommentView.trailingAnchor, constant: -24),
+            fillContentWillCommentLabel.bottomAnchor.constraint(equalTo: someoneYesterdayCommentView.bottomAnchor, constant: -60),
+            
+            fillContentWillCommentMoreButton.trailingAnchor.constraint(equalTo: someoneYesterdayCommentView.trailingAnchor, constant: -30),
+            fillContentWillCommentMoreButton.bottomAnchor.constraint(equalTo: someoneYesterdayCommentView.bottomAnchor, constant: -24)
         ])
     }
     
-    private func updateCountLabel(characterCount: Int) {
-        someoneYesterdayContentCountLabel.text = "\(characterCount)/50"
+    func updateCountLabel(characterCount: Int) {
+        if isCountLabelUpdated {
+            someoneYesterdayContentCountLabel.text = "\(characterCount)/50"
+        } else {
+            someoneYesterdayContentCountLabel.text = "\(characterCount)/300"
+        }
+    }
+    
+    private func completion(isOn: Bool) {
+        switch isOn {
+        case true:
+            let image = UIImage(named: "arrow-right-circle_black")
+            someoneYesterdaySendButton.isUserInteractionEnabled = true
+            someoneYesterdaySendButton.setImage(image, for: .normal)
+            someoneYesterdaySendLabel.textColor = .black
+        case false:
+            let image = UIImage(named: "arrow-right-circle")
+            someoneYesterdaySendButton.isUserInteractionEnabled = false
+            someoneYesterdaySendButton.setImage(image, for: .normal)
+            someoneYesterdaySendLabel.textColor = UIColor(red: 0.592, green: 0.592, blue: 0.592, alpha: 1)
+        }
+    }
+    
+    private func keyboardTopToastMessage() {
+        struct Singleton {
+            static var hasRun = false
+        }
+        
+        guard !Singleton.hasRun else { return }
+        Singleton.hasRun = true
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            let keyboardWindow = windowScene.windows.first(where: { $0.isKeyWindow })
+            let keyboardView = keyboardWindow?.subviews.first(where: { String(describing: type(of: $0)).contains("InputSetHostView") }) ?? keyboardWindow?.subviews.first
+        }
+        self.toastWithButton.showButtonToast(image: UIImage(imageLiteralResourceName: "ad"),
+                                             message: "최대 300자를 작성해보세요.",
+                                             buttonTitle: "광고 보기")
     }
     
     @objc private func didTapTextView(_ sender: Any) {
@@ -231,13 +327,11 @@ extension SomeoneYesterday: UITextViewDelegate {
         }
     }
 
-    private func textViewDidEndEditing(_ textView: UITextView) -> Bool {
+    func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             textView.text = textViewPlaceHolder
             textView.textColor = .lightGray
-            completion(isOn: false)
         }
-        return true
     }
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -258,32 +352,15 @@ extension SomeoneYesterday: UITextViewDelegate {
         
         if characterCount >= 1 {
             completion(isOn: true)
-        } else if characterCount == 0 {
+            
+            if characterCount == 40 {
+                keyboardTopToastMessage()
+            }
+        } else {
             completion(isOn: false)
         }
-        
-        if characterCount == 40 {
-            self.toastWithButton.showButtonToast(image: UIImage(imageLiteralResourceName: "ad"),
-                                                 message: "최대 300자를 작성해보세요.",
-                                                 buttonTitle: "광고 보기")
-        }
-        
+
         updateCountLabel(characterCount: characterCount)
         return true
-    }
-    
-    func completion(isOn: Bool) {
-        switch isOn {
-        case true:
-            let image = UIImage(named: "arrow-right-circle_black")
-            someoneYesterdaySendButton.isUserInteractionEnabled = true
-            someoneYesterdaySendButton.setImage(image, for: .normal)
-            someoneYesterdaySendLabel.textColor = .black
-        case false:
-            let image = UIImage(named: "arrow-right-circle")
-            someoneYesterdaySendButton.isUserInteractionEnabled = false
-            someoneYesterdaySendButton.setImage(image, for: .normal)
-            someoneYesterdaySendLabel.textColor = UIColor(red: 0.592, green: 0.592, blue: 0.592, alpha: 1)
-        }
     }
 }

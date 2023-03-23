@@ -19,6 +19,12 @@
 		1C7221B5298902A0002C326E /* OpenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7221B4298902A0002C326E /* OpenView.swift */; };
 		1CA60B7729AF1A820009CA3C /* HomeSide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA60B7629AF1A820009CA3C /* HomeSide.swift */; };
 		1CA60B9B29B484E90009CA3C /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA60B9A29B484E90009CA3C /* Notice.swift */; };
+		1CA60BC729BA16E60009CA3C /* BundleStoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA60BC629BA16E60009CA3C /* BundleStoryView.swift */; };
+		1CA60BC929BA17F00009CA3C /* MyThatDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA60BC829BA17F00009CA3C /* MyThatDay.swift */; };
+		1CA60BCB29BA17F80009CA3C /* SomeoneThatDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA60BCA29BA17F80009CA3C /* SomeoneThatDay.swift */; };
+		1CA60BCD29BC7F270009CA3C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA60BCC29BC7F270009CA3C /* HomeViewController.swift */; };
+		1CA60BF329BF28B00009CA3C /* UnregisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA60BF229BF28B00009CA3C /* UnregisterView.swift */; };
+		1CA60BF529C0779E0009CA3C /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA60BF429C0779E0009CA3C /* LaunchScreenViewController.swift */; };
 		1CD9722F29642C6600A4D62F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9722E29642C6600A4D62F /* AppDelegate.swift */; };
 		1CD9723129642C6600A4D62F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9723029642C6600A4D62F /* SceneDelegate.swift */; };
 		1CD9723629642C6600A4D62F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CD9723429642C6600A4D62F /* Main.storyboard */; };
@@ -27,7 +33,6 @@
 		1CD9724529642D1800A4D62F /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9724429642D1800A4D62F /* LoginView.swift */; };
 		1CD9724729642D6300A4D62F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9724629642D6300A4D62F /* LoginViewController.swift */; };
 		1CD9724D29643A0500A4D62F /* MyToday.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9724C29643A0500A4D62F /* MyToday.swift */; };
-		1CD9724F2964450900A4D62F /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9724E2964450900A4D62F /* HomeController.swift */; };
 		1CD972552964460D00A4D62F /* SideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD972542964460D00A4D62F /* SideMenuCell.swift */; };
 		1CD972572964469100A4D62F /* SideMenuOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD972562964469100A4D62F /* SideMenuOptions.swift */; };
 		1CD9725D2964489600A4D62F /* BundleStoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9725C2964489600A4D62F /* BundleStoryController.swift */; };
@@ -57,6 +62,12 @@
 		1C7221B4298902A0002C326E /* OpenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenView.swift; sourceTree = "<group>"; };
 		1CA60B7629AF1A820009CA3C /* HomeSide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSide.swift; sourceTree = "<group>"; };
 		1CA60B9A29B484E90009CA3C /* Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
+		1CA60BC629BA16E60009CA3C /* BundleStoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleStoryView.swift; sourceTree = "<group>"; };
+		1CA60BC829BA17F00009CA3C /* MyThatDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyThatDay.swift; sourceTree = "<group>"; };
+		1CA60BCA29BA17F80009CA3C /* SomeoneThatDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomeoneThatDay.swift; sourceTree = "<group>"; };
+		1CA60BCC29BC7F270009CA3C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		1CA60BF229BF28B00009CA3C /* UnregisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnregisterView.swift; sourceTree = "<group>"; };
+		1CA60BF429C0779E0009CA3C /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		1CD9722B29642C6600A4D62F /* Hoegaarden.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hoegaarden.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CD9722E29642C6600A4D62F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1CD9723029642C6600A4D62F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,7 +78,6 @@
 		1CD9724429642D1800A4D62F /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		1CD9724629642D6300A4D62F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1CD9724C29643A0500A4D62F /* MyToday.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyToday.swift; sourceTree = "<group>"; };
-		1CD9724E2964450900A4D62F /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		1CD972542964460D00A4D62F /* SideMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuCell.swift; sourceTree = "<group>"; };
 		1CD972562964469100A4D62F /* SideMenuOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuOptions.swift; sourceTree = "<group>"; };
 		1CD9725C2964489600A4D62F /* BundleStoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleStoryController.swift; sourceTree = "<group>"; };
@@ -178,7 +188,8 @@
 				1C27EB7F29657452001847D7 /* MyYesterday */,
 				1C27EB7E29657438001847D7 /* SomeoneYesterday */,
 				1CD9724B296431EC00A4D62F /* SideMenu */,
-				1CD9724E2964450900A4D62F /* HomeController.swift */,
+				1CA60BCC29BC7F270009CA3C /* HomeViewController.swift */,
+				1CA60BF429C0779E0009CA3C /* LaunchScreenViewController.swift */,
 				1CDC90A829A8F4430093A0D3 /* Module */,
 			);
 			path = Main;
@@ -202,6 +213,7 @@
 				1CE84D31298276F1009B31BC /* TOSView.swift */,
 				1C7221B2298901ED002C326E /* PrivacyView.swift */,
 				1C7221B4298902A0002C326E /* OpenView.swift */,
+				1CA60BF229BF28B00009CA3C /* UnregisterView.swift */,
 			);
 			name = Settings;
 			path = ../Settings;
@@ -212,6 +224,9 @@
 			children = (
 				1CE84D352982845C009B31BC /* BundleSide.swift */,
 				1CD9725C2964489600A4D62F /* BundleStoryController.swift */,
+				1CA60BC629BA16E60009CA3C /* BundleStoryView.swift */,
+				1CA60BC829BA17F00009CA3C /* MyThatDay.swift */,
+				1CA60BCA29BA17F80009CA3C /* SomeoneThatDay.swift */,
 			);
 			path = BundleStory;
 			sourceTree = "<group>";
@@ -387,9 +402,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CD9722F29642C6600A4D62F /* AppDelegate.swift in Sources */,
-				1CD9724F2964450900A4D62F /* HomeController.swift in Sources */,
+				1CA60BC729BA16E60009CA3C /* BundleStoryView.swift in Sources */,
 				1CA60B7729AF1A820009CA3C /* HomeSide.swift in Sources */,
 				1C27EB86296574C0001847D7 /* SomeoneYesterdayController.swift in Sources */,
+				1CA60BF529C0779E0009CA3C /* LaunchScreenViewController.swift in Sources */,
 				1CDC90B029ADE7E60093A0D3 /* AlertAction.swift in Sources */,
 				1CE84D34298282DE009B31BC /* Notification.swift in Sources */,
 				1C27EB8229657477001847D7 /* MyYesterday.swift in Sources */,
@@ -397,6 +413,8 @@
 				1CD9725D2964489600A4D62F /* BundleStoryController.swift in Sources */,
 				1CDC90AA29A8FF1C0093A0D3 /* ToastWithButton.swift in Sources */,
 				1CE84D32298276F1009B31BC /* TOSView.swift in Sources */,
+				1CA60BF329BF28B00009CA3C /* UnregisterView.swift in Sources */,
+				1CA60BC929BA17F00009CA3C /* MyThatDay.swift in Sources */,
 				1CD9724529642D1800A4D62F /* LoginView.swift in Sources */,
 				1C27EB7B2965736F001847D7 /* MyTodayController.swift in Sources */,
 				1C27EB84296574B3001847D7 /* SomeoneYesterday.swift in Sources */,
@@ -404,6 +422,7 @@
 				1C62F533298BADAB003EB5A7 /* Toast.swift in Sources */,
 				1CD9724D29643A0500A4D62F /* MyToday.swift in Sources */,
 				1CA60B9B29B484E90009CA3C /* Notice.swift in Sources */,
+				1CA60BCB29BA17F80009CA3C /* SomeoneThatDay.swift in Sources */,
 				1C27EB7D296573EB001847D7 /* MyYesterdayController.swift in Sources */,
 				1C3B0117299B7ACA0052C3AD /* AlertFile.swift in Sources */,
 				1CDA99542976BA6400E75D92 /* Font.swift in Sources */,
@@ -412,6 +431,7 @@
 				1CE84D382983DE40009B31BC /* SettingSide.swift in Sources */,
 				1CD972572964469100A4D62F /* SideMenuOptions.swift in Sources */,
 				1CE84D362982845C009B31BC /* BundleSide.swift in Sources */,
+				1CA60BCD29BC7F270009CA3C /* HomeViewController.swift in Sources */,
 				1C1F3163297F6CC100D76B35 /* SettingController.swift in Sources */,
 				1CE84D302982556A009B31BC /* CommentView.swift in Sources */,
 				1CD9723129642C6600A4D62F /* SceneDelegate.swift in Sources */,

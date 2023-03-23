@@ -9,6 +9,18 @@ import UIKit
 
 class OpenView: UIViewController {
     
+    private var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    private var contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private var openLabel: UILabel = {
         let label = UILabel()
         label.text = "오픈소스 라이센스"
@@ -25,22 +37,14 @@ class OpenView: UIViewController {
         return view
     }()
     
-    private lazy var contentView: UIView = {
-       let view = UIView()
-        view.backgroundColor = .clear
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(contentLabel)
-        return view
-    }()
-    
     private var contentLabel: UILabel = {
-        let cl = UILabel()
-        cl.text = "Lorem Ipsum is simply dummy text of \nthe printing and typesetting industry. \nLorem Ipsum has been the industry's \nstandard dummy text ever since the \n1500s, when an unknown printer took \na galley of type and scrambled it to \nmake a type specimen book. It has \nsurvived not only five centuries, but \nalso the leap into electronic \ntypesetting, remaining essentially \nunchanged. It was popularised in the \n1960s with the release of Letraset \nsheets containing Lorem Ipsum \npassages, and more recently with \ndesktop publishing software like Aldus \nPageMaker including versions of \nLorem Ipsum."
-        cl.numberOfLines = 0
-        cl.textColor = .black
-        cl.font = Font.air.of(size: 16)
-        cl.translatesAutoresizingMaskIntoConstraints = false
-        return cl
+        let label = UILabel()
+        label.text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        label.numberOfLines = 0
+        label.textColor = .black
+        label.font = Font.air.of(size: 16)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     override func viewDidLoad() {
@@ -52,18 +56,19 @@ class OpenView: UIViewController {
         setConstraints()
     }
     
-    func setup() {
+    private func setup() {
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     
-    func addViews() {
-        view.addSubview(openLabel)
-        view.addSubview(lineView)
-        view.addSubview(contentView)
-        view.addSubview(contentLabel)
+    private func addViews() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(openLabel)
+        contentView.addSubview(lineView)
+        contentView.addSubview(contentLabel)
     }
     
-    func configureNavigationBarButton() {
+    private func configureNavigationBarButton() {
         let image = UIImage(named: "backward")?.withTintColor(.black, renderingMode: .alwaysOriginal)
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -72,42 +77,39 @@ class OpenView: UIViewController {
             target: self, action: #selector(showPrevious))
     }
     
-    @objc func showPrevious() {
+    private func setConstraints() {
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            
+            contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            
+            openLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 60),
+            openLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
+            
+            lineView.topAnchor.constraint(equalTo: openLabel.bottomAnchor, constant: 12),
+            lineView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            lineView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
+            lineView.widthAnchor.constraint(equalToConstant: 351),
+            lineView.heightAnchor.constraint(equalToConstant: 1),
+            
+            contentLabel.topAnchor.constraint(equalTo: lineView.topAnchor, constant: 20),
+            contentLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            contentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24)
+        ])
+    }
+    
+    @objc private func showPrevious() {
         let controller = SettingController()
         controller.modalPresentationStyle = .fullScreen
         let nav = UINavigationController(rootViewController: controller)
         nav.modalPresentationStyle = .overFullScreen
         present(nav, animated: false, completion: nil)
-    }
-    
-    func setConstraints() {
-        NSLayoutConstraint.activate([
-            openLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 130),
-            openLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36)
-        ])
-        
-        NSLayoutConstraint.activate([
-            lineView.topAnchor.constraint(equalTo: openLabel.bottomAnchor, constant: 12),
-            lineView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            lineView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            lineView.widthAnchor.constraint(equalToConstant: 351),
-            lineView.heightAnchor.constraint(equalToConstant: 1)
-        ])
-        
-        NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
-            contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            contentView.widthAnchor.constraint(equalToConstant: 327),
-            contentView.heightAnchor.constraint(equalToConstant: 408)
-        ])
-        
-        NSLayoutConstraint.activate([
-            contentLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
-            contentLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
-            contentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
-            contentLabel.widthAnchor.constraint(equalToConstant: 327),
-            contentLabel.heightAnchor.constraint(equalToConstant: 408)
-        ])
     }
 }

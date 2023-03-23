@@ -10,9 +10,9 @@ import AVFoundation
 
 class CommentView: UIViewController {
     
-    var alert = SweetAlert()
+    private let alert = SweetAlert()
     private let toast = Toast()
-    let textViewPlaceHolder = "앱의 발전을 위해 좋은 의견 많이 부탁드\n려요. :)"
+    private let textViewPlaceHolder = "앱의 발전을 위해 좋은 의견 많이 부탁드\n려요. :)"
     
     private var commentLabel: UILabel = {
         let label = UILabel()
@@ -32,17 +32,6 @@ class CommentView: UIViewController {
     
     private lazy var commentView: UIView = {
         let view = UIView()
-        let layer0 = CAGradientLayer()
-        layer0.colors = [
-            UIColor(red: 0.958, green: 0.958, blue: 0.958, alpha: 1).cgColor,
-            UIColor(red: 0.92, green: 0.92, blue: 0.92, alpha: 1).cgColor]
-        layer0.locations = [0, 1]
-        layer0.startPoint = CGPoint(x: 0.25, y: 0.5)
-        layer0.endPoint = CGPoint(x: 0.75, y: 0.5)
-        layer0.transform = CATransform3DMakeAffineTransform(CGAffineTransform(a: 0, b: 1, c: -1, d: 0, tx: 1, ty: 0))
-        layer0.bounds = view.bounds.insetBy(dx: -0.5*view.bounds.size.width, dy: -0.5*view.bounds.size.height)
-        layer0.position = view.center
-        view.layer.addSublayer(layer0)
         view.layer.cornerRadius = 8
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -53,7 +42,7 @@ class CommentView: UIViewController {
         return view
     }()
     
-    lazy var inputContent: UITextView = {
+    private lazy var inputContent: UITextView = {
         var textView = UITextView()
         textView.backgroundColor = .clear
         textView.text = textViewPlaceHolder
@@ -103,26 +92,42 @@ class CommentView: UIViewController {
         
         setup()
         addViews()
+        setGradientLayer()
         setupAddTarget()
         configureNavigationBarButton()
+        setTapGesture()
         setConstraints()
+        completion(isOn: false)
     }
     
-    func setup() {
+    private func setup() {
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     
-    func addViews() {
+    private func addViews() {
         view.addSubview(commentLabel)
         view.addSubview(lineView)
         view.addSubview(commentView)
     }
     
-    func setupAddTarget() {
+    private func setGradientLayer() {
+        let layer = CAGradientLayer()
+        layer.colors = [UIColor(red: 0.958, green: 0.958, blue: 0.958, alpha: 1).cgColor,
+                        UIColor(red: 0.92, green: 0.92, blue: 0.92, alpha: 1).cgColor]
+        layer.startPoint = CGPoint(x: 0.25, y: 0.5)
+        layer.endPoint = CGPoint(x: 0.75, y: 0.5)
+        layer.locations = [0, 1]
+        layer.frame = commentView.bounds
+        layer.bounds = view.bounds.insetBy(dx: -0.5 * view.bounds.size.width, dy: -0.5 * view.bounds.size.height)
+        layer.position = view.center
+        commentView.layer.insertSublayer(layer, at: 0)
+    }
+    
+    private func setupAddTarget() {
         sendButton.addTarget(self, action: #selector(sendButtonClicked), for: .touchUpInside)
     }
     
-    func configureNavigationBarButton() {
+    private func configureNavigationBarButton() {
         let image = UIImage(named: "backward")?.withTintColor(.black, renderingMode: .alwaysOriginal)
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -131,47 +136,39 @@ class CommentView: UIViewController {
             target: self, action: #selector(showPrevious))
     }
     
+    private func setTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTextView(_:)))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
     private func setConstraints() {
-        
         NSLayoutConstraint.activate([
             commentLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 130),
-            commentLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36)
-        ])
-        
-        NSLayoutConstraint.activate([
+            commentLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36),
+            
             lineView.topAnchor.constraint(equalTo: commentLabel.bottomAnchor, constant: 12),
             lineView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             lineView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             lineView.widthAnchor.constraint(equalToConstant: 351),
-            lineView.heightAnchor.constraint(equalToConstant: 1)
-        ])
-        
-        NSLayoutConstraint.activate([
-            commentView.topAnchor.constraint(equalTo: view.topAnchor, constant: 210),
+            lineView.heightAnchor.constraint(equalToConstant: 1),
+            
+            commentView.topAnchor.constraint(equalTo: lineView.topAnchor, constant: 16),
             commentView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             commentView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             commentView.widthAnchor.constraint(equalToConstant: 327),
-            commentView.heightAnchor.constraint(equalToConstant: 327)
-        ])
-
-        NSLayoutConstraint.activate([
+            commentView.heightAnchor.constraint(equalToConstant: 327),
+            
             inputContent.topAnchor.constraint(equalTo: commentView.topAnchor, constant: 24),
             inputContent.bottomAnchor.constraint(equalTo: commentView.bottomAnchor, constant: -68),
             inputContent.leadingAnchor.constraint(equalTo: commentView.leadingAnchor, constant: 24),
-            inputContent.trailingAnchor.constraint(equalTo: commentView.trailingAnchor, constant: -24)
-        ])
-
-        NSLayoutConstraint.activate([
+            inputContent.trailingAnchor.constraint(equalTo: commentView.trailingAnchor, constant: -24),
+            
             contentCountLabel.bottomAnchor.constraint(equalTo: commentView.bottomAnchor, constant: -24),
-            contentCountLabel.leadingAnchor.constraint(equalTo: commentView.leadingAnchor, constant: 24)
-        ])
-
-        NSLayoutConstraint.activate([
+            contentCountLabel.leadingAnchor.constraint(equalTo: commentView.leadingAnchor, constant: 24),
+            
             sendLabel.bottomAnchor.constraint(equalTo: commentView.bottomAnchor, constant: -24),
-            sendLabel.trailingAnchor.constraint(equalTo: commentView.trailingAnchor, constant: -50)
-        ])
-
-        NSLayoutConstraint.activate([
+            sendLabel.trailingAnchor.constraint(equalTo: commentView.trailingAnchor, constant: -50),
+            
             sendButton.bottomAnchor.constraint(equalTo: commentView.bottomAnchor, constant: -24),
             sendButton.trailingAnchor.constraint(equalTo: commentView.trailingAnchor, constant: -25),
             sendButton.widthAnchor.constraint(equalToConstant: 20),
@@ -179,28 +176,41 @@ class CommentView: UIViewController {
         ])
     }
     
-    @objc func showPrevious() {
-        let controller = SettingController()
-        controller.modalPresentationStyle = .fullScreen
-        let nav = UINavigationController(rootViewController: controller)
-        nav.modalPresentationStyle = .overFullScreen
-        present(nav, animated: false, completion: nil)
+    private func completion(isOn: Bool) {
+        switch isOn {
+        case true:
+            let image = UIImage(named: "arrow-right-circle_black")
+            sendButton.isUserInteractionEnabled = true
+            sendButton.setImage(image, for: .normal)
+            sendLabel.textColor = .black
+        case false:
+            let image = UIImage(named: "arrow-right-circle")
+            sendButton.isUserInteractionEnabled = false
+            sendButton.setImage(image, for: .normal)
+            sendLabel.textColor = UIColor(red: 0.592, green: 0.592, blue: 0.592, alpha: 1)
+        }
     }
     
-    @objc func sendButtonClicked() {
+    @objc private func sendButtonClicked() {
         alert.showAlert("", subTitle: "의견을 보낼까요?\n주신 의견들은 꼼꼼히 읽어볼게요.",
                         style: AlertStyle.customImage(imageFile: "send"),
                         buttonTitle: "취소", buttonColor: .white,
                         otherButtonTitle: "보내기", otherButtonColor: .black) { (isOtherButton) -> Void in
-            if isOtherButton == true { } else {
-                let controller = SettingController()
-                controller.modalPresentationStyle = .fullScreen
-                self.present(controller, animated: false)
-                
+            if isOtherButton == true { }
+            else {
+                self.dismiss(animated: false)
                 self.toast.showToast(image: UIImage(imageLiteralResourceName: "check-circle"),
                                      message: "의견이 접수됐습니다.")
             }
         }
+    }
+    
+    @objc private func showPrevious() {
+        dismiss(animated: false)
+    }
+    
+    @objc private func didTapTextView(_ sender: Any) {
+        view.endEditing(true)
     }
 }
 
@@ -214,15 +224,12 @@ extension CommentView: UITextViewDelegate {
         }
     }
     
-    private func textViewDidEndEditing(_ textView: UITextView) -> Bool {
+    func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             textView.text = textViewPlaceHolder
             textView.textColor = .lightGray
-            completion(isOn: false)
         }
-        return true
     }
-
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
@@ -249,20 +256,5 @@ extension CommentView: UITextViewDelegate {
         updateCountLabel(characterCount: characterCount)
         
         return true
-    }
-    
-    func completion(isOn: Bool) {
-        switch isOn {
-        case true:
-            let image = UIImage(named: "arrow-right-circle_black")
-            sendButton.isUserInteractionEnabled = true
-            sendButton.setImage(image, for: .normal)
-            sendLabel.textColor = .black
-        case false:
-            let image = UIImage(named: "arrow-right-circle")
-            sendButton.isUserInteractionEnabled = false
-            sendButton.setImage(image, for: .normal)
-            sendLabel.textColor = UIColor(red: 0.592, green: 0.592, blue: 0.592, alpha: 1)
-        }
     }
 }

@@ -21,21 +21,21 @@ final class LoginViewController: UIViewController {
         setupAddTarget()
     }
     
-    func setupAddTarget() {
+    private func setupAddTarget() {
         loginView.kakaoStartButton.addTarget(self, action: #selector(kakaoLoginButtonTapped), for: .touchUpInside)
         loginView.appleStartButton.addTarget(self, action: #selector(appleLoginButtonTapped), for: .touchUpInside)
     }
     
-    @objc func kakaoLoginButtonTapped() {
-        let nextVC = HomeController()
+    @objc private func kakaoLoginButtonTapped() {
+        let nextVC = HomeViewController()
         nextVC.modalPresentationStyle = .fullScreen
         let nav = UINavigationController(rootViewController: nextVC)
         nav.modalPresentationStyle = .overFullScreen
         present(nav, animated: true, completion: nil)
     }
     
-    @objc func appleLoginButtonTapped() {
-        let nextVC = HomeController()
+    @objc private func appleLoginButtonTapped() {
+        let nextVC = HomeViewController()
         nextVC.modalPresentationStyle = .fullScreen
         let nav = UINavigationController(rootViewController: nextVC)
         nav.modalPresentationStyle = .overFullScreen
