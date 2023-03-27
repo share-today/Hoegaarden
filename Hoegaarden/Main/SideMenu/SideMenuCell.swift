@@ -51,8 +51,12 @@ class SideMenuCell: UITableViewCell {
         ])
     }
     
-    func setHomeIndicator() {
+    func setSideIndicatorColor() {
         indicatorView.backgroundColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
+    }
+    
+    func setHomeIndicator() {
+        setSideIndicatorColor()
         
         NSLayoutConstraint.activate([
             indicatorView.centerXAnchor.constraint(equalTo: sideMenuLabel.centerXAnchor),
@@ -63,7 +67,7 @@ class SideMenuCell: UITableViewCell {
     }
     
     func setBundleIndicator() {
-        indicatorView.backgroundColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
+        setSideIndicatorColor()
         
         NSLayoutConstraint.activate([
             indicatorView.centerXAnchor.constraint(equalTo: sideMenuLabel.centerXAnchor),
@@ -74,7 +78,7 @@ class SideMenuCell: UITableViewCell {
     }
     
     func setSettingIndicator() {
-        indicatorView.backgroundColor = UIColor(red: 1, green: 0.878, blue: 0.878, alpha: 1)
+        setSideIndicatorColor()
         
         NSLayoutConstraint.activate([
             indicatorView.centerXAnchor.constraint(equalTo: sideMenuLabel.centerXAnchor),

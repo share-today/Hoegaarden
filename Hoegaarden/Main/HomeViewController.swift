@@ -9,6 +9,8 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
+    private let someone = SomeoneYesterday()
+    
     private lazy var containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
@@ -75,7 +77,7 @@ class HomeViewController: UIViewController {
     private var viewControllers: [UIViewController] {
         [MyTodayController(),
          MyYesterdayController(),
-         SomeoneYesterdayController()]
+         Some()]
     }
     
     private var currentPage: Int = 0 {
@@ -167,13 +169,13 @@ class HomeViewController: UIViewController {
         
         switch segmentControl.selectedSegmentIndex {
         case 0:
-            indicatorView.frame = CGRect(x: leadingDistance, y: 0, width: 72, height: 18)
+            indicatorView.frame = CGRect(x: 20, y: 20, width: 72, height: 18)
             indicatorView.backgroundColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
         case 1:
-            indicatorView.frame = CGRect(x: leadingDistance, y: 0, width: 72, height: 18)
+            indicatorView.frame = CGRect(x: 20, y: 20, width: 72, height: 18)
             indicatorView.backgroundColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
         case 2:
-            indicatorView.frame = CGRect(x: leadingDistance, y: 0, width: 150, height: 18)
+            indicatorView.frame = CGRect(x: 20, y: 20, width: 92, height: 18)
             indicatorView.backgroundColor = UIColor(red: 1, green: 0.878, blue: 0.878, alpha: 1)
         default:
             break

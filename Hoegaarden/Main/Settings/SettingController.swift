@@ -333,7 +333,6 @@ class SettingController: UIViewController {
     
     func setConstraints() {
         NSLayoutConstraint.activate([
-            
             backgroundImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             backgroundImage.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             backgroundImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),

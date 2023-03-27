@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C17CF3329D1796B006988FE /* Some.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C17CF3229D1796B006988FE /* Some.swift */; };
 		1C1F3163297F6CC100D76B35 /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1F3162297F6CC100D76B35 /* SettingController.swift */; };
 		1C27EB7B2965736F001847D7 /* MyTodayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C27EB7A2965736F001847D7 /* MyTodayController.swift */; };
 		1C27EB7D296573EB001847D7 /* MyYesterdayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C27EB7C296573EB001847D7 /* MyYesterdayController.swift */; };
@@ -50,6 +51,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C17CF3229D1796B006988FE /* Some.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Some.swift; sourceTree = "<group>"; };
 		1C1F3162297F6CC100D76B35 /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
 		1C27EB7A2965736F001847D7 /* MyTodayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTodayController.swift; sourceTree = "<group>"; };
 		1C27EB7C296573EB001847D7 /* MyYesterdayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyYesterdayController.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			children = (
 				1C27EB83296574B3001847D7 /* SomeoneYesterday.swift */,
 				1C27EB85296574C0001847D7 /* SomeoneYesterdayController.swift */,
+				1C17CF3229D1796B006988FE /* Some.swift */,
 			);
 			path = SomeoneYesterday;
 			sourceTree = "<group>";
@@ -415,6 +418,7 @@
 				1CE84D32298276F1009B31BC /* TOSView.swift in Sources */,
 				1CA60BF329BF28B00009CA3C /* UnregisterView.swift in Sources */,
 				1CA60BC929BA17F00009CA3C /* MyThatDay.swift in Sources */,
+				1C17CF3329D1796B006988FE /* Some.swift in Sources */,
 				1CD9724529642D1800A4D62F /* LoginView.swift in Sources */,
 				1C27EB7B2965736F001847D7 /* MyTodayController.swift in Sources */,
 				1C27EB84296574B3001847D7 /* SomeoneYesterday.swift in Sources */,
