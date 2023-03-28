@@ -9,8 +9,6 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    private let someone = SomeoneYesterday()
-    
     private lazy var containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
@@ -75,9 +73,9 @@ class HomeViewController: UIViewController {
     }()
     
     private var viewControllers: [UIViewController] {
-        [MyTodayController(),
-         MyYesterdayController(),
-         Some()]
+        [MyTodayViewController(),
+         MyYesterdayViewController(),
+         SomeoneYesterdayViewController()]
     }
     
     private var currentPage: Int = 0 {
@@ -191,7 +189,7 @@ class HomeViewController: UIViewController {
         self.currentPage = control.selectedSegmentIndex
     }
     
-    @objc func showNotice() {
+    @objc private func showNotice() {
         let noticeVC = Notification()
         noticeVC.modalPresentationStyle = .fullScreen
         let nav = UINavigationController(rootViewController: noticeVC)

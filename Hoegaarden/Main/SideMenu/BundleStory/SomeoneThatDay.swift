@@ -14,15 +14,51 @@ class SomeoneThatDay: UIViewController {
     private let deleteAlertAction = DeleteAlertAction()
     private let reportAndDeleteAlertAction = ReportAndDeleteAlertAction()
     
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.backgroundColor = .clear
+        scrollView.contentSize = CGSize(width: view.frame.width * 3, height: 450)
+//        scrollView.isPagingEnabled = true
+        scrollView.clipsToBounds = true
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(someoneThatDayView)
+        scrollView.addSubview(someoneThatDayView2)
+        scrollView.addSubview(someoneThatDayView3)
+        return scrollView
+    }()
+    
     private lazy var someoneThatDayView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 1, green: 0.904, blue: 0.904, alpha: 1)
         view.layer.cornerRadius = 8
         view.clipsToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(dateLabel)
         view.addSubview(someoneThatDayContentLabel)
         view.addSubview(someoneThatDayHeartButton)
         view.addSubview(someoneThatDayMoreButton)
+        view.addSubview(someoneThatDayCommentView)
+        view.addSubview(someoneThatDayCommentLabel)
+        view.addSubview(someoneThatDayCommentHeartButton)
+        view.addSubview(someoneThatDayCommentMoreButton)
+        return view
+    }()
+    
+    private lazy var someoneThatDayView2: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 1, green: 0.904, blue: 0.904, alpha: 1)
+        view.layer.cornerRadius = 8
+        view.clipsToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var someoneThatDayView3: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 1, green: 0.904, blue: 0.904, alpha: 1)
+        view.layer.cornerRadius = 8
+        view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -69,9 +105,6 @@ class SomeoneThatDay: UIViewController {
         view.layer.cornerRadius = 8
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(someoneThatDayCommentLabel)
-        view.addSubview(someoneThatDayCommentHeartButton)
-        view.addSubview(someoneThatDayCommentMoreButton)
         return view
     }()
     
@@ -108,8 +141,8 @@ class SomeoneThatDay: UIViewController {
         setup()
         addViews()
         setGradientLayer()
-        setupAddTarget()
         setConstraints()
+        setupAddTarget()
     }
     
     private func setup() {
@@ -117,8 +150,7 @@ class SomeoneThatDay: UIViewController {
     }
     
     private func addViews() {
-        view.addSubview(someoneThatDayView)
-        view.addSubview(someoneThatDayCommentView)
+        view.addSubview(scrollView)
     }
     
     private func setGradientLayer() {
@@ -134,22 +166,30 @@ class SomeoneThatDay: UIViewController {
         someoneThatDayView.layer.insertSublayer(layer, at: 0)
     }
     
-    private func setupAddTarget() {
-        someoneThatDayHeartButton.addTarget(self, action: #selector(someoneThatDayHeartButtonTapped), for: .touchUpInside)
-        someoneThatDayMoreButton.addTarget(self, action: #selector(someoneThatDayMoreButtonTapped), for: .touchUpInside)
-        reportAndDeleteAlertAction.reportButton.addTarget(self, action: #selector(reportTapped), for: .touchUpInside)
-        reportAndDeleteAlertAction.deleteButton.addTarget(self, action: #selector(deleteTapped), for: .touchUpInside)
-        someoneThatDayCommentMoreButton.addTarget(self, action: #selector(someoneThatDayCommentMoreButtonTapped), for: .touchUpInside)
-        deleteAlertAction.deleteButton.addTarget(self, action: #selector(commentDeleteTapped), for: .touchUpInside)
-    }
-    
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            someoneThatDayView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
-            someoneThatDayView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            someoneThatDayView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            someoneThatDayView.widthAnchor.constraint(equalToConstant: 327),
-            someoneThatDayView.heightAnchor.constraint(equalToConstant: 372),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            someoneThatDayView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            someoneThatDayView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 24),
+            someoneThatDayView.trailingAnchor.constraint(equalTo: someoneThatDayView2.leadingAnchor, constant: -8),
+            someoneThatDayView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -50),
+            someoneThatDayView.heightAnchor.constraint(equalToConstant: 450),
+            
+            someoneThatDayView2.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            someoneThatDayView2.leadingAnchor.constraint(equalTo: someoneThatDayView.trailingAnchor, constant: 8),
+            someoneThatDayView2.trailingAnchor.constraint(equalTo: someoneThatDayView3.leadingAnchor, constant: -8),
+            someoneThatDayView2.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -50),
+            someoneThatDayView2.heightAnchor.constraint(equalToConstant: 450),
+            
+            someoneThatDayView3.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            someoneThatDayView3.leadingAnchor.constraint(equalTo: someoneThatDayView2.trailingAnchor, constant: 8),
+            someoneThatDayView3.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -24),
+            someoneThatDayView3.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -50),
+            someoneThatDayView3.heightAnchor.constraint(equalToConstant: 450),
             
             dateLabel.topAnchor.constraint(equalTo: someoneThatDayView.topAnchor, constant: 24),
             dateLabel.leadingAnchor.constraint(equalTo: someoneThatDayView.leadingAnchor, constant: 24),
@@ -170,7 +210,7 @@ class SomeoneThatDay: UIViewController {
             someoneThatDayCommentView.leadingAnchor.constraint(equalTo: someoneThatDayView.leadingAnchor, constant: 16),
             someoneThatDayCommentView.trailingAnchor.constraint(equalTo: someoneThatDayView.trailingAnchor, constant: -16),
             someoneThatDayCommentView.widthAnchor.constraint(equalToConstant: 295),
-            someoneThatDayCommentView.heightAnchor.constraint(equalToConstant: 172),
+            someoneThatDayCommentView.heightAnchor.constraint(equalToConstant: 200),
             
             someoneThatDayCommentLabel.topAnchor.constraint(equalTo: someoneThatDayCommentView.topAnchor, constant: 24),
             someoneThatDayCommentLabel.bottomAnchor.constraint(equalTo: someoneThatDayCommentView.bottomAnchor, constant: -60),
@@ -182,6 +222,28 @@ class SomeoneThatDay: UIViewController {
             
             someoneThatDayCommentMoreButton.bottomAnchor.constraint(equalTo: someoneThatDayCommentView.bottomAnchor, constant: -24),
             someoneThatDayCommentMoreButton.trailingAnchor.constraint(equalTo: someoneThatDayCommentView.trailingAnchor, constant: -30)
+        ])
+    }
+    
+    private func setupAddTarget() {
+        someoneThatDayHeartButton.addTarget(self, action: #selector(someoneThatDayHeartButtonTapped), for: .touchUpInside)
+        someoneThatDayMoreButton.addTarget(self, action: #selector(someoneThatDayMoreButtonTapped), for: .touchUpInside)
+        reportAndDeleteAlertAction.reportButton.addTarget(self, action: #selector(reportTapped), for: .touchUpInside)
+        reportAndDeleteAlertAction.deleteButton.addTarget(self, action: #selector(deleteTapped), for: .touchUpInside)
+        someoneThatDayCommentMoreButton.addTarget(self, action: #selector(someoneThatDayCommentMoreButtonTapped), for: .touchUpInside)
+        deleteAlertAction.deleteButton.addTarget(self, action: #selector(commentDeleteTapped), for: .touchUpInside)
+    }
+    
+    private func emptyStateView() {
+        let label = UILabel()
+        label.text = "비어 있어요."
+        label.textColor = .black
+        label.font = Font.air.of(size: 16)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     
@@ -246,6 +308,16 @@ class SomeoneThatDay: UIViewController {
             if isOtherButton == true { }
             else {
                 self.dismiss(animated: false, completion: nil)
+                
+                self.someoneThatDayCommentView.isHidden = true
+                self.someoneThatDayCommentLabel.isHidden = true
+                self.someoneThatDayCommentHeartButton.isHidden = true
+                self.someoneThatDayCommentMoreButton.isHidden = true
+                
+                NSLayoutConstraint.activate([
+                    self.someoneThatDayView.heightAnchor.constraint(equalToConstant: 240)
+                ])
+                
                 self.toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
                                      message: "삭제가 완료됐습니다.")
             }

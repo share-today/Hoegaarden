@@ -1,23 +1,23 @@
 //
-//  MyToday.swift
+//  MyTodayViewController.swift
 //  Hoegaarden
 //
-//  Created by 혜리 on 2022/12/02.
+//  Created by 혜리 on 2023/03/28.
 //
 
 import UIKit
 import AVFoundation
 
-class MyToday: UIView {
+class MyTodayViewController: UIViewController {
     
     private let toast = Toast()
+    private let alert = SweetAlert()
     private let toastWithButton = ToastWithButton()
-    var isCountLabelUpdated = true
-    let textViewPlaceHolder = "누군가에게 털어놓고 싶은 일이\n있었나요?"
+    private let modifyAndDeleteAlertAction = ModifyAndDeleteAlertAction()
+    private var isCountLabelUpdated = true
 
-    lazy var myTodayView: UIView = {
+    private lazy var myTodayView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 0.904, green: 0.931, blue: 1, alpha: 1)
         view.layer.cornerRadius = 8
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -39,10 +39,10 @@ class MyToday: UIView {
         return label
     }()
     
-    lazy var inputContent: UITextView = {
+    private lazy var inputContent: UITextView = {
         var textView = UITextView()
         textView.backgroundColor = .clear
-        textView.text = textViewPlaceHolder
+        textView.text = Constants.textViewPlaceHolder
         textView.textColor = .lightGray
         textView.font = Font.air.of(size: 16)
         textView.autocapitalizationType = .none
@@ -53,7 +53,7 @@ class MyToday: UIView {
         return textView
     }()
     
-    lazy var contentCountLabel: UILabel = {
+    private lazy var contentCountLabel: UILabel = {
         let label = UILabel()
         label.text = "0/100"
         label.textColor = .black
@@ -63,7 +63,7 @@ class MyToday: UIView {
         return label
     }()
     
-    lazy var sendLabel: UILabel = {
+    private lazy var sendLabel: UILabel = {
         let label = UILabel()
         label.text = "보내기"
         label.textColor = UIColor(red: 0.592, green: 0.592, blue: 0.592, alpha: 1)
@@ -72,7 +72,7 @@ class MyToday: UIView {
         return label
     }()
     
-    lazy var sendButton: UIButton = {
+    private lazy var sendButton: UIButton = {
         let button = UIButton()
         let image = UIImage(named: "arrow-right-circle")
         button.setImage(image, for: .normal)
@@ -80,7 +80,7 @@ class MyToday: UIView {
         return button
     }()
     
-    lazy var fillContentWillLabel: UILabel = {
+    private lazy var fillContentWillLabel: UILabel = {
        let label = UILabel()
         label.text = ""
         label.textColor = .black
@@ -90,7 +90,7 @@ class MyToday: UIView {
         return label
     }()
     
-    lazy var fillContentWillMoreButton: UIButton = {
+    private lazy var fillContentWillMoreButton: UIButton = {
         let button = UIButton()
         let image = UIImage(named: "more")
         button.setImage(image, for: .normal)
@@ -99,28 +99,26 @@ class MyToday: UIView {
         return button
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         setup()
         addViews()
         setGradientLayer()
         setTapGesture()
         setConstraints()
+        setupAddTarget()
         getcurrentDate()
         completion(isOn: false)
-    }
-    
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        setupGestureRecognizer()
     }
     
     private func setup() {
-        backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     
     private func addViews() {
-        [myTodayView].forEach { addSubview($0) }
+        view.addSubview(myTodayView)
     }
     
     private func setGradientLayer() {
@@ -131,21 +129,21 @@ class MyToday: UIView {
         layer.endPoint = CGPoint(x: 0.75, y: 0.5)
         layer.locations = [0, 1]
         layer.frame = myTodayView.bounds
-        layer.bounds = bounds.insetBy(dx: -0.5 * bounds.size.width, dy: -0.5 * bounds.size.height)
-        layer.position = center
+        layer.bounds = view.bounds.insetBy(dx: -0.5 * view.bounds.size.width, dy: -0.5 * view.bounds.size.height)
+        layer.position = view.center
         myTodayView.layer.insertSublayer(layer, at: 0)
     }
     
     private func setTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTextView(_:)))
-        addGestureRecognizer(tapGesture)
+        view.addGestureRecognizer(tapGesture)
     }
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            myTodayView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            myTodayView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
-            myTodayView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
+            myTodayView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+            myTodayView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            myTodayView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             myTodayView.widthAnchor.constraint(equalToConstant: 327),
             myTodayView.heightAnchor.constraint(equalToConstant: 327),
             
@@ -178,6 +176,13 @@ class MyToday: UIView {
         ])
     }
     
+    private func setupAddTarget() {
+        sendButton.addTarget(self, action: #selector(sendButtonTapped), for: .touchUpInside)
+        fillContentWillMoreButton.addTarget(self, action: #selector(fillContentWillMoreButtonTapped), for: .touchUpInside)
+        modifyAndDeleteAlertAction.modifyButton.addTarget(self, action: #selector(modifyButtonTapped), for: .touchUpInside)
+        modifyAndDeleteAlertAction.deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+    }
+    
     // 현재 날짜 가져오기
     private func getcurrentDate() {
         let formatter = DateFormatter()
@@ -186,15 +191,7 @@ class MyToday: UIView {
         let str = formatter.string(from: Date())
         todayDateLabel.text = "\(str)"
     }
-    
-    func updateCountLabel(characterCount: Int) {
-        if isCountLabelUpdated {
-            contentCountLabel.text = "\(characterCount)/100"
-        } else {
-            contentCountLabel.text = "\(characterCount)/500"
-        }
-    }
-    
+
     private func completion(isOn: Bool) {
         switch isOn {
         case true:
@@ -207,6 +204,14 @@ class MyToday: UIView {
             sendButton.isUserInteractionEnabled = false
             sendButton.setImage(image, for: .normal)
             sendLabel.textColor = UIColor(red: 0.592, green: 0.592, blue: 0.592, alpha: 1)
+        }
+    }
+    
+    private func updateCountLabel(characterCount: Int) {
+        if isCountLabelUpdated {
+            contentCountLabel.text = "\(characterCount)/100"
+        } else {
+            contentCountLabel.text = "\(characterCount)/500"
         }
     }
     
@@ -228,15 +233,92 @@ class MyToday: UIView {
     }
     
     @objc private func didTapTextView(_ sender: Any) {
-        endEditing(true)
+        view.endEditing(true)
+    }
+    
+    @objc private func sendButtonTapped() {
+        alert.showAlert("", subTitle: "나의 오늘을 누군가에게 보낼까요?\n분명 나의 이야기를 잘 들어줄\n누군가에게 도착할 거예요.",
+                        style: AlertStyle.customImage(imageFile: "send"),
+                        buttonTitle: "취소", buttonColor: .white,
+                        otherButtonTitle: "보내기", otherButtonColor: .black) { (isOtherButton) -> Void in
+            if isOtherButton == true { }
+            else {
+                self.inputContent.resignFirstResponder()
+                
+                self.inputContent.isHidden = true
+                self.contentCountLabel.isHidden = true
+                self.sendLabel.isHidden = true
+                self.sendButton.isHidden = true
+                self.fillContentWillLabel.isHidden = false
+                self.fillContentWillMoreButton.isHidden = false
+                
+                self.fillContentWillLabel.text = self.inputContent.text
+                
+                self.toast.showToast(image: UIImage(imageLiteralResourceName: "send"),
+                                     message: "전송이 완료됐습니다.")
+            }
+        }
+    }
+    
+    @objc private func fillContentWillMoreButtonTapped() {
+        let actionsheetVC = modifyAndDeleteAlertAction
+        actionsheetVC.modalPresentationStyle = .overFullScreen
+        self.present(actionsheetVC, animated: false)
+    }
+    
+    @objc private func modifyButtonTapped() {
+        alert.showAlert("", subTitle: "이야기를 수정하겠어요?\n누군가는 이미 수정 전 이야기를\n확인했을 수도 있어요.",
+                        style: AlertStyle.customImage(imageFile: "modify"),
+                        buttonTitle: "취소", buttonColor: .white,
+                        otherButtonTitle: "수정하기", otherButtonColor: .black) { (isOtherButton) -> Void in
+            if isOtherButton == true { }
+            else {
+                self.dismiss(animated: false)
+                self.inputContent.resignFirstResponder()
+                
+                self.inputContent.isHidden = false
+                self.contentCountLabel.isHidden = false
+                self.sendLabel.isHidden = false
+                self.sendButton.isHidden = false
+                self.fillContentWillLabel.isHidden = true
+                self.fillContentWillMoreButton.isHidden = true
+            }
+        }
+    }
+    
+    @objc private func deleteButtonTapped() {
+        alert.showAlert("", subTitle: "다른 이야기를 적어보고 싶은가요?\n삭제하면 해당 이야기는 누군가에게\n전해지지 않으며, 복구가 어려워요.",
+                        style: AlertStyle.customImage(imageFile: "trash"),
+                        buttonTitle: "취소", buttonColor: .white,
+                        otherButtonTitle: "삭제하기", otherButtonColor: .black) { (isOtherButton) -> Void in
+            if isOtherButton == true { }
+            else {
+                self.dismiss(animated: false)
+    
+                self.inputContent.isHidden = false
+                self.contentCountLabel.isHidden = false
+                self.sendLabel.isHidden = false
+                self.sendButton.isHidden = false
+                self.fillContentWillLabel.isHidden = true
+                self.fillContentWillMoreButton.isHidden = true
+
+                self.inputContent.text = Constants.textViewPlaceHolder
+                self.inputContent.textColor = .lightGray
+                self.contentCountLabel.text = "0/100"
+                self.completion(isOn: false)
+                
+                self.toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
+                                     message: "삭제가 완료됐습니다.")
+            }
+        }
     }
 }
 
 
-extension MyToday: UITextViewDelegate {
+extension MyTodayViewController: UITextViewDelegate {
 
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == textViewPlaceHolder {
+        if textView.text == Constants.textViewPlaceHolder {
             textView.text = nil
             textView.textColor = .black
         }
@@ -244,7 +326,7 @@ extension MyToday: UITextViewDelegate {
 
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            textView.text = textViewPlaceHolder
+            textView.text = Constants.textViewPlaceHolder
             textView.textColor = .lightGray
         }
     }
@@ -259,7 +341,7 @@ extension MyToday: UITextViewDelegate {
         guard let oldString = textView.text, let newRange = Range(range, in: oldString) else { return true }
         let newString = oldString.replacingCharacters(in: newRange, with: inputString).trimmingCharacters(in: .whitespacesAndNewlines)
         
-        let characterCount = newString.count
+        var characterCount = newString.count
         guard characterCount <= 100 else {
             AudioServicesPlayAlertSound(SystemSoundID(4095))
             return false
@@ -277,5 +359,29 @@ extension MyToday: UITextViewDelegate {
         
         updateCountLabel(characterCount: characterCount)
         return true
+    }
+}
+
+
+extension MyTodayViewController {
+    
+    private func setupGestureRecognizer() {
+        let tapGetstureRecognizer = UITapGestureRecognizer(target: self, action: #selector(labelTapped))
+        contentCountLabel.addGestureRecognizer(tapGetstureRecognizer)
+        contentCountLabel.isUserInteractionEnabled = true
+    }
+    
+    @objc private func labelTapped(_ tapRecognizer: UITapGestureRecognizer) {
+        alert.showAlert("", subTitle: "광고를 보면 최대 500자까지 더 많은\n마음속 이야기를 적을 수 있어요.",
+                        style: AlertStyle.customImage(imageFile: "ad"),
+                        buttonTitle: "취소", buttonColor: .white,
+                        otherButtonTitle: "광고 보기", otherButtonColor: .black) { (isOtherButton) -> Void in
+            if isOtherButton == true { }
+            else {
+                // AD
+                self.isCountLabelUpdated = false
+                self.updateCountLabel(characterCount: self.inputContent.text.count)
+            }
+        }
     }
 }

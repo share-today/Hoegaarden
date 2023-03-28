@@ -62,6 +62,20 @@ class MyThatDay: UIViewController {
         return moreButton
     }()
     
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.backgroundColor = .clear
+        scrollView.contentSize = CGSize(width: view.frame.width * 3, height: 450)
+//        scrollView.isPagingEnabled = true
+        scrollView.clipsToBounds = true
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(myThatDayCommentView)
+        scrollView.addSubview(myThatDayCommentView2)
+        scrollView.addSubview(myThatDayCommentView3)
+        return scrollView
+    }()
+    
     private lazy var myThatDayCommentView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -73,6 +87,28 @@ class MyThatDay: UIViewController {
         view.addSubview(myThatDayCommentLabel)
         view.addSubview(myThatDayCommentHeartButton)
         view.addSubview(myThatDayCommentMoreButton)
+        return view
+    }()
+    
+    private lazy var myThatDayCommentView2: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 8
+        view.clipsToBounds = true
+        view.layer.borderWidth = 1
+        view.layer.borderColor = #colorLiteral(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var myThatDayCommentView3: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 8
+        view.clipsToBounds = true
+        view.layer.borderWidth = 1
+        view.layer.borderColor = #colorLiteral(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -120,7 +156,7 @@ class MyThatDay: UIViewController {
     
     private func addViews() {
         view.addSubview(myThatDayView)
-        view.addSubview(myThatDayCommentView)
+        view.addSubview(scrollView)
     }
     
     private func setGradientLayer() {
@@ -164,11 +200,28 @@ class MyThatDay: UIViewController {
             myThatDayMoreButton.bottomAnchor.constraint(equalTo: myThatDayView.bottomAnchor, constant: -24),
             myThatDayMoreButton.trailingAnchor.constraint(equalTo: myThatDayView.trailingAnchor, constant: -30),
             
-            myThatDayCommentView.topAnchor.constraint(equalTo: myThatDayView.bottomAnchor, constant: 16),
-            myThatDayCommentView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            myThatDayCommentView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            myThatDayCommentView.widthAnchor.constraint(equalToConstant: 327),
+            scrollView.topAnchor.constraint(equalTo: myThatDayView.bottomAnchor, constant: 16),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            myThatDayCommentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            myThatDayCommentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 24),
+            myThatDayCommentView.trailingAnchor.constraint(equalTo: myThatDayCommentView2.leadingAnchor, constant: -8),
+            myThatDayCommentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -50),
             myThatDayCommentView.heightAnchor.constraint(equalToConstant: 176),
+            
+            myThatDayCommentView2.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            myThatDayCommentView2.leadingAnchor.constraint(equalTo: myThatDayCommentView.trailingAnchor, constant: 8),
+            myThatDayCommentView2.trailingAnchor.constraint(equalTo: myThatDayCommentView3.leadingAnchor, constant: -8),
+            myThatDayCommentView2.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -50),
+            myThatDayCommentView2.heightAnchor.constraint(equalToConstant: 176),
+            
+            myThatDayCommentView3.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            myThatDayCommentView3.leadingAnchor.constraint(equalTo: myThatDayCommentView2.trailingAnchor, constant: 8),
+            myThatDayCommentView3.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -24),
+            myThatDayCommentView3.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -50),
+            myThatDayCommentView3.heightAnchor.constraint(equalToConstant: 176),
             
             myThatDayCommentLabel.topAnchor.constraint(equalTo: myThatDayCommentView.topAnchor, constant: 24),
             myThatDayCommentLabel.bottomAnchor.constraint(equalTo: myThatDayCommentView.bottomAnchor, constant: -60),

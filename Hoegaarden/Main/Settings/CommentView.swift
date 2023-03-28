@@ -12,7 +12,6 @@ class CommentView: UIViewController {
     
     private let alert = SweetAlert()
     private let toast = Toast()
-    private let textViewPlaceHolder = "앱의 발전을 위해 좋은 의견 많이 부탁드\n려요. :)"
     
     private var commentLabel: UILabel = {
         let label = UILabel()
@@ -45,7 +44,7 @@ class CommentView: UIViewController {
     private lazy var inputContent: UITextView = {
         var textView = UITextView()
         textView.backgroundColor = .clear
-        textView.text = textViewPlaceHolder
+        textView.text = Constants.commentTextViewPlaceHolder
         textView.textColor = .lightGray
         textView.font = Font.air.of(size: 16)
         textView.autocapitalizationType = .none
@@ -218,7 +217,7 @@ class CommentView: UIViewController {
 extension CommentView: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == textViewPlaceHolder {
+        if textView.text == Constants.commentTextViewPlaceHolder {
             textView.text = nil
             textView.textColor = .black
         }
@@ -226,7 +225,7 @@ extension CommentView: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            textView.text = textViewPlaceHolder
+            textView.text = Constants.commentTextViewPlaceHolder
             textView.textColor = .lightGray
         }
     }
