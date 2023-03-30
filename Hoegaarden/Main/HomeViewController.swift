@@ -24,9 +24,9 @@ class HomeViewController: UIViewController {
         segment.setBackgroundImage(UIImage(), for: .normal, barMetrics: .default)
         segment.setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
         
-        segment.insertSegment(withTitle: "나의 오늘", at: 0, animated: true)
-        segment.insertSegment(withTitle: "나의 어제", at: 1, animated: true)
-        segment.insertSegment(withTitle: "누군가의 어제", at: 2, animated: true)
+        segment.insertSegment(withTitle: HomeMain.myTodayTitle, at: 0, animated: true)
+        segment.insertSegment(withTitle: HomeMain.myYesterdayTitle, at: 1, animated: true)
+        segment.insertSegment(withTitle: HomeMain.someoneYesterdayTitle, at: 2, animated: true)
         
         segment.selectedSegmentIndex = 0
         
@@ -92,7 +92,7 @@ class HomeViewController: UIViewController {
     }
     
     private lazy var leadingDistance: NSLayoutConstraint = {
-        return indicatorView.leadingAnchor.constraint(equalTo: segmentControl.leadingAnchor, constant: 30)
+        return indicatorView.leadingAnchor.constraint(equalTo: segmentControl.leadingAnchor)
     }()
     
     override func viewDidLoad() {
@@ -130,7 +130,7 @@ class HomeViewController: UIViewController {
             
             indicatorView.bottomAnchor.constraint(equalTo: segmentControl.bottomAnchor, constant: -5),
             leadingDistance,
-            indicatorView.widthAnchor.constraint(equalToConstant: 72),
+            indicatorView.widthAnchor.constraint(equalTo: segmentControl.widthAnchor, multiplier: 1 / CGFloat(segmentControl.numberOfSegments)),
             indicatorView.heightAnchor.constraint(equalToConstant: 18),
             
             lineView.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 10),
@@ -167,13 +167,10 @@ class HomeViewController: UIViewController {
         
         switch segmentControl.selectedSegmentIndex {
         case 0:
-            indicatorView.frame = CGRect(x: 20, y: 20, width: 72, height: 18)
             indicatorView.backgroundColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
         case 1:
-            indicatorView.frame = CGRect(x: 20, y: 20, width: 72, height: 18)
             indicatorView.backgroundColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
         case 2:
-            indicatorView.frame = CGRect(x: 20, y: 20, width: 92, height: 18)
             indicatorView.backgroundColor = UIColor(red: 1, green: 0.878, blue: 0.878, alpha: 1)
         default:
             break

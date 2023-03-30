@@ -24,8 +24,8 @@ class BundleStoryView: UIViewController {
         segment.setBackgroundImage(UIImage(), for: .normal, barMetrics: .default)
         segment.setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
         
-        segment.insertSegment(withTitle: "나의 그날", at: 0, animated: true)
-        segment.insertSegment(withTitle: "누군가의 그날", at: 1, animated: true)
+        segment.insertSegment(withTitle: BundleStory.myThatDayTitle, at: 0, animated: true)
+        segment.insertSegment(withTitle: BundleStory.someoneThatDayTitle, at: 1, animated: true)
         
         segment.selectedSegmentIndex = 0
         
@@ -130,7 +130,7 @@ class BundleStoryView: UIViewController {
             
             indicatorView.bottomAnchor.constraint(equalTo: segmentControl.bottomAnchor, constant: -5),
             leadingDistance,
-            indicatorView.widthAnchor.constraint(equalToConstant: 75),
+            indicatorView.widthAnchor.constraint(equalTo: segmentControl.widthAnchor, multiplier: 1 / CGFloat(segmentControl.numberOfSegments)),
             indicatorView.heightAnchor.constraint(equalToConstant: 18),
             
             lineView.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 10),
@@ -158,11 +158,9 @@ class BundleStoryView: UIViewController {
     @objc private func changeUnderLinePosition(_ sender: UISegmentedControl) {
         switch segmentControl.selectedSegmentIndex {
         case 0:
-            indicatorView.frame = CGRect(x: 50, y: 20, width: 72, height: 18)
             indicatorView.backgroundColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
             break
         case 1:
-            indicatorView.frame = CGRect(x: 50, y: 20, width: 72, height: 18)
             indicatorView.backgroundColor = UIColor(red: 1, green: 0.878, blue: 0.878, alpha: 1)
             break
         default:

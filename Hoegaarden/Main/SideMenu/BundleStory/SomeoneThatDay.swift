@@ -256,7 +256,7 @@ class SomeoneThatDay: UIViewController {
             someoneThatDayHeartButton.isSelected = true
             someoneThatDayHeartButton.setImage(UIImage(named: "heart.selected"), for: .normal)
             toast.showToast(image: UIImage(imageLiteralResourceName: "heart.selected"),
-                            message: "당신의 마음을 전달했습니다.")
+                            message: ToastMessage.heartToast)
         }
     }
     
@@ -271,11 +271,11 @@ class SomeoneThatDay: UIViewController {
                         style: AlertStyle.customImage(imageFile: "frown"),
                         buttonTitle: "취소", buttonColor: .white,
                         otherButtonTitle: "신고하기", otherButtonColor: .black) { (isOtherButton) -> Void in
-            if isOtherButton == true { }
+            if isOtherButton == true { self.dismiss(animated: false, completion: nil) }
             else {
                 self.dismiss(animated: false, completion: nil)
                 self.toast.showToast(image: UIImage(imageLiteralResourceName: "check-circle"),
-                                     message: "신고가 완료됐습니다.")
+                                     message: ToastMessage.reportToast)
             }
         }
     }
@@ -285,11 +285,11 @@ class SomeoneThatDay: UIViewController {
                         style: AlertStyle.customImage(imageFile: "trash"),
                         buttonTitle: "취소", buttonColor: .white,
                         otherButtonTitle: "삭제하기", otherButtonColor: .black) { (isOtherButton) -> Void in
-            if isOtherButton == true { }
+            if isOtherButton == true { self.dismiss(animated: false, completion: nil) }
             else {
                 self.dismiss(animated: false, completion: nil)
                 self.toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
-                                     message: "삭제가 완료됐습니다.")
+                                     message: ToastMessage.trashToast)
             }
         }
     }
@@ -305,7 +305,7 @@ class SomeoneThatDay: UIViewController {
                         style: AlertStyle.customImage(imageFile: "trash"),
                         buttonTitle: "취소", buttonColor: .white,
                         otherButtonTitle: "삭제하기", otherButtonColor: .black) { (isOtherButton) -> Void in
-            if isOtherButton == true { }
+            if isOtherButton == true { self.dismiss(animated: false, completion: nil) }
             else {
                 self.dismiss(animated: false, completion: nil)
                 
@@ -315,11 +315,13 @@ class SomeoneThatDay: UIViewController {
                 self.someoneThatDayCommentMoreButton.isHidden = true
                 
                 NSLayoutConstraint.activate([
-                    self.someoneThatDayView.heightAnchor.constraint(equalToConstant: 240)
+                    self.someoneThatDayView.heightAnchor.constraint(equalToConstant: 240),
+                    
+                    self.someoneThatDayContentLabel.bottomAnchor.constraint(equalTo: self.someoneThatDayView.bottomAnchor, constant: -68)
                 ])
                 
                 self.toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
-                                     message: "삭제가 완료됐습니다.")
+                                     message: ToastMessage.trashToast)
             }
         }
     }

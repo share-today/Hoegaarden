@@ -112,7 +112,7 @@ class SomeoneYesterdayViewController: UIViewController {
     private lazy var someoneYesterdayInputContent: UITextView = {
         var textView = UITextView()
         textView.backgroundColor = .clear
-        textView.text = Constants.textViewPlaceHolder
+        textView.text = HomeMain.textViewPlaceHolder
         textView.textColor = .lightGray
         textView.font = Font.air.of(size: 16)
         textView.autocapitalizationType = .none
@@ -293,7 +293,6 @@ class SomeoneYesterdayViewController: UIViewController {
             fillContentWillCommentLabel.topAnchor.constraint(equalTo: someoneYesterdayCommentView.topAnchor, constant: 24),
             fillContentWillCommentLabel.leadingAnchor.constraint(equalTo: someoneYesterdayCommentView.leadingAnchor, constant: 24),
             fillContentWillCommentLabel.trailingAnchor.constraint(equalTo: someoneYesterdayCommentView.trailingAnchor, constant: -24),
-            fillContentWillCommentLabel.bottomAnchor.constraint(equalTo: someoneYesterdayCommentView.bottomAnchor, constant: -60),
 
             fillContentWillCommentMoreButton.trailingAnchor.constraint(equalTo: someoneYesterdayCommentView.trailingAnchor, constant: -30),
             fillContentWillCommentMoreButton.bottomAnchor.constraint(equalTo: someoneYesterdayCommentView.bottomAnchor, constant: -24)
@@ -390,7 +389,7 @@ class SomeoneYesterdayViewController: UIViewController {
             someoneYesterdayHeartButton.isSelected = true
             someoneYesterdayHeartButton.setImage(UIImage(named: "heart.selected"), for: .normal)
             toast.showToast(image: UIImage(imageLiteralResourceName: "heart.selected"),
-                            message: "당신의 마음을 전달했습니다.")
+                            message: ToastMessage.heartToast)
         }
     }
     
@@ -405,11 +404,11 @@ class SomeoneYesterdayViewController: UIViewController {
                         style: AlertStyle.customImage(imageFile: "frown"),
                         buttonTitle: "취소", buttonColor: .white,
                         otherButtonTitle: "삭제하기", otherButtonColor: .black) { (isOtherButton) -> Void in
-            if isOtherButton == true { }
+            if isOtherButton == true { self.dismiss(animated: false, completion: nil) }
             else {
                 self.dismiss(animated: false, completion: nil)
                 self.toast.showToast(image: UIImage(imageLiteralResourceName: "check-circle"),
-                                     message: "신고가 완료됐습니다.")
+                                     message: ToastMessage.reportToast)
             }
         }
     }
@@ -419,16 +418,15 @@ class SomeoneYesterdayViewController: UIViewController {
                         style: AlertStyle.customImage(imageFile: "trash"),
                         buttonTitle: "취소", buttonColor: .white,
                         otherButtonTitle: "삭제하기", otherButtonColor: .black) { (isOtherButton) -> Void in
-            if isOtherButton == true { }
+            if isOtherButton == true { self.dismiss(animated: false, completion: nil) }
             else {
                 self.dismiss(animated: false, completion: nil)
-                self.emptyStateAllDeletedView()
                 
                 self.someoneYesterdayView.isHidden = true
                 self.someoneYesterdayCommentView.isHidden = true
                     
                 self.toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
-                                     message: "삭제가 완료됐습니다.")
+                                     message: ToastMessage.trashToast)
             }
         }
     }
@@ -438,7 +436,7 @@ class SomeoneYesterdayViewController: UIViewController {
                         style: AlertStyle.customImage(imageFile: "send"),
                         buttonTitle: "취소", buttonColor: .white,
                         otherButtonTitle: "보내기", otherButtonColor: .black) { (isOtherButton) -> Void in
-            if isOtherButton == true { }
+            if isOtherButton == true { self.dismiss(animated: false, completion: nil) }
             else {
                 self.someoneYesterdayInputContent.resignFirstResponder()
                 
@@ -452,7 +450,7 @@ class SomeoneYesterdayViewController: UIViewController {
                 self.fillContentWillCommentLabel.text = self.someoneYesterdayInputContent.text
 
                 self.toast.showToast(image: UIImage(imageLiteralResourceName: "send"),
-                                     message: "전송이 완료됐습니다.")
+                                     message: ToastMessage.sendToast)
             }
         }
     }
@@ -468,7 +466,7 @@ class SomeoneYesterdayViewController: UIViewController {
                         style: AlertStyle.customImage(imageFile: "modify"),
                         buttonTitle: "취소", buttonColor: .white,
                         otherButtonTitle: "수정하기", otherButtonColor: .black) { (isOtherButton) -> Void in
-            if isOtherButton == true { }
+            if isOtherButton == true { self.dismiss(animated: false, completion: nil) }
             else {
                 self.dismiss(animated: false)
                 self.someoneYesterdayInputContent.resignFirstResponder()
@@ -488,7 +486,7 @@ class SomeoneYesterdayViewController: UIViewController {
                         style: AlertStyle.customImage(imageFile: "trash"),
                         buttonTitle: "취소", buttonColor: .white,
                         otherButtonTitle: "삭제하기", otherButtonColor: .black) { (isOtherButton) -> Void in
-            if isOtherButton == true { }
+            if isOtherButton == true { self.dismiss(animated: false, completion: nil) }
             else {
                 self.dismiss(animated: false)
     
@@ -499,13 +497,13 @@ class SomeoneYesterdayViewController: UIViewController {
                 self.fillContentWillCommentLabel.isHidden = true
                 self.fillContentWillCommentMoreButton.isHidden = true
 
-                self.someoneYesterdayInputContent.text = Constants.textViewPlaceHolder
+                self.someoneYesterdayInputContent.text = HomeMain.textViewPlaceHolder
                 self.someoneYesterdayInputContent.textColor = .lightGray
                 self.someoneYesterdayContentCountLabel.text = "0/50"
                 self.completion(isOn: false)
                 
                 self.toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
-                                     message: "삭제가 완료됐습니다.")
+                                     message: ToastMessage.trashToast)
             }
         }
     }
@@ -515,18 +513,18 @@ class SomeoneYesterdayViewController: UIViewController {
 extension SomeoneYesterdayViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == Constants.textViewPlaceHolder {
+        if textView.text == HomeMain.textViewPlaceHolder {
             textView.text = nil
             textView.textColor = .black
         }
     }
     
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            textView.text = Constants.textViewPlaceHolder
-            textView.textColor = .lightGray
-        }
-    }
+//    func textViewDidEndEditing(_ textView: UITextView) {
+//        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+//            textView.text = Constants.textViewPlaceHolder
+//            textView.textColor = .lightGray
+//        }
+//    }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
@@ -539,12 +537,16 @@ extension SomeoneYesterdayViewController: UITextViewDelegate {
         let newString = oldString.replacingCharacters(in: newRange, with: inputString).trimmingCharacters(in: .whitespacesAndNewlines)
         
         let characterCount = newString.count
-        guard characterCount <= 50 else { return false }
+        if isCountLabelUpdated {
+            guard characterCount <= 50 else { return false }
+        } else {
+            guard characterCount <= 300 else { return false }
+        }
         
         if characterCount >= 1 {
             completion(isOn: true)
             
-            if characterCount == 40 {
+            if isCountLabelUpdated && characterCount == 40 {
                 keyboardTopToastMessage()
             }
         } else {
@@ -579,31 +581,3 @@ extension SomeoneYesterdayViewController {
         }
     }
 }
-
-
-
-
-//private var isCountLabelUpdated = true
-//
-//private func updateCountLabel(characterCount: Int) {
-//    if isCountLabelUpdated {
-//        contentCountLabel.text = "\(characterCount)/100"
-//    } else {
-//        contentCountLabel.text = "\(characterCount)/500"
-//    }
-//}
-//
-//func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-//
-//    let inputString = text.trimmingCharacters(in: .whitespacesAndNewlines)
-//    guard let oldString = textView.text, let newRange = Range(range, in: oldString) else { return true }
-//    let newString = oldString.replacingCharacters(in: newRange, with: inputString).trimmingCharacters(in: .whitespacesAndNewlines)
-//
-//    var characterCount = newString.count
-//    guard characterCount <= 100 else { return false }
-//
-//    updateCountLabel(characterCount: characterCount)
-//    return true
-//}
-
-

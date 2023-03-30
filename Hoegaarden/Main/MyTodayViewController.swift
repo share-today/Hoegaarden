@@ -42,7 +42,7 @@ class MyTodayViewController: UIViewController {
     private lazy var inputContent: UITextView = {
         var textView = UITextView()
         textView.backgroundColor = .clear
-        textView.text = Constants.textViewPlaceHolder
+        textView.text = HomeMain.textViewPlaceHolder
         textView.textColor = .lightGray
         textView.font = Font.air.of(size: 16)
         textView.autocapitalizationType = .none
@@ -167,7 +167,6 @@ class MyTodayViewController: UIViewController {
             sendButton.heightAnchor.constraint(equalToConstant: 20),
             
             fillContentWillLabel.topAnchor.constraint(equalTo: todayDateLabel.topAnchor, constant: 68),
-            fillContentWillLabel.bottomAnchor.constraint(equalTo: myTodayView.bottomAnchor, constant: -68),
             fillContentWillLabel.leadingAnchor.constraint(equalTo: myTodayView.leadingAnchor, constant: 24),
             fillContentWillLabel.trailingAnchor.constraint(equalTo: myTodayView.trailingAnchor, constant: -24),
             
@@ -255,7 +254,7 @@ class MyTodayViewController: UIViewController {
                 self.fillContentWillLabel.text = self.inputContent.text
                 
                 self.toast.showToast(image: UIImage(imageLiteralResourceName: "send"),
-                                     message: "전송이 완료됐습니다.")
+                                     message: ToastMessage.sendToast)
             }
         }
     }
@@ -267,11 +266,11 @@ class MyTodayViewController: UIViewController {
     }
     
     @objc private func modifyButtonTapped() {
-        alert.showAlert("", subTitle: "이야기를 수정하겠어요?\n누군가는 이미 수정 전 이야기를\n확인했을 수도 있어요.",
+        alert.showAlert("", subTitle: AlertMessage.modifyMessage,
                         style: AlertStyle.customImage(imageFile: "modify"),
                         buttonTitle: "취소", buttonColor: .white,
                         otherButtonTitle: "수정하기", otherButtonColor: .black) { (isOtherButton) -> Void in
-            if isOtherButton == true { }
+            if isOtherButton == true { self.dismiss(animated: false, completion: nil) }
             else {
                 self.dismiss(animated: false)
                 self.inputContent.resignFirstResponder()
@@ -287,11 +286,11 @@ class MyTodayViewController: UIViewController {
     }
     
     @objc private func deleteButtonTapped() {
-        alert.showAlert("", subTitle: "다른 이야기를 적어보고 싶은가요?\n삭제하면 해당 이야기는 누군가에게\n전해지지 않으며, 복구가 어려워요.",
+        alert.showAlert("", subTitle: AlertMessage.trashMessage,
                         style: AlertStyle.customImage(imageFile: "trash"),
                         buttonTitle: "취소", buttonColor: .white,
                         otherButtonTitle: "삭제하기", otherButtonColor: .black) { (isOtherButton) -> Void in
-            if isOtherButton == true { }
+            if isOtherButton == true { self.dismiss(animated: false, completion: nil) }
             else {
                 self.dismiss(animated: false)
     
@@ -302,13 +301,13 @@ class MyTodayViewController: UIViewController {
                 self.fillContentWillLabel.isHidden = true
                 self.fillContentWillMoreButton.isHidden = true
 
-                self.inputContent.text = Constants.textViewPlaceHolder
+                self.inputContent.text = HomeMain.textViewPlaceHolder
                 self.inputContent.textColor = .lightGray
                 self.contentCountLabel.text = "0/100"
                 self.completion(isOn: false)
                 
                 self.toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
-                                     message: "삭제가 완료됐습니다.")
+                                     message: ToastMessage.trashToast)
             }
         }
     }
@@ -318,18 +317,18 @@ class MyTodayViewController: UIViewController {
 extension MyTodayViewController: UITextViewDelegate {
 
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == Constants.textViewPlaceHolder {
+        if textView.text == HomeMain.textViewPlaceHolder {
             textView.text = nil
             textView.textColor = .black
         }
     }
 
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            textView.text = Constants.textViewPlaceHolder
-            textView.textColor = .lightGray
-        }
-    }
+//    func textViewDidEndEditing(_ textView: UITextView) {
+//        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+//            textView.text = Constants.textViewPlaceHolder
+//            textView.textColor = .lightGray
+//        }
+//    }
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
@@ -341,16 +340,18 @@ extension MyTodayViewController: UITextViewDelegate {
         guard let oldString = textView.text, let newRange = Range(range, in: oldString) else { return true }
         let newString = oldString.replacingCharacters(in: newRange, with: inputString).trimmingCharacters(in: .whitespacesAndNewlines)
         
-        var characterCount = newString.count
-        guard characterCount <= 100 else {
-            AudioServicesPlayAlertSound(SystemSoundID(4095))
-            return false
+        let characterCount = newString.count
+        
+        if isCountLabelUpdated {
+            guard characterCount <= 100 else { return false }
+        } else {
+            guard characterCount <= 500 else { return false }
         }
         
         if characterCount > 9 {
             completion(isOn: true)
             
-            if characterCount == 90 {
+            if isCountLabelUpdated && characterCount == 90 {
                 keyboardTopToastMessage()
             }
         } else {
@@ -385,3 +386,4 @@ extension MyTodayViewController {
         }
     }
 }
+

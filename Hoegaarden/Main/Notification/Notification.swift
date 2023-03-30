@@ -24,7 +24,7 @@ class Notification: UIViewController {
     
     private var noticeLabel: UILabel = {
         let label = UILabel()
-        label.text = "알림"
+        label.text = Notices.noticeMain
         label.textColor = .black
         label.font = Font.bold.of(size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -50,7 +50,7 @@ class Notification: UIViewController {
     
     private lazy var yesterdayHeartDate: UILabel = {
         let label = UILabel()
-        label.text = "00분 전"
+        label.text = Notices.minuteAgo
         label.font = Font.air.of(size: 14)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +59,7 @@ class Notification: UIViewController {
     
     private lazy var yesterdayHeartContent: UILabel = {
         let label = UILabel()
-        label.text = "❤️ 누군가 당신의 어제에 마음을 보냈어요."
+        label.text = Notices.yesterdayHeartNotice
         label.font = Font.air.of(size: 14)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -78,7 +78,7 @@ class Notification: UIViewController {
     
     private lazy var commentHeartDate: UILabel = {
         let label = UILabel()
-        label.text = "00월 00일"
+        label.text = Notices.dateAgo
         label.font = Font.air.of(size: 14)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -87,7 +87,7 @@ class Notification: UIViewController {
     
     private lazy var commentHeartContent: UILabel = {
         let label = UILabel()
-        label.text = "❤️ 당신이 보내준 코멘트가 누군가의 마음에 닿았어요."
+        label.text = Notices.heartNotice
         label.font = Font.air.of(size: 14)
         label.textColor = .black
         label.numberOfLines = 0
@@ -109,7 +109,7 @@ class Notification: UIViewController {
     
     private lazy var noticeDate: UILabel = {
         let label = UILabel()
-        label.text = "00월 00일"
+        label.text = Notices.dateAgo
         label.font = Font.air.of(size: 14)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -118,7 +118,7 @@ class Notification: UIViewController {
     
     private lazy var noticeContent: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("📢 좋은 소식이 있어요! 클릭하여 확인해 주세요!", for: .normal)
+        button.setTitle(Notices.allNotice, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
         button.titleLabel?.font = Font.air.of(size: 14)

@@ -251,16 +251,28 @@ class MyYesterdayViewController: UIViewController {
                         style: AlertStyle.customImage(imageFile: "trash"),
                         buttonTitle: "취소", buttonColor: .white,
                         otherButtonTitle: "삭제하기", otherButtonColor: .black) { (isOtherButton) -> Void in
-            if isOtherButton == true { }
+            if isOtherButton == true { self.dismiss(animated: false, completion: nil) }
             else {
                 self.dismiss(animated: false, completion: nil)
-                self.emptyStateView()
                 
-                self.myYesterdayView.isHidden = true
                 self.myYesterdayCommentView.isHidden = true
                 
+                NSLayoutConstraint.activate([
+                    self.myYesterdayCommentView2.topAnchor.constraint(equalTo: self.scrollView.topAnchor),
+                    self.myYesterdayCommentView2.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor, constant: 24),
+                    self.myYesterdayCommentView2.trailingAnchor.constraint(equalTo: self.myYesterdayCommentView3.leadingAnchor, constant: -8),
+                    self.myYesterdayCommentView2.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor, constant: -50),
+                    self.myYesterdayCommentView2.heightAnchor.constraint(equalToConstant: 176),
+                    
+                    self.myYesterdayCommentView3.topAnchor.constraint(equalTo: self.scrollView.topAnchor),
+                    self.myYesterdayCommentView3.leadingAnchor.constraint(equalTo: self.myYesterdayCommentView2.trailingAnchor, constant: 8),
+                    self.myYesterdayCommentView3.trailingAnchor.constraint(equalTo: self.scrollView.trailingAnchor, constant: -24),
+                    self.myYesterdayCommentView3.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor, constant: -50),
+                    self.myYesterdayCommentView3.heightAnchor.constraint(equalToConstant: 176)
+                ])
+                
                 self.toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
-                                     message: "삭제가 완료됐습니다.")
+                                     message: ToastMessage.trashToast)
             }
         }
     }
@@ -274,7 +286,7 @@ class MyYesterdayViewController: UIViewController {
             myYesterdayCommentHeartButton.isSelected = true
             myYesterdayCommentHeartButton.setImage(UIImage(named: "heart.selected"), for: .normal)
             toast.showToast(image: UIImage(imageLiteralResourceName: "heart.selected"),
-                            message: "당신의 마음을 전달했습니다.")
+                            message: ToastMessage.heartToast)
         }
     }
     
@@ -289,11 +301,11 @@ class MyYesterdayViewController: UIViewController {
                         style: AlertStyle.customImage(imageFile: "frown"),
                         buttonTitle: "취소", buttonColor: .white,
                         otherButtonTitle: "신고하기", otherButtonColor: .black) { (isOtherButton) -> Void in
-            if isOtherButton == true { }
+            if isOtherButton == true { self.dismiss(animated: false, completion: nil) }
             else {
                 self.dismiss(animated: false, completion: nil)
                 self.toast.showToast(image: UIImage(imageLiteralResourceName: "check-circle"),
-                                     message: "신고가 완료됐습니다.")
+                                     message: ToastMessage.reportToast)
             }
         }
     }
@@ -303,29 +315,12 @@ class MyYesterdayViewController: UIViewController {
                         style: AlertStyle.customImage(imageFile: "trash"),
                         buttonTitle: "취소", buttonColor: .white,
                         otherButtonTitle: "삭제하기", otherButtonColor: .black) { (isOtherButton) -> Void in
-            if isOtherButton == true { }
+            if isOtherButton == true { self.dismiss(animated: false, completion: nil) }
             else {
                 self.dismiss(animated: false, completion: nil)
                 self.toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
-                                     message: "삭제가 완료됐습니다.")
+                                     message: ToastMessage.trashToast)
             }
         }
     }
 }
-
-//func textViewDidChange(_ textView: UITextView) {
-//    let characterCount = textView.text.trimmingCharacters(in: .whitespacesAndNewlines).count
-//    if characterCount > 50 {
-//        textView.text = String(textView.text.prefix(50))
-//        updateCountLabel(characterCount: 50)
-//    } else {
-//        updateCountLabel(characterCount: characterCount)
-//    }
-//}
-//
-//func textViewDidEndEditing(_ textView: UITextView) {
-//    if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-//        textView.text = textViewPlaceHolder
-//        textView.textColor = .lightGray
-//    }
-//}

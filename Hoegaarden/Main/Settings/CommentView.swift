@@ -44,7 +44,7 @@ class CommentView: UIViewController {
     private lazy var inputContent: UITextView = {
         var textView = UITextView()
         textView.backgroundColor = .clear
-        textView.text = Constants.commentTextViewPlaceHolder
+        textView.text = HomeMain.commentTextViewPlaceHolder
         textView.textColor = .lightGray
         textView.font = Font.air.of(size: 16)
         textView.autocapitalizationType = .none
@@ -217,7 +217,7 @@ class CommentView: UIViewController {
 extension CommentView: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == Constants.commentTextViewPlaceHolder {
+        if textView.text == HomeMain.commentTextViewPlaceHolder {
             textView.text = nil
             textView.textColor = .black
         }
@@ -225,7 +225,7 @@ extension CommentView: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            textView.text = Constants.commentTextViewPlaceHolder
+            textView.text = HomeMain.commentTextViewPlaceHolder
             textView.textColor = .lightGray
         }
     }

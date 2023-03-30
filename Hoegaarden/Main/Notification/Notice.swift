@@ -22,7 +22,7 @@ class Notice: UIViewController {
     
     private lazy var noticeLabel: UILabel = {
         let label = UILabel()
-        label.text = "알림"
+        label.text = Notices.noticeMain
         label.textColor = .black
         label.font = Font.bold.of(size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +52,7 @@ class Notice: UIViewController {
     
     private lazy var noticeDate: UILabel = {
         let label = UILabel()
-        label.text = "00월 00일"
+        label.text = Notices.dateAgo
         label.font = Font.air.of(size: 14)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -61,7 +61,7 @@ class Notice: UIViewController {
 
     private lazy var noticeContent: UILabel = {
         let label = UILabel()
-        label.text = "📢 좋은 소식이 있어요! 클릭하여 확인해 주세요!\n\n안녕하세요. 여러분 하루공유가 정말 좋은 소식을 들려주려 합니다. OO 이벤트를 통해 좀 더 여러분의 하루를 풍요롭게 하려 합니다.\n\n참여 방법은 하단에 더욱 자세히 나와있으니 참고 부탁드려요. ;)"
+        label.text = Notices.allNoticeContent
         label.font = Font.air.of(size: 14)
         label.textColor = .black
         label.numberOfLines = 0

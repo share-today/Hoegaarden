@@ -84,10 +84,10 @@ class HomeSide: UIViewController {
             xButton.topAnchor.constraint(equalTo: sideMenuView.safeAreaLayoutGuide.topAnchor, constant: 20),
             xButton.trailingAnchor.constraint(equalTo: sideMenuView.trailingAnchor, constant: -30),
             
-            tableView.topAnchor.constraint(equalTo: sideMenuView.safeAreaLayoutGuide.topAnchor, constant: 240),
-            tableView.leadingAnchor.constraint(equalTo: sideMenuView.leadingAnchor, constant: 30),
-            tableView.trailingAnchor.constraint(equalTo: sideMenuView.trailingAnchor, constant: -30),
-            tableView.bottomAnchor.constraint(equalTo: sideMenuView.bottomAnchor, constant: -220)
+            tableView.centerXAnchor.constraint(equalTo: sideMenuView.centerXAnchor),
+            tableView.centerYAnchor.constraint(equalTo: sideMenuView.centerYAnchor),
+            tableView.widthAnchor.constraint(equalTo: sideMenuView.widthAnchor, constant: -60),
+            tableView.heightAnchor.constraint(equalToConstant: 300)
         ])
     }
     
@@ -105,7 +105,6 @@ class HomeSide: UIViewController {
             }
         }
     }
-    
 }
 
 

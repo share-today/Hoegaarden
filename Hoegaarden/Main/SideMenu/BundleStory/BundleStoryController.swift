@@ -33,10 +33,12 @@ class BundleStoryController: UIViewController, FSCalendarDataSource, FSCalendarD
         calendar.appearance.titleDefaultColor = .lightGray
         calendar.appearance.titleFont = Font.air.of(size: 16)
         calendar.appearance.titleTodayColor = .black
+        calendar.appearance.titleSelectionColor = .black
+
         calendar.appearance.todayColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
         calendar.appearance.selectionColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
-        calendar.appearance.titleSelectionColor = .black
         
+//        calendar.delegate = self
         return calendar
     }()
     
@@ -80,11 +82,6 @@ class BundleStoryController: UIViewController, FSCalendarDataSource, FSCalendarD
             image: image, style: .done,
             target: self, action: #selector(showSideMenu))
     }
-    
-    // 현재 달 이전은 안 보여주기
-    func minimumDate(for calendar: FSCalendar) -> Date {
-        return Date()
-    }
 
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         let nextVC = BundleStoryView()
@@ -92,6 +89,11 @@ class BundleStoryController: UIViewController, FSCalendarDataSource, FSCalendarD
         let nav = UINavigationController(rootViewController: nextVC)
         nav.modalPresentationStyle = .overFullScreen
         present(nav, animated: true, completion: nil)
+    }
+    
+    // 현재 달부터 보여줌
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        calendar.currentPage = Date()
     }
     
     @objc private func showSideMenu() {
