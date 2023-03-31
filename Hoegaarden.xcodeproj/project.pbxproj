@@ -13,6 +13,7 @@
 		1C17CF3E29D2E943006988FE /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C17CF3D29D2E943006988FE /* Label.swift */; };
 		1C1F3163297F6CC100D76B35 /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1F3162297F6CC100D76B35 /* SettingController.swift */; };
 		1C3B0117299B7ACA0052C3AD /* AlertFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3B0116299B7ACA0052C3AD /* AlertFile.swift */; };
+		1C514BE029D56D6E0082195A /* AcceptLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C514BDF29D56D6E0082195A /* AcceptLoginViewController.swift */; };
 		1C62F533298BADAB003EB5A7 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62F532298BADAB003EB5A7 /* Toast.swift */; };
 		1C7221B3298901ED002C326E /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7221B2298901ED002C326E /* PrivacyView.swift */; };
 		1C7221B5298902A0002C326E /* OpenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7221B4298902A0002C326E /* OpenView.swift */; };
@@ -54,6 +55,7 @@
 		1C17CF3D29D2E943006988FE /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		1C1F3162297F6CC100D76B35 /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
 		1C3B0116299B7ACA0052C3AD /* AlertFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertFile.swift; sourceTree = "<group>"; };
+		1C514BDF29D56D6E0082195A /* AcceptLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptLoginViewController.swift; sourceTree = "<group>"; };
 		1C62F532298BADAB003EB5A7 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		1C7221B2298901ED002C326E /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
 		1C7221B4298902A0002C326E /* OpenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenView.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 			children = (
 				1CD9724429642D1800A4D62F /* LoginView.swift */,
 				1CD9724629642D6300A4D62F /* LoginViewController.swift */,
+				1C514BDF29D56D6E0082195A /* AcceptLoginViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -382,6 +385,7 @@
 				1CD9722F29642C6600A4D62F /* AppDelegate.swift in Sources */,
 				1CA60BC729BA16E60009CA3C /* BundleStoryView.swift in Sources */,
 				1CA60B7729AF1A820009CA3C /* HomeSide.swift in Sources */,
+				1C514BE029D56D6E0082195A /* AcceptLoginViewController.swift in Sources */,
 				1CA60BF529C0779E0009CA3C /* LaunchScreenViewController.swift in Sources */,
 				1CDC90B029ADE7E60093A0D3 /* AlertAction.swift in Sources */,
 				1C17CF3B29D2AC59006988FE /* MyTodayViewController.swift in Sources */,

@@ -29,7 +29,7 @@ class UnregisterView: UIViewController {
     
     private var contentLabel: UILabel = {
         let label = UILabel()
-        label.text = " 회원 탈퇴를 신청하기 전에 안내 사항을 꼭 확인해주세요.\n\n· 사용하고 계신 이메일 로그인 정보는 탈퇴할 경우 하루 동안 재가입이 불가능합니다.\n\n· 탈퇴 후 회원 정보 및 서비스 이용기록은 모두 삭제되어 복구가 불가능합니다.\n· 삭제된 데이터는 복구되지 않습니다. 삭제되는 내용을 확인하시고 필요한 데이터는 미리 백업해주세요.\n· 삭제정보: SNS 로그인 정보, 닉네임, 나의 그날 게시물, 다른 사람의 게시물에 반응한 좋아요 및 코멘트 기록"
+        label.text = Settings.unregisterContent
         label.numberOfLines = 0
         label.textColor = .black
         label.font = Font.air.of(size: 16)
@@ -43,7 +43,6 @@ class UnregisterView: UIViewController {
         let image = UIImage(named: "checkBox_empty")
         button.setImage(image, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(checkBoxButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -61,6 +60,7 @@ class UnregisterView: UIViewController {
         
         setup()
         addViews()
+        setupAddTarget()
         configureNavigationBarButton()
         setConstraints()
         completion(isOn: false)
@@ -76,6 +76,10 @@ class UnregisterView: UIViewController {
         view.addSubview(contentLabel)
         view.addSubview(checkBoxButton)
         view.addSubview(checkLabel)
+    }
+    
+    private func setupAddTarget() {
+        checkBoxButton.addTarget(self, action: #selector(checkBoxButtonTapped), for: .touchUpInside)
     }
     
     private func configureNavigationBarButton() {

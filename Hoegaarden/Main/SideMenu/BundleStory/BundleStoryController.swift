@@ -17,10 +17,9 @@ class BundleStoryController: UIViewController, FSCalendarDataSource, FSCalendarD
         calendar.backgroundColor = .white
         calendar.scrollEnabled = true
         calendar.pagingEnabled = false
-        calendar.headerHeight = 100.0
         calendar.placeholderType = .none      // 이번 달이 아닌 날짜 나타나지 않게 하기
-       
     
+        calendar.headerHeight = 100.0
         calendar.appearance.headerDateFormat = "YY년 MM월"
         calendar.appearance.headerTitleColor = .black
         calendar.appearance.headerTitleAlignment = .left
@@ -33,12 +32,13 @@ class BundleStoryController: UIViewController, FSCalendarDataSource, FSCalendarD
         calendar.appearance.titleDefaultColor = .lightGray
         calendar.appearance.titleFont = Font.air.of(size: 16)
         calendar.appearance.titleTodayColor = .black
-        calendar.appearance.titleSelectionColor = .black
+        calendar.appearance.titleSelectionColor = .lightGray
 
-        calendar.appearance.todayColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
-        calendar.appearance.selectionColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
+        calendar.appearance.eventDefaultColor = .lightGray
+        calendar.appearance.eventSelectionColor = .black
         
-//        calendar.delegate = self
+        calendar.appearance.todayColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
+        calendar.appearance.selectionColor = .white
         return calendar
     }()
     
@@ -91,9 +91,43 @@ class BundleStoryController: UIViewController, FSCalendarDataSource, FSCalendarD
         present(nav, animated: true, completion: nil)
     }
     
-    // 현재 달부터 보여줌
-    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        calendar.currentPage = Date()
+    fileprivate lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
+    
+    func minimumDate(for calendar: FSCalendar) -> Date {
+        return self.dateFormatter.date(from: "2023-03-30")!
+    }
+        
+    func maximumDate(for calendar: FSCalendar) -> Date {
+        return self.dateFormatter.date(from: "2023-12-31")!
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleFontFor date: Date) -> UIFont? {
+        if calendar.gregorian.isDateInToday(date) {
+            return Font.bold.of(size: 16)
+        }
+        return nil
+    }
+    
+    func swipeRecognizer() {
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture(_:)))
+        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+        self.view.addGestureRecognizer(swipeRight)
+        
+    }
+    
+    @objc func respondToSwipeGesture(_ gesture: UIGestureRecognizer){
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction{
+            case UISwipeGestureRecognizer.Direction.left:
+                // 스와이프 시, 원하는 기능 구현.
+                self.dismiss(animated: true, completion: nil)
+            default: break
+            }
+        }
     }
     
     @objc private func showSideMenu() {
