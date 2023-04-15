@@ -16,18 +16,6 @@ class SomeoneYesterdayViewController: UIViewController {
     private let modifyAndDeleteAlertAction = ModifyAndDeleteAlertAction()
     private var isCountLabelUpdated = true
     
-    private enum Const {
-        static let itemSize = CGSize(width: 300, height: 400)
-        static let itemSpacing = 24.0
-        
-        static var insetX: CGFloat {
-            (UIScreen.main.bounds.width - Self.itemSize.width) / 2.0
-        }
-        static var collectionViewContentInset: UIEdgeInsets {
-            UIEdgeInsets(top: 0, left: Self.insetX, bottom: 0, right: Self.insetX)
-        }
-    }
-    
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsHorizontalScrollIndicator = false
@@ -41,24 +29,24 @@ class SomeoneYesterdayViewController: UIViewController {
     
     private var someoneYesterdayView: [UIView] = []
     
-    private lazy var someoneYesterdayDateLabel: UILabel = {
-        let label = UILabel()
-        label.text = "00년 00월 00일"
-        label.textColor = .black
-        label.font = Font.air.of(size: 12)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private lazy var someoneYesterdayContentLabel: UILabel = {
-        let label = UILabel()
-        label.text = "하고 싶은 일이 있는데 뜻대로 되지 않아요. 친구들은 그저 제 배경만 보고 부러워 하지만 그 안에서의 저는 죽을 맛입니다."
-        label.textColor = .black
-        label.font = Font.air.of(size: 16)
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+//    private lazy var someoneYesterdayDateLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = "00년 00월 00일"
+//        label.textColor = .black
+//        label.font = Font.air.of(size: 12)
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        return label
+//    }()
+//
+//    private lazy var someoneYesterdayContentLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = HomeMain.someoneYesterdayContent
+//        label.textColor = .black
+//        label.font = Font.air.of(size: 16)
+//        label.numberOfLines = 0
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        return label
+//    }()
     
     private lazy var someoneYesterdayHeartButton: UIButton = {
         let button = UIButton()
@@ -67,7 +55,7 @@ class SomeoneYesterdayViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     private lazy var someoneYesterdayMoreButton: UIButton = {
         let button = UIButton()
         let image = UIImage(named: "more")
@@ -152,7 +140,7 @@ class SomeoneYesterdayViewController: UIViewController {
         addViews()
 //        setGradientLayer()
         setTapGesture()
-        createMultipleShowViews()
+        setViews()
         setConstraints()
         setupAddTarget()
         completion(isOn: false)
@@ -164,7 +152,7 @@ class SomeoneYesterdayViewController: UIViewController {
     }
     
     private func addViews() {
-        view.addSubview(scrollView)
+        
     }
     
 //    private func setGradientLayer() {
@@ -185,14 +173,7 @@ class SomeoneYesterdayViewController: UIViewController {
         view.addGestureRecognizer(tapGesture)
     }
     
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let scrolledOffsetX = targetContentOffset.pointee.x + scrollView.contentInset.left
-        let cellWidth = Const.itemSize.width + Const.itemSpacing
-        let index = round(scrolledOffsetX / cellWidth)
-        targetContentOffset.pointee = CGPoint(x: index * cellWidth - scrollView.contentInset.left, y: scrollView.contentInset.top)
-    }
-    
-    private func createMultipleShowViews() {
+    private func setViews() {
         var previousView: UIView?
         for i in 0..<5 {
             if scrollView.superview == nil {
@@ -208,17 +189,171 @@ class SomeoneYesterdayViewController: UIViewController {
             let view = UIView()
             view.layer.cornerRadius = 8
             view.clipsToBounds = false
-            view.backgroundColor = .white
-            view.layer.borderWidth = 1
-            view.layer.borderColor = UIColor.black.cgColor
+            view.backgroundColor = UIColor(red: 1, green: 0.904, blue: 0.904, alpha: 1)
             view.translatesAutoresizingMaskIntoConstraints = false
             scrollView.addSubview(view)
             someoneYesterdayView.append(view)
             
+            let someoneYesterdayDateLabel: UILabel = {
+                let label = UILabel()
+                label.text = "00년 00월 00일"
+                label.textColor = .black
+                label.font = Font.air.of(size: 12)
+                label.translatesAutoresizingMaskIntoConstraints = false
+                return label
+            }()
+            
+            let someoneYesterdayContentLabel: UILabel = {
+                let label = UILabel()
+                label.text = HomeMain.someoneYesterdayContent
+                label.textColor = .black
+                label.font = Font.air.of(size: 16)
+                label.numberOfLines = 0
+                label.translatesAutoresizingMaskIntoConstraints = false
+                return label
+            }()
+            
+            let someoneYesterdayHeartButton: UIButton = {
+                let button = UIButton()
+                let image = UIImage(named: "heart")
+                button.setImage(image, for: .normal)
+                button.translatesAutoresizingMaskIntoConstraints = false
+                return button
+            }()
+            
+            let someoneYesterdayMoreButton: UIButton = {
+                let button = UIButton()
+                let image = UIImage(named: "more")
+                button.setImage(image, for: .normal)
+                button.translatesAutoresizingMaskIntoConstraints = false
+                return button
+            }()
+            
+            let someoneYesterdayCommentView: UIView = {
+                let view = UIView()
+                view.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.8)
+                view.layer.cornerRadius = 8
+                view.clipsToBounds = true
+                view.translatesAutoresizingMaskIntoConstraints = false
+                return view
+            }()
+            
+            let someoneYesterdayInputContent: UITextView = {
+                let textView = UITextView()
+                textView.backgroundColor = .clear
+                textView.text = HomeMain.textViewPlaceHolder
+                textView.textColor = .lightGray
+                textView.font = Font.air.of(size: 16)
+                textView.autocapitalizationType = .none
+                textView.autocorrectionType = .no
+                textView.spellCheckingType = .no
+                textView.delegate = self
+                textView.translatesAutoresizingMaskIntoConstraints = false
+                return textView
+            }()
+            
+            let someoneYesterdayContentCountLabel: UILabel = {
+                let label = UILabel()
+                label.textColor = .black
+                label.font = Font.air.of(size: 12)
+                label.attributedText = NSMutableAttributedString(string: "0/50", attributes:
+                                                                    [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
+                label.translatesAutoresizingMaskIntoConstraints = false
+                return label
+            }()
+            
+            let someoneYesterdaySendLabel: UILabel = {
+                let label = UILabel()
+                label.text = "보내기"
+                label.textColor = .lightGray
+                label.font = Font.bold.of(size: 14)
+                label.translatesAutoresizingMaskIntoConstraints = false
+                return label
+            }()
+            
+            let someoneYesterdaySendButton: UIButton = {
+                let button = UIButton()
+                let image = UIImage(named: "arrow-right-circle")
+                button.setImage(image, for: .normal)
+                button.translatesAutoresizingMaskIntoConstraints = false
+                return button
+            }()
+            
+            let fillContentWillCommentLabel: UILabel = {
+                let label = UILabel()
+                label.text = ""
+                label.textColor = .black
+                label.font = Font.air.of(size: 16)
+                label.numberOfLines = 0
+                label.translatesAutoresizingMaskIntoConstraints = false
+                return label
+            }()
+            
+            let fillContentWillCommentMoreButton: UIButton = {
+                let button = UIButton()
+                let image = UIImage(named: "more")
+                button.setImage(image, for: .normal)
+                button.isHidden = true
+                button.translatesAutoresizingMaskIntoConstraints = false
+                return button
+            }()
+            
+            view.addSubview(someoneYesterdayDateLabel)
+            view.addSubview(someoneYesterdayContentLabel)
+            view.addSubview(someoneYesterdayHeartButton)
+            view.addSubview(someoneYesterdayMoreButton)
+            view.addSubview(someoneYesterdayCommentView)
+            view.addSubview(someoneYesterdayInputContent)
+            view.addSubview(someoneYesterdayContentCountLabel)
+            view.addSubview(someoneYesterdaySendLabel)
+            view.addSubview(someoneYesterdaySendButton)
+            view.addSubview(fillContentWillCommentLabel)
+            view.addSubview(fillContentWillCommentMoreButton)
+            
             NSLayoutConstraint.activate([
                 view.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10),
+                view.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -50),
                 view.heightAnchor.constraint(equalToConstant: 450),
-                view.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -50)
+                
+                someoneYesterdayDateLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 24),
+                someoneYesterdayDateLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+
+                someoneYesterdayContentLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 68),
+                someoneYesterdayContentLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+                someoneYesterdayContentLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+                someoneYesterdayContentLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -260),
+
+                someoneYesterdayHeartButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 180),
+                someoneYesterdayHeartButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -70),
+
+                someoneYesterdayMoreButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 180),
+                someoneYesterdayMoreButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+                
+                someoneYesterdayCommentView.topAnchor.constraint(equalTo: view.topAnchor, constant: 230),
+                someoneYesterdayCommentView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+                someoneYesterdayCommentView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+                someoneYesterdayCommentView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -24),
+                
+                someoneYesterdayInputContent.topAnchor.constraint(equalTo: someoneYesterdayCommentView.topAnchor, constant: 24),
+                someoneYesterdayInputContent.bottomAnchor.constraint(equalTo: someoneYesterdayCommentView.bottomAnchor, constant: -60),
+                someoneYesterdayInputContent.leadingAnchor.constraint(equalTo: someoneYesterdayCommentView.leadingAnchor, constant: 24),
+                someoneYesterdayInputContent.trailingAnchor.constraint(equalTo: someoneYesterdayCommentView.trailingAnchor, constant: -24),
+                
+                someoneYesterdayContentCountLabel.bottomAnchor.constraint(equalTo: someoneYesterdayCommentView.bottomAnchor, constant: -24),
+                someoneYesterdayContentCountLabel.leadingAnchor.constraint(equalTo: someoneYesterdayCommentView.leadingAnchor, constant: 24),
+                
+                someoneYesterdaySendLabel.bottomAnchor.constraint(equalTo: someoneYesterdayCommentView.bottomAnchor, constant: -24),
+                someoneYesterdaySendLabel.trailingAnchor.constraint(equalTo: someoneYesterdayCommentView.trailingAnchor, constant: -50),
+                
+                someoneYesterdaySendButton.bottomAnchor.constraint(equalTo: someoneYesterdayCommentView.bottomAnchor, constant: -24),
+                someoneYesterdaySendButton.trailingAnchor.constraint(equalTo: someoneYesterdayCommentView.trailingAnchor, constant: -25),
+                
+                fillContentWillCommentLabel.topAnchor.constraint(equalTo: someoneYesterdayCommentView.topAnchor, constant: 24),
+                fillContentWillCommentLabel.leadingAnchor.constraint(equalTo: someoneYesterdayCommentView.leadingAnchor, constant: 24),
+                fillContentWillCommentLabel.trailingAnchor.constraint(equalTo: someoneYesterdayCommentView.trailingAnchor, constant: -24),
+                
+                fillContentWillCommentMoreButton.trailingAnchor.constraint(equalTo: someoneYesterdayCommentView.trailingAnchor, constant: -30),
+                fillContentWillCommentMoreButton.bottomAnchor.constraint(equalTo: someoneYesterdayCommentView.bottomAnchor, constant: -24)
             ])
             
             if let previousView = previousView {
@@ -238,10 +373,10 @@ class SomeoneYesterdayViewController: UIViewController {
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
             
-//            someoneYesterdayDateLabel.topAnchor.constraint(equalTo: someoneYesterdayView.topAnchor, constant: 24),
-//            someoneYesterdayDateLabel.leadingAnchor.constraint(equalTo: someoneYesterdayView.leadingAnchor, constant: 24),
+//            someoneYesterdayDateLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 24),
+//            someoneYesterdayDateLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
 //
 //            someoneYesterdayContentLabel.topAnchor.constraint(equalTo: someoneYesterdayView.topAnchor, constant: 68),
 //            someoneYesterdayContentLabel.bottomAnchor.constraint(equalTo: someoneYesterdayView.bottomAnchor, constant: -260),

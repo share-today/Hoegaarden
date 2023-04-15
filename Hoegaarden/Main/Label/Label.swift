@@ -22,8 +22,12 @@ struct Notices {
 
 struct HomeMain {
     static let myTodayTitle = "나의 오늘"
+    
     static let myYesterdayTitle = "나의 어제"
+    
     static let someoneYesterdayTitle = "누군가의 어제"
+    static let someoneYesterdayContent = "하고 싶은 일이 있는데 뜻대로 되지 않아요. 친구들은 그저 제 배경만 보고 부러워 하지만 그 안에서의 저는 죽을 맛입니다."
+    
     static let textViewPlaceHolder = "누군가에게 털어놓고 싶은 일이\n있었나요?"
     static let commentTextViewPlaceHolder = "앱의 발전을 위해 좋은 의견 많이 부탁드\n려요. :)"
 }

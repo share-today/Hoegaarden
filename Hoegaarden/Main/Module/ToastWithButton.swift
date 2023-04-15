@@ -73,6 +73,5 @@ class ToastWithButton {
     }
     
     @objc func buttonAction() {
-        // AD
     }
 }
