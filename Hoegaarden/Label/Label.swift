@@ -54,5 +54,3 @@ struct AlertMessage {
     static let reportMessage = ""
     static let modifyMessage = "이야기를 수정하겠어요?\n누군가는 이미 수정 전 이야기를\n확인했을 수도 있어요."
 }
-
-

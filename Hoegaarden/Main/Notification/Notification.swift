@@ -15,7 +15,7 @@ class Notification: UIViewController {
         imageView.isUserInteractionEnabled = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.addSubview(noticeLabel)
-        imageView.addSubview(lineView)
+        imageView.addSubview(separatorView)
         imageView.addSubview(yesterdayHeartView)
         imageView.addSubview(commentHeartView)
         imageView.addSubview(noticeView)
@@ -31,7 +31,7 @@ class Notification: UIViewController {
         return label
     }()
     
-    private lazy var lineView: UIView = {
+    private lazy var separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -164,13 +164,13 @@ class Notification: UIViewController {
             noticeLabel.topAnchor.constraint(equalTo: backgroundImage.topAnchor, constant: 80),
             noticeLabel.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 36),
             
-            lineView.topAnchor.constraint(equalTo: noticeLabel.bottomAnchor, constant: 12),
-            lineView.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 24),
-            lineView.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor, constant: 0),
-            lineView.widthAnchor.constraint(equalToConstant: 351),
-            lineView.heightAnchor.constraint(equalToConstant: 1),
+            separatorView.topAnchor.constraint(equalTo: noticeLabel.bottomAnchor, constant: 12),
+            separatorView.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 24),
+            separatorView.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor, constant: 0),
+            separatorView.widthAnchor.constraint(equalToConstant: 351),
+            separatorView.heightAnchor.constraint(equalToConstant: 1),
             
-            yesterdayHeartView.topAnchor.constraint(equalTo: lineView.topAnchor, constant: 17),
+            yesterdayHeartView.topAnchor.constraint(equalTo: separatorView.topAnchor, constant: 17),
             yesterdayHeartView.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 24),
             yesterdayHeartView.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor, constant: -24),
             yesterdayHeartView.widthAnchor.constraint(equalToConstant: 327),

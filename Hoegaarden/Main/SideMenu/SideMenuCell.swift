@@ -35,7 +35,7 @@ class SideMenuCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell() {
+    private func configureCell() {
         backgroundColor = .white
         selectionStyle = .none
         
@@ -43,7 +43,7 @@ class SideMenuCell: UITableViewCell {
         indicatorView.addSubview(sideMenuLabel)
     }
     
-    func setConstraints() {
+    private func setConstraints() {
         NSLayoutConstraint.activate([
             sideMenuLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             sideMenuLabel.centerYAnchor.constraint(equalTo: centerYAnchor),

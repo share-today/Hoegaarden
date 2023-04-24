@@ -95,7 +95,7 @@ class SettingSide: UIViewController {
         self.dismiss(animated: false)
     }
     
-    @objc func backViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
+    @objc private func backViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
         UIView.animate(withDuration: 0.25, delay: 0, options: .curveEaseIn, animations: {
             self.backgroundView.alpha = 0.0
             self.view.layoutIfNeeded()

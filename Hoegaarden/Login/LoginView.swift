@@ -32,7 +32,7 @@ class LoginView: UIView {
         return view
     }()
     
-    private lazy var titleLabel: UILabel = {
+    private var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "하루 공유"
         label.textColor = .black
@@ -55,7 +55,20 @@ class LoginView: UIView {
         return imageView
     }()
     
-    lazy var kakaoStartButton: UIButton = {
+    var googleStartButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(#imageLiteral(resourceName: "google"), for: .normal)
+        button.setTitle("  Google로 로그인", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 4
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor(red: 0.169, green: 0.169, blue: 0.169, alpha: 1).cgColor
+        button.titleLabel?.font = Font.bold.of(size: 16)
+        return button
+    }()
+    
+    var kakaoStartButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "kakao"), for: .normal)
         button.setTitle("  카카오톡으로 로그인", for: .normal)
@@ -66,7 +79,7 @@ class LoginView: UIView {
         return button
     }()
     
-    lazy var appleStartButton: UIButton = {
+    var appleStartButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "apple"), for: .normal)
         button.setTitle("  Apple로 로그인", for: .normal)
@@ -78,7 +91,7 @@ class LoginView: UIView {
     }()
     
     private lazy var stackView: UIStackView = {
-        let stview = UIStackView(arrangedSubviews: [kakaoStartButton, appleStartButton])
+        let stview = UIStackView(arrangedSubviews: [googleStartButton, kakaoStartButton, appleStartButton])
         stview.spacing = 18
         stview.axis = .vertical
         stview.distribution = .fillEqually
@@ -86,8 +99,6 @@ class LoginView: UIView {
         stview.translatesAutoresizingMaskIntoConstraints = false
         return stview
     }()
-    
-    private let textViewHeight: CGFloat = 48
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -137,8 +148,7 @@ class LoginView: UIView {
             stackView.bottomAnchor.constraint(equalTo: backgroundImage.safeAreaLayoutGuide.bottomAnchor, constant: -80),
             stackView.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 30),
             stackView.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor, constant: -30),
-            stackView.heightAnchor.constraint(equalToConstant: textViewHeight*3),
-            stackView.centerXAnchor.constraint(equalTo: backgroundImage.centerXAnchor)
+            stackView.heightAnchor.constraint(equalToConstant: 220)
         ])
     }
 }

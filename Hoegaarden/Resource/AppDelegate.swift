@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import FirebaseCore
+import GoogleSignIn
+import KakaoSDKCommon
+import KakaoSDKAuth
 
-@main
+//@main
+@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
@@ -20,8 +25,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = launchScreenVC
         window?.makeKeyAndVisible()
+        
+        FirebaseApp.configure()
+        
+        KakaoSDK.initSDK(appKey: "")
+        
         return true
     }
+    
+//    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+//        var handled: Bool
+//
+//        handled = GIDSignIn.sharedInstance.handle(url)
+//        if handled {
+//            return true
+//        }
+//        return false
+//    }
     
     // MARK: UISceneSession Lifecycle
     
@@ -36,7 +56,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-    
-    
 }
-

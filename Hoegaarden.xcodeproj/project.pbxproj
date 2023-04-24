@@ -14,6 +14,7 @@
 		1C1F3163297F6CC100D76B35 /* SettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1F3162297F6CC100D76B35 /* SettingController.swift */; };
 		1C3B0117299B7ACA0052C3AD /* AlertFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3B0116299B7ACA0052C3AD /* AlertFile.swift */; };
 		1C514BE029D56D6E0082195A /* AcceptLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C514BDF29D56D6E0082195A /* AcceptLoginViewController.swift */; };
+		1C579D5529F508A40048924A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C579D5429F508A40048924A /* GoogleService-Info.plist */; };
 		1C62F533298BADAB003EB5A7 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62F532298BADAB003EB5A7 /* Toast.swift */; };
 		1C7221B3298901ED002C326E /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7221B2298901ED002C326E /* PrivacyView.swift */; };
 		1C7221B5298902A0002C326E /* OpenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7221B4298902A0002C326E /* OpenView.swift */; };
@@ -56,6 +57,7 @@
 		1C1F3162297F6CC100D76B35 /* SettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingController.swift; sourceTree = "<group>"; };
 		1C3B0116299B7ACA0052C3AD /* AlertFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertFile.swift; sourceTree = "<group>"; };
 		1C514BDF29D56D6E0082195A /* AcceptLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptLoginViewController.swift; sourceTree = "<group>"; };
+		1C579D5429F508A40048924A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1C62F532298BADAB003EB5A7 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		1C7221B2298901ED002C326E /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
 		1C7221B4298902A0002C326E /* OpenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenView.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 		1CA60BCC29BC7F270009CA3C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		1CA60BF229BF28B00009CA3C /* UnregisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnregisterView.swift; sourceTree = "<group>"; };
 		1CA60BF429C0779E0009CA3C /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
+		1CBBBE9E29F6464B00F2783E /* Hoegaarden.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hoegaarden.entitlements; sourceTree = "<group>"; };
 		1CD9722B29642C6600A4D62F /* Hoegaarden.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hoegaarden.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CD9722E29642C6600A4D62F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1CD9723029642C6600A4D62F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,6 +128,19 @@
 			path = Notification;
 			sourceTree = "<group>";
 		};
+		1CBBBE9F29F6477C00F2783E /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				1CD9722E29642C6600A4D62F /* AppDelegate.swift */,
+				1CD9723029642C6600A4D62F /* SceneDelegate.swift */,
+				1CBBBE9E29F6464B00F2783E /* Hoegaarden.entitlements */,
+				1CD9723429642C6600A4D62F /* Main.storyboard */,
+				1CD9723929642C6800A4D62F /* LaunchScreen.storyboard */,
+				1CD9723729642C6800A4D62F /* Assets.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		1CD9722229642C6600A4D62F = {
 			isa = PBXGroup;
 			children = (
@@ -146,15 +162,15 @@
 		1CD9722D29642C6600A4D62F /* Hoegaarden */ = {
 			isa = PBXGroup;
 			children = (
-				1CD9722E29642C6600A4D62F /* AppDelegate.swift */,
-				1CD9723029642C6600A4D62F /* SceneDelegate.swift */,
+				1CA60BF429C0779E0009CA3C /* LaunchScreenViewController.swift */,
 				1CD9724329642D0500A4D62F /* Login */,
 				1CD9724229642CF900A4D62F /* Main */,
+				1C17CF3C29D2E930006988FE /* Label */,
+				1CDC90A829A8F4430093A0D3 /* Module */,
 				1CDA994E29764C5600E75D92 /* Font */,
-				1CD9723429642C6600A4D62F /* Main.storyboard */,
-				1CD9723729642C6800A4D62F /* Assets.xcassets */,
-				1CD9723929642C6800A4D62F /* LaunchScreen.storyboard */,
+				1CBBBE9F29F6477C00F2783E /* Resource */,
 				1CD9723C29642C6800A4D62F /* Info.plist */,
+				1C579D5429F508A40048924A /* GoogleService-Info.plist */,
 			);
 			path = Hoegaarden;
 			sourceTree = "<group>";
@@ -168,9 +184,6 @@
 				1C17CF3829D2AC40006988FE /* MyYesterdayViewController.swift */,
 				1C17CF3429D2A942006988FE /* SomeoneYesterdayViewController.swift */,
 				1CD9724B296431EC00A4D62F /* SideMenu */,
-				1CA60BF429C0779E0009CA3C /* LaunchScreenViewController.swift */,
-				1C17CF3C29D2E930006988FE /* Label */,
-				1CDC90A829A8F4430093A0D3 /* Module */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -311,6 +324,11 @@
 				Base,
 			);
 			mainGroup = 1CD9722229642C6600A4D62F;
+			packageReferences = (
+				1C579D4F29F4FB7F0048924A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				1C579D5629F514460048924A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				1CBBBEA029F65AC900F2783E /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+			);
 			productRefGroup = 1CD9722C29642C6600A4D62F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -330,6 +348,7 @@
 				1CDC90AE29ADC1310093A0D3 /* Cafe24SsurroundAir.ttf in Resources */,
 				1CD9723829642C6800A4D62F /* Assets.xcassets in Resources */,
 				1CD9723629642C6600A4D62F /* Main.storyboard in Resources */,
+				1C579D5529F508A40048924A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -560,6 +579,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Hoegaarden/Resource/Hoegaarden.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -567,7 +587,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Hoegaarden/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreenViewController;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -593,6 +613,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Hoegaarden/Resource/Hoegaarden.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -600,7 +621,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Hoegaarden/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreenViewController;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -642,6 +663,33 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1C579D4F29F4FB7F0048924A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+		1C579D5629F514460048924A /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		1CBBBEA029F65AC900F2783E /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 1CD9722329642C6600A4D62F /* Project object */;
 }

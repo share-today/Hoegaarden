@@ -6,8 +6,11 @@ target 'Hoegaarden' do
   use_frameworks!
 
   # Pods for Hoegaarden
-  pod 'Tabman', '~> 3.0'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Messaging'
   pod 'FSCalendar'
   pod 'SnapKit'
+  pod 'KakaoSDKUser'
+  pod 'GoogleSignIn'
 
 end

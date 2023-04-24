@@ -18,7 +18,7 @@ class AcceptLoginViewController: UIViewController {
         return label
     }()
     
-    private var lineView: UIView = {
+    private var separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
         view.translatesAutoresizingMaskIntoConstraints = false

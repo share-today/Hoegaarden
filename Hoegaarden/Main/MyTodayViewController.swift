@@ -144,7 +144,6 @@ class MyTodayViewController: UIViewController {
             myTodayView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
             myTodayView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             myTodayView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            myTodayView.widthAnchor.constraint(equalToConstant: 327),
             myTodayView.heightAnchor.constraint(equalToConstant: 327),
             
             todayDateLabel.topAnchor.constraint(equalTo: myTodayView.topAnchor, constant: 24),

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import KakaoSDKUser
 
 class SettingController: UIViewController {
     
@@ -39,13 +40,6 @@ class SettingController: UIViewController {
         label.font = Font.bold.of(size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
-    }()
-    
-    private lazy var firstView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 0.169, green: 0.169, blue: 0.169, alpha: 1)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
     }()
     
     private var alertLabel: UILabel = {
@@ -87,13 +81,6 @@ class SettingController: UIViewController {
         return label
     }()
     
-    private lazy var secondView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .black
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     lazy var commentButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setTitle("의견 보내기", for: .normal)
@@ -132,13 +119,6 @@ class SettingController: UIViewController {
         label.font = Font.bold.of(size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
-    }()
-    
-    private lazy var thirdView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .black
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
     }()
     
     lazy var tosButton: UIButton = {
@@ -224,6 +204,135 @@ class SettingController: UIViewController {
         return button
     }()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setup()
+        addViews()
+        configureContentViewHeight()
+        configureNavigationBarButton()
+        setSeparatorView()
+        setConstraints()
+    }
+    
+    func setup() {
+        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    }
+    
+    func addViews() {
+        view.addSubview(backgroundImage)
+        backgroundImage.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(systemLabel)
+        contentView.addSubview(stackView)
+        contentView.addSubview(csLabel)
+        contentView.addSubview(commentButton)
+        contentView.addSubview(faqButton)
+        contentView.addSubview(cheerButton)
+        contentView.addSubview(appInfoLabel)
+        contentView.addSubview(tosButton)
+        contentView.addSubview(privacyButton)
+        contentView.addSubview(openButton)
+        contentView.addSubview(logoutButton)
+        contentView.addSubview(unregisterButton)
+        contentView.addSubview(appVersionLabel)
+        contentView.addSubview(versionLabel)
+        contentView.addSubview(appStackView)
+    }
+    
+    private func configureContentViewHeight() {
+        let contentViewHeight = contentView.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor, constant: 200)
+        contentViewHeight.priority = .defaultHigh
+        contentViewHeight.isActive = true
+    }
+    
+    private func configureNavigationBarButton() {
+        let image = UIImage(named: "menu")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            image: image, style: .done,
+            target: self, action: #selector(showSideMenu))
+    }
+    
+    private func setSeparatorView() {
+        let separatorPositions = [10, 160, 390]
+        for i in 0..<separatorPositions.count {
+            let separatorView = UIView()
+            separatorView.backgroundColor = UIColor(red: 0.169, green: 0.169, blue: 0.169, alpha: 1)
+            separatorView.translatesAutoresizingMaskIntoConstraints = false
+            contentView.addSubview(separatorView)
+            
+            NSLayoutConstraint.activate([
+                separatorView.topAnchor.constraint(equalTo: systemLabel.bottomAnchor, constant: CGFloat(separatorPositions[i])),
+                separatorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+                separatorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                separatorView.heightAnchor.constraint(equalToConstant: 1)
+            ])
+        }
+    }
+    
+    private func setConstraints() {
+        NSLayoutConstraint.activate([
+            backgroundImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            backgroundImage.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            backgroundImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            backgroundImage.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            
+            contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            
+            systemLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 60),
+            systemLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
+            
+            stackView.topAnchor.constraint(equalTo: systemLabel.bottomAnchor, constant: 40),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),
+            
+            csLabel.topAnchor.constraint(equalTo: systemLabel.bottomAnchor, constant: 130),
+            csLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
+            
+            commentButton.topAnchor.constraint(equalTo: csLabel.bottomAnchor, constant: 40),
+            commentButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
+            
+            faqButton.topAnchor.constraint(equalTo: csLabel.bottomAnchor, constant:  80),
+            faqButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
+            
+            cheerButton.topAnchor.constraint(equalTo: csLabel.bottomAnchor, constant: 120),
+            cheerButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
+            
+            appInfoLabel.topAnchor.constraint(equalTo: csLabel.bottomAnchor, constant: 210),
+            appInfoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
+            
+            tosButton.topAnchor.constraint(equalTo: appInfoLabel.bottomAnchor, constant: 40),
+            tosButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
+            
+            privacyButton.topAnchor.constraint(equalTo: appInfoLabel.bottomAnchor, constant: 80),
+            privacyButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
+            
+            openButton.topAnchor.constraint(equalTo: appInfoLabel.bottomAnchor, constant: 120),
+            openButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
+            
+            appStackView.topAnchor.constraint(equalTo: appInfoLabel.bottomAnchor, constant: 270),
+            appStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
+            appStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -1),
+            
+            logoutButton.topAnchor.constraint(equalTo: appInfoLabel.bottomAnchor, constant: 320),
+            logoutButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
+            
+            unregisterButton.topAnchor.constraint(equalTo: appInfoLabel.bottomAnchor, constant: 370),
+            unregisterButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36)
+        ])
+    }
+    
     @objc private func commentButtonTapped() {
         let commentVC = CommentView()
         commentVC.modalPresentationStyle = .fullScreen
@@ -263,6 +372,15 @@ class SettingController: UIViewController {
                              otherButtonTitle: "로그아웃", otherButtonColor: .black) { (isOtherButton) -> Void in
             if isOtherButton == true { }
             else {
+                UserApi.shared.logout {(error) in
+                    if let error = error {
+                        print(error)
+                    }
+                    else {
+                        print("logout() success.")
+                    }
+                }
+                
                 let loginVC = LoginViewController()
                 loginVC.modalPresentationStyle = .overFullScreen
                 self.present(loginVC, animated: true)
@@ -277,140 +395,8 @@ class SettingController: UIViewController {
         nav.modalPresentationStyle = .overFullScreen
         present(nav, animated: true, completion: nil)
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setup()
-        addViews()
-        configureContentViewHeight()
-        configureNavigationBarButton()
-        setConstraints()
-    }
-    
-    func setup() {
-        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-    }
-    
-    func addViews() {
-        view.addSubview(backgroundImage)
-        backgroundImage.addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        contentView.addSubview(systemLabel)
-        contentView.addSubview(firstView)
-        contentView.addSubview(stackView)
-        contentView.addSubview(csLabel)
-        contentView.addSubview(secondView)
-        contentView.addSubview(commentButton)
-        contentView.addSubview(faqButton)
-        contentView.addSubview(cheerButton)
-        contentView.addSubview(appInfoLabel)
-        contentView.addSubview(thirdView)
-        contentView.addSubview(tosButton)
-        contentView.addSubview(privacyButton)
-        contentView.addSubview(openButton)
-        contentView.addSubview(logoutButton)
-        contentView.addSubview(unregisterButton)
-        contentView.addSubview(appVersionLabel)
-        contentView.addSubview(versionLabel)
-        contentView.addSubview(appStackView)
-    }
-    
-    func configureContentViewHeight() {
-        let contentViewHeight = contentView.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor, constant: 200)
-        contentViewHeight.priority = .defaultHigh
-        contentViewHeight.isActive = true
-    }
-    
-    func configureNavigationBarButton() {
-        let image = UIImage(named: "menu")?.withTintColor(.black, renderingMode: .alwaysOriginal)
-        navigationController?.navigationBar.barTintColor = .white
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: image, style: .done,
-            target: self, action: #selector(showSideMenu))
-    }
-    
-    func setConstraints() {
-        NSLayoutConstraint.activate([
-            backgroundImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            backgroundImage.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            backgroundImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            backgroundImage.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            
-            contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            
-            systemLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 60),
-            systemLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
-            
-            firstView.topAnchor.constraint(equalTo: systemLabel.bottomAnchor, constant: 12),
-            firstView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
-            firstView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
-            firstView.widthAnchor.constraint(equalToConstant: 351),
-            firstView.heightAnchor.constraint(equalToConstant: 1),
-            
-            stackView.topAnchor.constraint(equalTo: systemLabel.bottomAnchor, constant: 40),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),
-            
-            csLabel.topAnchor.constraint(equalTo: systemLabel.bottomAnchor, constant: 130),
-            csLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
-            
-            secondView.topAnchor.constraint(equalTo: csLabel.bottomAnchor, constant: 12),
-            secondView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
-            secondView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
-            secondView.widthAnchor.constraint(equalToConstant: 351),
-            secondView.heightAnchor.constraint(equalToConstant: 1),
-            
-            commentButton.topAnchor.constraint(equalTo: csLabel.bottomAnchor, constant: 40),
-            commentButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
-            
-            faqButton.topAnchor.constraint(equalTo: csLabel.bottomAnchor, constant:  80),
-            faqButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
-            
-            cheerButton.topAnchor.constraint(equalTo: csLabel.bottomAnchor, constant: 120),
-            cheerButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
-            
-            appInfoLabel.topAnchor.constraint(equalTo: csLabel.bottomAnchor, constant: 210),
-            appInfoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
-            
-            thirdView.topAnchor.constraint(equalTo: appInfoLabel.bottomAnchor, constant: 12),
-            thirdView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
-            thirdView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
-            thirdView.widthAnchor.constraint(equalToConstant: 351),
-            thirdView.heightAnchor.constraint(equalToConstant: 1),
-            
-            tosButton.topAnchor.constraint(equalTo: appInfoLabel.bottomAnchor, constant: 40),
-            tosButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
-            
-            privacyButton.topAnchor.constraint(equalTo: appInfoLabel.bottomAnchor, constant: 80),
-            privacyButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
-            
-            openButton.topAnchor.constraint(equalTo: appInfoLabel.bottomAnchor, constant: 120),
-            openButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
-            
-            appStackView.topAnchor.constraint(equalTo: appInfoLabel.bottomAnchor, constant: 270),
-            appStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
-            appStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),
-            
-            logoutButton.topAnchor.constraint(equalTo: appInfoLabel.bottomAnchor, constant: 320),
-            logoutButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
-            
-            unregisterButton.topAnchor.constraint(equalTo: appInfoLabel.bottomAnchor, constant: 370),
-            unregisterButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36)
-        ])
-    }
 
-    @objc func showSideMenu() {
+    @objc private func showSideMenu() {
         let side = SettingSide()
         side.modalPresentationStyle = .overFullScreen
         present(side, animated: false, completion: nil)
