@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 import GoogleSignIn
 import KakaoSDKUser
 import AuthenticationServices
@@ -29,11 +31,28 @@ class LoginViewController: UIViewController {
         loginView.kakaoStartButton.addTarget(self, action: #selector(kakaoLoginStartButton), for: .touchUpInside)
         loginView.appleStartButton.addTarget(self, action: #selector(appleLoginStartButton), for: .touchUpInside)
     }
-
-    @objc private func googleLoginStartButton(sender: Any) {
-        
-    }
     
+    @objc private func googleLoginStartButton(sender: Any) {
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
+            guard error == nil else { return }
+            guard let signInResult = signInResult else { return }
+            
+            let user = signInResult.user
+            let emailAddress = user.profile?.email
+            let fullName = user.profile?.name
+            let token = user.accessToken
+            let refreshToken = user.refreshToken
+            let idToken = user.idToken
+            
+            print("user: \(signInResult.user)")
+            print("email: \(user.profile?.email ?? "no email")")
+            print("name: \(user.profile?.name ?? "no userName")")
+            print("token: \(user.accessToken)")
+            print("refreshToken: \(user.refreshToken)")
+            print("idToken: \(user.idToken)")
+        }
+    }
+        
     @objc private func kakaoLoginStartButton(_ sender: UIButton) {
         if (UserApi.isKakaoTalkLoginAvailable()) {
             // 카톡 설치 되어 있으면 카톡으로 로그인
@@ -49,12 +68,10 @@ class LoginViewController: UIViewController {
                         if let error = error {
                             print(error)
                         } else {
+                            guard let userId = user?.id else { return }
                             print("nickname: \(user?.kakaoAccount?.profile?.nickname ?? "no nickname")")
                             print("email: \(user?.kakaoAccount?.email ?? "no email")")
-                            
-                            guard let userId = user?.id else {return}
-                            
-                            print("닉네임 : \(user?.kakaoAccount?.profile?.nickname ?? "no nickname")\n이메일 : \(user?.kakaoAccount?.email ?? "no nickname")\n유저 ID : \(userId)")
+                            print("userID: \(userId)")
                         }
                     }
                 }

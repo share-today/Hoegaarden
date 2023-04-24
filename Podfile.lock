@@ -8,6 +8,9 @@ PODS:
     - AppAuth/Core
   - Firebase/Analytics (10.8.0):
     - Firebase/Core
+  - Firebase/Auth (10.8.0):
+    - Firebase/CoreOnly
+    - FirebaseAuth (~> 10.8.0)
   - Firebase/Core (10.8.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (~> 10.8.0)
@@ -34,6 +37,13 @@ PODS:
     - GoogleUtilities/Network (~> 7.8)
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
     - nanopb (< 2.30910.0, >= 2.30908.0)
+  - FirebaseAppCheckInterop (10.7.0)
+  - FirebaseAuth (10.8.0):
+    - FirebaseAppCheckInterop (~> 10.0)
+    - FirebaseCore (~> 10.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GTMSessionFetcher/Core (< 4.0, >= 2.1)
   - FirebaseCore (10.8.0):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
@@ -127,6 +137,7 @@ PODS:
 
 DEPENDENCIES:
   - Firebase/Analytics
+  - Firebase/Auth
   - Firebase/Messaging
   - FSCalendar
   - GoogleSignIn
@@ -139,6 +150,8 @@ SPEC REPOS:
     - AppAuth
     - Firebase
     - FirebaseAnalytics
+    - FirebaseAppCheckInterop
+    - FirebaseAuth
     - FirebaseCore
     - FirebaseCoreInternal
     - FirebaseInstallations
@@ -162,6 +175,8 @@ SPEC CHECKSUMS:
   AppAuth: e48b432bb4ba88b10cb2bcc50d7f3af21e78b9c2
   Firebase: b49ef44e5ec9a3d0c1f6450f410337e97872279c
   FirebaseAnalytics: e1fc758bd5d71823bba970c076abee4b2450a5f4
+  FirebaseAppCheckInterop: 8e907eea79958960a8bd2058e067f31e03a7914b
+  FirebaseAuth: 28e6fff787467cd15ab51c8c7aa904003b2f57aa
   FirebaseCore: e78636a990b54be427ce300aa09a0e359f4e0e87
   FirebaseCoreInternal: fa2899eb1f340054858d289e5a0fb935a0a74e52
   FirebaseInstallations: b2a05a3fe707df764345d68685534d07d0664af3
@@ -180,6 +195,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
 
-PODFILE CHECKSUM: 2d2d298975ce812971a71dbedf122088400b3930
+PODFILE CHECKSUM: 7fb85aa68622e45d31c0f618c297a5d1b03f1e56
 
 COCOAPODS: 1.11.3

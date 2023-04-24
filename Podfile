@@ -7,6 +7,7 @@ target 'Hoegaarden' do
 
   # Pods for Hoegaarden
   pod 'Firebase/Analytics'
+  pod 'Firebase/Auth'
   pod 'Firebase/Messaging'
   pod 'FSCalendar'
   pod 'SnapKit'

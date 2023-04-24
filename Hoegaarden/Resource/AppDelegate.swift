@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseCore
+import FirebaseAuth
 import GoogleSignIn
 import KakaoSDKCommon
 import KakaoSDKAuth
@@ -28,20 +29,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
-        KakaoSDK.initSDK(appKey: "")
+        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+            if error != nil || user == nil { } else { }
+        }
+        
+        KakaoSDK.initSDK(appKey: "4b156aaa5781831d5b2a4dd7d4370fc1")
         
         return true
     }
     
-//    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-//        var handled: Bool
-//
-//        handled = GIDSignIn.sharedInstance.handle(url)
-//        if handled {
-//            return true
-//        }
-//        return false
-//    }
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        var handled: Bool
+        
+        handled = GIDSignIn.sharedInstance.handle(url)
+        if handled {
+            return true
+        }
+        
+        return false
+    }
     
     // MARK: UISceneSession Lifecycle
     
