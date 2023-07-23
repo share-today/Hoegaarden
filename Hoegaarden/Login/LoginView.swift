@@ -15,9 +15,8 @@ class LoginView: UIView {
         imageView.isUserInteractionEnabled = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.addSubview(titleView)
-        imageView.addSubview(imageViewTop)
-        imageView.addSubview(imageViewBottom)
-        imageView.addSubview(stackView)
+        imageView.addSubview(logoStackView)
+        imageView.addSubview(loginButtonstackView)
         return imageView
     }()
     
@@ -32,33 +31,41 @@ class LoginView: UIView {
         return view
     }()
     
-    private var titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "하루 공유"
+        label.text = Title.mainTitle
         label.textColor = .black
         label.font = Font.bold.of(size: 40)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private var imageViewTop: UIImageView = {
+    private let logoImageTop: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "subtractTop")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    private var imageViewBottom: UIImageView = {
+    private let logoImageBottom: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "subtractBottom")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    var googleStartButton: UIButton = {
+    private lazy var logoStackView: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [logoImageTop, logoImageBottom])
+        view.spacing = 10
+        view.axis = .vertical
+        view.distribution = .fill
+        view.alignment = .fill
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let googleStartButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setImage(#imageLiteral(resourceName: "google"), for: .normal)
-        button.setTitle("  Google로 로그인", for: .normal)
+        button.setImage(UIImage(named: "google"), for: .normal)
+        button.setTitle(Login.googleLogin, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .white
         button.layer.cornerRadius = 4
@@ -68,10 +75,10 @@ class LoginView: UIView {
         return button
     }()
     
-    var kakaoStartButton: UIButton = {
+    let kakaoStartButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setImage(#imageLiteral(resourceName: "kakao"), for: .normal)
-        button.setTitle("  카카오톡으로 로그인", for: .normal)
+        button.setImage(UIImage(named: "kakao"), for: .normal)
+        button.setTitle(Login.kakaoLogin, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .yellow
         button.layer.cornerRadius = 4
@@ -79,10 +86,10 @@ class LoginView: UIView {
         return button
     }()
     
-    var appleStartButton: UIButton = {
+    let appleStartButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setImage(#imageLiteral(resourceName: "apple"), for: .normal)
-        button.setTitle("  Apple로 로그인", for: .normal)
+        button.setImage(UIImage(named: "apple"), for: .normal)
+        button.setTitle(Login.appleLogin, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .black
         button.layer.cornerRadius = 4
@@ -90,7 +97,7 @@ class LoginView: UIView {
         return button
     }()
     
-    private lazy var stackView: UIStackView = {
+    private lazy var loginButtonstackView: UIStackView = {
         let stview = UIStackView(arrangedSubviews: [googleStartButton, kakaoStartButton, appleStartButton])
         stview.spacing = 18
         stview.axis = .vertical
@@ -135,20 +142,19 @@ class LoginView: UIView {
             titleLabel.centerXAnchor.constraint(equalTo: titleView.centerXAnchor),
             titleLabel.centerYAnchor.constraint(equalTo: titleView.centerYAnchor),
             
-            imageViewTop.topAnchor.constraint(equalTo: titleView.topAnchor, constant: 70),
-            imageViewTop.leadingAnchor.constraint(equalTo: titleView.leadingAnchor, constant: 180),
-            imageViewTop.widthAnchor.constraint(equalToConstant: 78),
-            imageViewTop.heightAnchor.constraint(equalToConstant: 38),
+            logoImageTop.widthAnchor.constraint(equalToConstant: 78),
+            logoImageTop.heightAnchor.constraint(equalToConstant: 38),
             
-            imageViewBottom.topAnchor.constraint(equalTo: imageViewTop.bottomAnchor, constant: 3),
-            imageViewBottom.leadingAnchor.constraint(equalTo: titleView.leadingAnchor, constant: 180),
-            imageViewBottom.widthAnchor.constraint(equalToConstant: 78),
-            imageViewBottom.heightAnchor.constraint(equalToConstant: 38),
+            logoImageBottom.widthAnchor.constraint(equalToConstant: 78),
+            logoImageBottom.heightAnchor.constraint(equalToConstant: 38),
             
-            stackView.bottomAnchor.constraint(equalTo: backgroundImage.safeAreaLayoutGuide.bottomAnchor, constant: -80),
-            stackView.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 30),
-            stackView.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor, constant: -30),
-            stackView.heightAnchor.constraint(equalToConstant: 220)
+            logoStackView.topAnchor.constraint(equalTo: titleView.topAnchor, constant: 70),
+            logoStackView.leadingAnchor.constraint(equalTo: titleView.leadingAnchor, constant: 180),
+            
+            loginButtonstackView.bottomAnchor.constraint(equalTo: backgroundImage.safeAreaLayoutGuide.bottomAnchor, constant: -80),
+            loginButtonstackView.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 30),
+            loginButtonstackView.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor, constant: -30),
+            loginButtonstackView.heightAnchor.constraint(equalToConstant: 220)
         ])
     }
 }

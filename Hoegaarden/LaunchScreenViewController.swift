@@ -29,7 +29,7 @@ class LaunchScreenViewController: UIViewController {
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "하루 공유"
+        label.text = Title.mainTitle
         label.textColor = .black
         label.font = Font.bold.of(size: 40)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -39,15 +39,23 @@ class LaunchScreenViewController: UIViewController {
     private var logoImageTop: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "subtractTop")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
     private var logoImageBottom: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "subtractBottom")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
+    }()
+    
+    private lazy var logoStackView: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [logoImageTop, logoImageBottom])
+        view.spacing = 10
+        view.axis = .vertical
+        view.distribution = .fill
+        view.alignment = .fill
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     override func viewDidLoad() {
@@ -65,8 +73,7 @@ class LaunchScreenViewController: UIViewController {
     private func addViews() {
         view.addSubview(backgroundImage)
         backgroundImage.addSubview(titleView)
-        backgroundImage.addSubview(logoImageTop)
-        backgroundImage.addSubview(logoImageBottom)
+        backgroundImage.addSubview(logoStackView)
     }
     
     private func setConstraints() {
@@ -84,15 +91,10 @@ class LaunchScreenViewController: UIViewController {
             titleLabel.centerXAnchor.constraint(equalTo: titleView.centerXAnchor),
             titleLabel.centerYAnchor.constraint(equalTo: titleView.centerYAnchor),
             
-            logoImageTop.topAnchor.constraint(equalTo: titleView.topAnchor, constant: 60),
-            logoImageTop.leadingAnchor.constraint(equalTo: titleView.leadingAnchor, constant: 180),
-            logoImageTop.widthAnchor.constraint(equalToConstant: 78),
-            logoImageTop.heightAnchor.constraint(equalToConstant: 38),
-            
-            logoImageBottom.topAnchor.constraint(equalTo: logoImageTop.bottomAnchor, constant: 3),
-            logoImageBottom.leadingAnchor.constraint(equalTo: titleView.leadingAnchor, constant: 180),
-            logoImageBottom.widthAnchor.constraint(equalToConstant: 78),
-            logoImageBottom.heightAnchor.constraint(equalToConstant: 38)
+            logoStackView.topAnchor.constraint(equalTo: titleView.topAnchor, constant: 60),
+            logoStackView.leadingAnchor.constraint(equalTo: titleView.leadingAnchor, constant: 180),
+            logoStackView.widthAnchor.constraint(equalToConstant: 148),
+            logoStackView.heightAnchor.constraint(equalToConstant: 108)
         ])
     }
 }

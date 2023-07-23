@@ -9,14 +9,14 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    private lazy var containerView: UIView = {
+    private let containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private lazy var segmentControl: UISegmentedControl = {
+    private let segmentControl: UISegmentedControl = {
         let segment = UISegmentedControl()
         
         segment.selectedSegmentTintColor = .clear
@@ -49,14 +49,14 @@ class HomeViewController: UIViewController {
         return segment
     }()
 
-    private lazy var indicatorView: UIView = {
+    private let indicatorView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private var lineView: UIView = {
+    private let separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -75,7 +75,7 @@ class HomeViewController: UIViewController {
     private var viewControllers: [UIViewController] {
         [MyTodayViewController(),
          MyYesterdayViewController(),
-         SomeoneYesterdayViewController()]
+         OthersYesterdayViewController()]
     }
     
     private var currentPage: Int = 0 {
@@ -112,7 +112,7 @@ class HomeViewController: UIViewController {
         view.addSubview(containerView)
         containerView.addSubview(segmentControl)
         segmentControl.addSubview(indicatorView)
-        view.addSubview(lineView)
+        view.addSubview(separatorView)
         view.addSubview(pageViewController.view)
     }
     
@@ -133,11 +133,11 @@ class HomeViewController: UIViewController {
             indicatorView.widthAnchor.constraint(equalTo: segmentControl.widthAnchor, multiplier: 1 / CGFloat(segmentControl.numberOfSegments)),
             indicatorView.heightAnchor.constraint(equalToConstant: 18),
             
-            lineView.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 10),
-            lineView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            lineView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            lineView.widthAnchor.constraint(equalToConstant: 351),
-            lineView.heightAnchor.constraint(equalToConstant: 1),
+            separatorView.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 10),
+            separatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            separatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            separatorView.widthAnchor.constraint(equalToConstant: 351),
+            separatorView.heightAnchor.constraint(equalToConstant: 1),
             
             pageViewController.view.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 15),
             pageViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),

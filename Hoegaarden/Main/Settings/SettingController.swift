@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import KakaoSDKUser
+import Alamofire
 
 class SettingController: UIViewController {
     
@@ -51,19 +51,20 @@ class SettingController: UIViewController {
         return label
     }()
     
-    lazy var controlSwitch: UISwitch = {
-        let cs: UISwitch = UISwitch()
-        cs.onTintColor = .black
-        cs.tintColor = .lightGray
-        cs.thumbTintColor = .white
-        cs.isOn = true
-        cs.layer.cornerRadius = 16
-        cs.translatesAutoresizingMaskIntoConstraints = false
-        return cs
+    lazy var alertControlSwitch: UISwitch = {
+        let alertSwitch: UISwitch = UISwitch()
+        alertSwitch.onTintColor = .black
+        alertSwitch.tintColor = .lightGray
+        alertSwitch.thumbTintColor = .white
+        alertSwitch.isOn = true
+        alertSwitch.layer.cornerRadius = 16
+        alertSwitch.translatesAutoresizingMaskIntoConstraints = false
+        alertSwitch.addTarget(self, action: #selector(switchValueChanged(_:)), for: .touchUpInside)
+        return alertSwitch
     }()
     
     private lazy var stackView: UIStackView = {
-        let stview = UIStackView(arrangedSubviews: [alertLabel, controlSwitch])
+        let stview = UIStackView(arrangedSubviews: [alertLabel, alertControlSwitch])
         stview.spacing = 200
         stview.axis = .horizontal
         stview.distribution = .fill
@@ -215,11 +216,11 @@ class SettingController: UIViewController {
         setConstraints()
     }
     
-    func setup() {
+    private func setup() {
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     }
     
-    func addViews() {
+    private func addViews() {
         view.addSubview(backgroundImage)
         backgroundImage.addSubview(scrollView)
         scrollView.addSubview(contentView)
@@ -238,6 +239,28 @@ class SettingController: UIViewController {
         contentView.addSubview(appVersionLabel)
         contentView.addSubview(versionLabel)
         contentView.addSubview(appStackView)
+    }
+    
+    private func enableAlerts() {
+        let response = """
+          {
+              "result": true,
+              "message": "알림 설정 완료"
+          }
+          """
+        
+        if let jsonData = response.data(using: .utf8),
+            let json = try? JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any],
+            let result = json["result"] as? Bool,
+            let message = json["message"] as? String {
+             if result {
+                 print(message)
+             } else {
+                 print("알림 설정 실패")
+             }
+         } else {
+             print("오류")
+         }
     }
     
     private func configureContentViewHeight() {
@@ -333,6 +356,16 @@ class SettingController: UIViewController {
         ])
     }
     
+    @objc func switchValueChanged(_ sender: UISwitch) {
+        if sender.isOn {
+            // 알림 설정을 실행합니다.
+            enableAlerts()
+        } else {
+            // 알림 해제를 실행합니다.
+//            disableNotifications()
+        }
+    }
+    
     @objc private func commentButtonTapped() {
         let commentVC = CommentView()
         commentVC.modalPresentationStyle = .fullScreen
@@ -372,14 +405,19 @@ class SettingController: UIViewController {
                              otherButtonTitle: "로그아웃", otherButtonColor: .black) { (isOtherButton) -> Void in
             if isOtherButton == true { }
             else {
-                UserApi.shared.logout {(error) in
-                    if let error = error {
-                        print(error)
+                AF.request("https://share-today.site/auth/logout", method: .post, headers: ["Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjgzOTc1MTkyLCJpc3MiOiJzaGFyZS10b2RheSJ9._VamLAjuGOTeH7iQJ9C8okZAgbPuEAJ12IJ0NSbbxb4"])
+                    .validate()
+                    .responseJSON { response in
+                        switch response.result {
+                        case .success(let value):
+                            print("Response JSON: \(value)")
+                            // 토큰 삭제
+                            UserDefaults.standard.removeObject(forKey: "jwt")
+                        case .failure(let error):
+                            print("Error: \(error.localizedDescription)")
+                        }
                     }
-                    else {
-                        print("logout() success.")
-                    }
-                }
+
                 
                 let loginVC = LoginViewController()
                 loginVC.modalPresentationStyle = .overFullScreen

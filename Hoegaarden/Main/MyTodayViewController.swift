@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import Alamofire
 
 class MyTodayViewController: UIViewController {
     
@@ -24,14 +25,13 @@ class MyTodayViewController: UIViewController {
         view.addSubview(todayDateLabel)
         view.addSubview(inputContent)
         view.addSubview(contentCountLabel)
-        view.addSubview(sendLabel)
-        view.addSubview(sendButton)
+        view.addSubview(sendStackView)
         view.addSubview(fillContentWillLabel)
         view.addSubview(fillContentWillMoreButton)
         return view
     }()
     
-    private lazy var todayDateLabel: UILabel = {
+    private let todayDateLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = Font.air.of(size: 12)
@@ -40,7 +40,7 @@ class MyTodayViewController: UIViewController {
     }()
     
     private lazy var inputContent: UITextView = {
-        var textView = UITextView()
+        let textView = UITextView()
         textView.backgroundColor = .clear
         textView.text = HomeMain.textViewPlaceHolder
         textView.textColor = .lightGray
@@ -53,34 +53,42 @@ class MyTodayViewController: UIViewController {
         return textView
     }()
     
-    private lazy var contentCountLabel: UILabel = {
+    private let contentCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "0/100"
+        label.text = MyToday.contentCount
         label.textColor = .black
         label.font = Font.air.of(size: 12)
-        label.attributedText = NSMutableAttributedString(string: "0/100", attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
+        label.attributedText = NSMutableAttributedString(string: MyToday.contentCount, attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private lazy var sendLabel: UILabel = {
+    private let sendLabel: UILabel = {
         let label = UILabel()
-        label.text = "보내기"
+        label.text = MyToday.contentSend
         label.textColor = UIColor(red: 0.592, green: 0.592, blue: 0.592, alpha: 1)
         label.font = Font.bold.of(size: 14)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private lazy var sendButton: UIButton = {
+    private let sendButton: UIButton = {
         let button = UIButton()
         let image = UIImage(named: "arrow-right-circle")
         button.setImage(image, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    private lazy var fillContentWillLabel: UILabel = {
+    private lazy var sendStackView: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [sendLabel, sendButton])
+        view.spacing = 10
+        view.axis = .horizontal
+        view.distribution = .fill
+        view.alignment = .fill
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let fillContentWillLabel: UILabel = {
        let label = UILabel()
         label.text = ""
         label.textColor = .black
@@ -90,7 +98,7 @@ class MyTodayViewController: UIViewController {
         return label
     }()
     
-    private lazy var fillContentWillMoreButton: UIButton = {
+    private let fillContentWillMoreButton: UIButton = {
         let button = UIButton()
         let image = UIImage(named: "more")
         button.setImage(image, for: .normal)
@@ -106,8 +114,8 @@ class MyTodayViewController: UIViewController {
         addViews()
         setGradientLayer()
         setTapGesture()
-        setConstraints()
         setupAddTarget()
+        setConstraints()
         getcurrentDate()
         completion(isOn: false)
         setupGestureRecognizer()
@@ -139,6 +147,13 @@ class MyTodayViewController: UIViewController {
         view.addGestureRecognizer(tapGesture)
     }
     
+    private func setupAddTarget() {
+        sendButton.addTarget(self, action: #selector(sendButtonTapped), for: .touchUpInside)
+        fillContentWillMoreButton.addTarget(self, action: #selector(fillContentWillMoreButtonTapped), for: .touchUpInside)
+        modifyAndDeleteAlertAction.modifyButton.addTarget(self, action: #selector(modifyButtonTapped), for: .touchUpInside)
+        modifyAndDeleteAlertAction.deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+    }
+    
     private func setConstraints() {
         NSLayoutConstraint.activate([
             myTodayView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
@@ -157,13 +172,11 @@ class MyTodayViewController: UIViewController {
             contentCountLabel.bottomAnchor.constraint(equalTo: myTodayView.bottomAnchor, constant: -24),
             contentCountLabel.leadingAnchor.constraint(equalTo: myTodayView.leadingAnchor, constant: 24),
             
-            sendLabel.bottomAnchor.constraint(equalTo: myTodayView.bottomAnchor, constant: -24),
-            sendLabel.trailingAnchor.constraint(equalTo: myTodayView.trailingAnchor, constant: -50),
-            
-            sendButton.bottomAnchor.constraint(equalTo: myTodayView.bottomAnchor, constant: -24),
-            sendButton.trailingAnchor.constraint(equalTo: myTodayView.trailingAnchor, constant: -25),
             sendButton.widthAnchor.constraint(equalToConstant: 20),
             sendButton.heightAnchor.constraint(equalToConstant: 20),
+            
+            sendStackView.bottomAnchor.constraint(equalTo: myTodayView.bottomAnchor, constant: -24),
+            sendStackView.trailingAnchor.constraint(equalTo: myTodayView.trailingAnchor, constant: -25),
             
             fillContentWillLabel.topAnchor.constraint(equalTo: todayDateLabel.topAnchor, constant: 68),
             fillContentWillLabel.leadingAnchor.constraint(equalTo: myTodayView.leadingAnchor, constant: 24),
@@ -174,18 +187,11 @@ class MyTodayViewController: UIViewController {
         ])
     }
     
-    private func setupAddTarget() {
-        sendButton.addTarget(self, action: #selector(sendButtonTapped), for: .touchUpInside)
-        fillContentWillMoreButton.addTarget(self, action: #selector(fillContentWillMoreButtonTapped), for: .touchUpInside)
-        modifyAndDeleteAlertAction.modifyButton.addTarget(self, action: #selector(modifyButtonTapped), for: .touchUpInside)
-        modifyAndDeleteAlertAction.deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
-    }
-    
     // 현재 날짜 가져오기
     private func getcurrentDate() {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
-        formatter.dateFormat = "yy년 MM월 dd일"
+        formatter.dateFormat = MyToday.todayDate
         let str = formatter.string(from: Date())
         todayDateLabel.text = "\(str)"
     }
@@ -207,9 +213,9 @@ class MyTodayViewController: UIViewController {
     
     private func updateCountLabel(characterCount: Int) {
         if isCountLabelUpdated {
-            contentCountLabel.text = "\(characterCount)/100"
+            contentCountLabel.text = "\(characterCount)/\(MyToday.characterCount)"
         } else {
-            contentCountLabel.text = "\(characterCount)/500"
+            contentCountLabel.text = "\(characterCount)/\(MyToday.fullCharacterCount)"
         }
     }
     
@@ -226,8 +232,31 @@ class MyTodayViewController: UIViewController {
             let keyboardView = keyboardWindow?.subviews.first(where: { String(describing: type(of: $0)).contains("InputSetHostView") }) ?? keyboardWindow?.subviews.first
         }
         self.toastWithButton.showButtonToast(image: UIImage(imageLiteralResourceName: "ad"),
-                                             message: "최대 500자를 작성해보세요.",
-                                             buttonTitle: "광고 보기")
+                                             message: ToastMessage.myTodayAdToast,
+                                             buttonTitle: ToastMessage.adButton)
+    }
+    
+    private func sendContentToServer(content: String) {
+        let parameters: [String: Any] = [
+            "content": content
+        ]
+        
+        let url = "https://share-today.site/diary"
+        
+        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+            .responseJSON { response in
+                switch response.result {
+                case .success(let value):
+                    if let json = value as? [String: Any],
+                       let result = json["result"] as? Bool,
+                       let data = json["data"] as? [String: Any],
+                       let diaryId = data["diaryId"] as? Int {
+                        print("다이어리 ID:", diaryId)
+                    }
+                case .failure(let error):
+                    print("요청 실패:", error)
+                }
+            }
     }
     
     @objc private func didTapTextView(_ sender: Any) {
@@ -235,25 +264,32 @@ class MyTodayViewController: UIViewController {
     }
     
     @objc private func sendButtonTapped() {
-        alert.showAlert("", subTitle: "나의 오늘을 누군가에게 보낼까요?\n분명 나의 이야기를 잘 들어줄\n누군가에게 도착할 거예요.",
+        alert.showAlert("",
+                        subTitle: AlertMessage.myTodaySendMessage,
                         style: AlertStyle.customImage(imageFile: "send"),
-                        buttonTitle: "취소", buttonColor: .white,
-                        otherButtonTitle: "보내기", otherButtonColor: .black) { (isOtherButton) -> Void in
+                        buttonTitle: AlertMessage.cancelButton,
+                        buttonColor: .white,
+                        otherButtonTitle: AlertMessage.sendButton,
+                        otherButtonColor: .black) { [self] (isOtherButton) -> Void in
             if isOtherButton == true { }
             else {
-                self.inputContent.resignFirstResponder()
+                let content = inputContent.text
+                sendContentToServer(content: content!)
+                print(self.sendContentToServer(content: content!))
                 
-                self.inputContent.isHidden = true
-                self.contentCountLabel.isHidden = true
-                self.sendLabel.isHidden = true
-                self.sendButton.isHidden = true
-                self.fillContentWillLabel.isHidden = false
-                self.fillContentWillMoreButton.isHidden = false
+                inputContent.resignFirstResponder()
                 
-                self.fillContentWillLabel.text = self.inputContent.text
+                inputContent.isHidden = true
+                contentCountLabel.isHidden = true
+                sendLabel.isHidden = true
+                sendButton.isHidden = true
+                fillContentWillLabel.isHidden = false
+                fillContentWillMoreButton.isHidden = false
                 
-                self.toast.showToast(image: UIImage(imageLiteralResourceName: "send"),
-                                     message: ToastMessage.sendToast)
+                fillContentWillLabel.text = self.inputContent.text
+                
+                toast.showToast(image: UIImage(imageLiteralResourceName: "send"),
+                                message: ToastMessage.sendToast)
             }
         }
     }
@@ -265,48 +301,54 @@ class MyTodayViewController: UIViewController {
     }
     
     @objc private func modifyButtonTapped() {
-        alert.showAlert("", subTitle: AlertMessage.modifyMessage,
+        alert.showAlert("",
+                        subTitle: AlertMessage.modifyMessage,
                         style: AlertStyle.customImage(imageFile: "modify"),
-                        buttonTitle: "취소", buttonColor: .white,
-                        otherButtonTitle: "수정하기", otherButtonColor: .black) { (isOtherButton) -> Void in
-            if isOtherButton == true { self.dismiss(animated: false, completion: nil) }
+                        buttonTitle: AlertMessage.cancelButton,
+                        buttonColor: .white,
+                        otherButtonTitle: AlertMessage.modifyButton,
+                        otherButtonColor: .black) { [self] (isOtherButton) -> Void in
+            if isOtherButton == true { }
             else {
-                self.dismiss(animated: false)
-                self.inputContent.resignFirstResponder()
+                dismiss(animated: false)
+                inputContent.resignFirstResponder()
                 
-                self.inputContent.isHidden = false
-                self.contentCountLabel.isHidden = false
-                self.sendLabel.isHidden = false
-                self.sendButton.isHidden = false
-                self.fillContentWillLabel.isHidden = true
-                self.fillContentWillMoreButton.isHidden = true
+                inputContent.isHidden = false
+                contentCountLabel.isHidden = false
+                sendLabel.isHidden = false
+                sendButton.isHidden = false
+                fillContentWillLabel.isHidden = true
+                fillContentWillMoreButton.isHidden = true
             }
         }
     }
     
     @objc private func deleteButtonTapped() {
-        alert.showAlert("", subTitle: AlertMessage.trashMessage,
+        alert.showAlert("",
+                        subTitle: AlertMessage.myTodayDeleteMessage,
                         style: AlertStyle.customImage(imageFile: "trash"),
-                        buttonTitle: "취소", buttonColor: .white,
-                        otherButtonTitle: "삭제하기", otherButtonColor: .black) { (isOtherButton) -> Void in
-            if isOtherButton == true { self.dismiss(animated: false, completion: nil) }
+                        buttonTitle: AlertMessage.cancelButton,
+                        buttonColor: .white,
+                        otherButtonTitle: AlertMessage.deleteButton,
+                        otherButtonColor: .black) { [self] (isOtherButton) -> Void in
+            if isOtherButton == true { }
             else {
-                self.dismiss(animated: false)
+                dismiss(animated: false)
     
-                self.inputContent.isHidden = false
-                self.contentCountLabel.isHidden = false
-                self.sendLabel.isHidden = false
-                self.sendButton.isHidden = false
-                self.fillContentWillLabel.isHidden = true
-                self.fillContentWillMoreButton.isHidden = true
+                inputContent.isHidden = false
+                contentCountLabel.isHidden = false
+                sendLabel.isHidden = false
+                sendButton.isHidden = false
+                fillContentWillLabel.isHidden = true
+                fillContentWillMoreButton.isHidden = true
 
-                self.inputContent.text = HomeMain.textViewPlaceHolder
-                self.inputContent.textColor = .lightGray
-                self.contentCountLabel.text = "0/100"
-                self.completion(isOn: false)
+                inputContent.text = HomeMain.textViewPlaceHolder
+                inputContent.textColor = .lightGray
+                contentCountLabel.text = MyToday.contentCount
+                completion(isOn: false)
                 
-                self.toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
-                                     message: ToastMessage.trashToast)
+                toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
+                                message: ToastMessage.trashToast)
             }
         }
     }
@@ -372,15 +414,18 @@ extension MyTodayViewController {
     }
     
     @objc private func labelTapped(_ tapRecognizer: UITapGestureRecognizer) {
-        alert.showAlert("", subTitle: "광고를 보면 최대 500자까지 더 많은\n마음속 이야기를 적을 수 있어요.",
+        alert.showAlert("",
+                        subTitle: AlertMessage.myTodayAdMessage,
                         style: AlertStyle.customImage(imageFile: "ad"),
-                        buttonTitle: "취소", buttonColor: .white,
-                        otherButtonTitle: "광고 보기", otherButtonColor: .black) { (isOtherButton) -> Void in
+                        buttonTitle: AlertMessage.cancelButton,
+                        buttonColor: .white,
+                        otherButtonTitle: AlertMessage.adButton,
+                        otherButtonColor: .black) { [self] (isOtherButton) -> Void in
             if isOtherButton == true { }
             else {
                 // AD
-                self.isCountLabelUpdated = false
-                self.updateCountLabel(characterCount: self.inputContent.text.count)
+                isCountLabelUpdated = false
+                updateCountLabel(characterCount: inputContent.text.count)
             }
         }
     }

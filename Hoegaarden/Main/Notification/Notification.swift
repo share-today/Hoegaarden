@@ -22,7 +22,7 @@ class Notification: UIViewController {
         return imageView
     }()
     
-    private var noticeLabel: UILabel = {
+    private let noticeLabel: UILabel = {
         let label = UILabel()
         label.text = Notices.noticeMain
         label.textColor = .black
@@ -31,7 +31,7 @@ class Notification: UIViewController {
         return label
     }()
     
-    private lazy var separatorView: UIView = {
+    private let separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
         view.translatesAutoresizingMaskIntoConstraints = false

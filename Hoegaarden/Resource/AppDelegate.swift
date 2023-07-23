@@ -35,6 +35,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         KakaoSDK.initSDK(appKey: "4b156aaa5781831d5b2a4dd7d4370fc1")
         
+//        let userDefaults = UserDefaults.standard
+//        if userDefaults.bool(forKey: "isLoggedIn") {
+//            let userId = userDefaults.string(forKey: "userID")
+//            print("자동 로그인 완료")
+//            let controller = HomeViewController()
+//            let nav = UINavigationController(rootViewController: controller)
+//            if let window = self.window {
+//                window.rootViewController = nav
+//                window.makeKeyAndVisible()
+//            }
+//        } else {
+//            print("자동 로그인 실패")
+//            let controller = LoginViewController()
+//            let nav = UINavigationController(rootViewController: controller)
+//            if let window = self.window {
+//                window.rootViewController = nav
+//                window.makeKeyAndVisible()
+//            }
+//        }
+        
         return true
     }
     
