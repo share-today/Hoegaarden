@@ -23,7 +23,7 @@ class PrivacyView: UIViewController {
     
     private var privacyLabel: UILabel = {
         let label = UILabel()
-        label.text = "개인정보 처리 방침"
+        label.text = Settings.privacyMain
         label.textColor = .black
         label.font = Font.bold.of(size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +39,7 @@ class PrivacyView: UIViewController {
     
     private var contentLabel: UILabel = {
         let label = UILabel()
-        label.text = "하루공유는 고객의 개인정보를 소중히 다루고 관련 법령을 준수하고 있습니다. 회사는 개인정보보호법 등 관련 법령에 따라 개인정보처리방침을 수립한 뒤 홈페이지에 공개하여 고객이 언제나 용이하게 열람할 수 있도록 하고 있습니다.\n\n제 1조 개인정보의 수집 및 이용에 관한 안내\n회사는 아래와 같이 제공하는 서비스에 따라 개인정보의 수집목적, 항목, 보유 및 이용기간을 달리하여 서비스 제공을 위하여 필요한 최소한의 개인정보를 수집하고 있습니다."
+        label.text = Settings.privacyContent
         label.numberOfLines = 0
         label.textColor = .black
         label.font = Font.air.of(size: 16)

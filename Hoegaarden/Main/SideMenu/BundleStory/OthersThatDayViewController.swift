@@ -1,13 +1,13 @@
 //
-//  OthersYesterdayViewController.swift
+//  OthersThatDayViewController.swift
 //  Hoegaarden
 //
-//  Created by 혜리 on 2023/03/27.
+//  Created by 혜리 on 2023/03/09.
 //
 
 import UIKit
 
-class OthersYesterdayViewController: UIViewController {
+class OthersThatDayViewController: UIViewController {
     
     private let toast = Toast()
     private let alert = SweetAlert()
@@ -24,28 +24,24 @@ class OthersYesterdayViewController: UIViewController {
         return collectionView
     }()
     
+    private lazy var deleteActionSheet: DeleteAlertAction = {
+       let actionSheet = DeleteAlertAction()
+        actionSheet.setButtonTitle(AlertMessage.deleteButton)
+        actionSheet.button.addTarget(self, action: #selector(commentDeleteButtonAction), for: .touchUpInside)
+        return actionSheet
+    }()
+    
     private lazy var reportAndDeleteActionSheet: CustomAlertAction = {
         let actionSheet = CustomAlertAction()
         actionSheet.setMainButtonTitle(AlertMessage.reportButton)
-        actionSheet.mainButton.addTarget(self, action: #selector(reportButtonTapped), for: .touchUpInside)
+        actionSheet.mainButton.addTarget(self, action: #selector(reportButtonAction), for: .touchUpInside)
         
         actionSheet.setSecondaryButtonTitle(AlertMessage.deleteButton)
-        actionSheet.secondButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+        actionSheet.secondButton.addTarget(self, action: #selector(deleteButtonAction), for: .touchUpInside)
         
         return actionSheet
     }()
     
-    private lazy var modifyAndDeleteAlertAction: CustomAlertAction = {
-        let actionSheet = CustomAlertAction()
-        actionSheet.setMainButtonTitle(AlertMessage.modifyButton)
-        actionSheet.mainButton.addTarget(self, action: #selector(modifyButtonTapped), for: .touchUpInside)
-        
-        actionSheet.setSecondaryButtonTitle(AlertMessage.deleteButton)
-        actionSheet.secondButton.addTarget(self, action: #selector(modifyDeleteButtonTapped), for: .touchUpInside)
-        
-        return actionSheet
-    }()
-
     private var dataArray: [OthersData] = [
         OthersData(date: "23년 03월 03일", content: "우아앙"),
         OthersData(date: "23년 03월 03일", content: "뿌아앙"),
@@ -54,20 +50,34 @@ class OthersYesterdayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setup()
+        setGradientLayer()
         setCollectionView()
     }
-
+    
     private func setup() {
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    }
+    
+    private func setGradientLayer() {
+//        let layer = CAGradientLayer()
+//        layer.colors = [UIColor(red: 1, green: 0.904, blue: 0.904, alpha: 1).cgColor,
+//                        UIColor(red: 0.996, green: 0.846, blue: 0.846, alpha: 1).cgColor]
+//        layer.startPoint = CGPoint(x: 0.5, y: 0.0)
+//        layer.endPoint = CGPoint(x: 0.5, y: 1.0)
+//        layer.locations = [0, 1]
+//        layer.frame = someoneThatDayView.bounds
+//        layer.bounds = view.bounds.insetBy(dx: -0.5 * view.bounds.size.width, dy: -0.5 * view.bounds.size.height)
+//        layer.position = view.center
+//        someoneThatDayView.layer.insertSublayer(layer, at: 0)
     }
     
     private func setCollectionView() {
         view.addSubview(collectionView)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(OthersCell.self, forCellWithReuseIdentifier: "OthersCell")
+        collectionView.register(OthersThatDayCell.self, forCellWithReuseIdentifier: "OthersThatDayCell")
         
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: -30),
@@ -77,7 +87,20 @@ class OthersYesterdayViewController: UIViewController {
         ])
     }
     
-    @objc private func reportButtonTapped() {
+    private func emptyStateView() {
+        let label = UILabel()
+        label.text = "비어 있어요."
+        label.textColor = .black
+        label.font = Font.air.of(size: 16)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
+    @objc private func reportButtonAction() {
         alert.showAlert("",
                         subTitle: AlertMessage.reportMessage,
                         style: AlertStyle.customImage(imageFile: "frown"),
@@ -88,13 +111,14 @@ class OthersYesterdayViewController: UIViewController {
             if isOtherButton == true { }
             else {
                 dismiss(animated: false, completion: nil)
+                
                 toast.showToast(image: UIImage(imageLiteralResourceName: "check-circle"),
                                 message: ToastMessage.reportToast)
             }
         }
     }
     
-    @objc private func deleteButtonTapped() {
+    @objc private func deleteButtonAction() {
         alert.showAlert("",
                         subTitle: AlertMessage.commentDeleteMessage,
                         style: AlertStyle.customImage(imageFile: "trash"),
@@ -105,30 +129,16 @@ class OthersYesterdayViewController: UIViewController {
             if isOtherButton == true { }
             else {
                 dismiss(animated: false, completion: nil)
+                
                 toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
-                                message: ToastMessage.trashToast)
+                                     message: ToastMessage.trashToast)
             }
         }
     }
     
-    @objc private func modifyButtonTapped() {
+    @objc private func commentDeleteButtonAction() {
         alert.showAlert("",
-                        subTitle: AlertMessage.modifyMessage,
-                        style: AlertStyle.customImage(imageFile: "modify"),
-                        buttonTitle: AlertMessage.cancelButton,
-                        buttonColor: .white,
-                        otherButtonTitle: AlertMessage.modifyButton,
-                        otherButtonColor: .black) { [self] (isOtherButton) -> Void in
-            if isOtherButton == true { }
-            else {
-                dismiss(animated: false)
-            }
-        }
-    }
-    
-    @objc private func modifyDeleteButtonTapped() {
-        alert.showAlert("",
-                        subTitle: AlertMessage.sendDeleteMessage,
+                        subTitle: AlertMessage.deleteMessage,
                         style: AlertStyle.customImage(imageFile: "trash"),
                         buttonTitle: AlertMessage.cancelButton,
                         buttonColor: .white,
@@ -136,8 +146,8 @@ class OthersYesterdayViewController: UIViewController {
                         otherButtonColor: .black) { [self] (isOtherButton) -> Void in
             if isOtherButton == true { }
             else {
-                dismiss(animated: false)
-
+                dismiss(animated: false, completion: nil)
+                
                 toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
                                      message: ToastMessage.trashToast)
             }
@@ -145,13 +155,14 @@ class OthersYesterdayViewController: UIViewController {
     }
 }
 
-extension OthersYesterdayViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+
+extension OthersThatDayViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OthersCell", for: indexPath) as! OthersCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OthersThatDayCell", for: indexPath) as! OthersThatDayCell
         
         let data = dataArray[indexPath.item]
         cell.dateLabel.text = data.date
@@ -164,18 +175,18 @@ extension OthersYesterdayViewController: UICollectionViewDelegate, UICollectionV
             }
         }
         
-        cell.moreModifyButtonAction = { [weak self] in
-            if let actionSheet = self?.modifyAndDeleteAlertAction {
+        cell.commentMoreButtonAction = { [weak self] in
+            if let actionSheet = self?.deleteActionSheet {
                 actionSheet.modalPresentationStyle = .overFullScreen
                 self?.present(actionSheet, animated: false)
             }
         }
-        
+      
         return cell
     }
 }
 
-extension OthersYesterdayViewController: UICollectionViewDelegateFlowLayout {
+extension OthersThatDayViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = collectionView.frame.width - 10
         return CGSize(width: cellWidth, height: 500)

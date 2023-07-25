@@ -11,7 +11,6 @@ class SideMenuCell: UITableViewCell {
     
     let sideMenuLabel: UILabel = {
         let label = UILabel()
-        label.text = "menuOptions"
         label.textColor = .black
         label.font = Font.air.of(size: 17)
         label.translatesAutoresizingMaskIntoConstraints = false

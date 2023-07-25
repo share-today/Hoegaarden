@@ -72,8 +72,8 @@ class BundleStoryView: UIViewController {
     }()
     
     private var viewControllers: [UIViewController] {
-        [MyThatDay(),
-         SomeoneThatDay()]
+        [MyThatDayViewController(),
+         OthersThatDayViewController()]
     }
     
     private var currentPage: Int = 0 {

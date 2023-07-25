@@ -1,13 +1,13 @@
 //
-//  MyYesterdayCell.swift
+//  MyThatDayCell.swift
 //  Hoegaarden
 //
-//  Created by 혜리 on 2023/07/23.
+//  Created by 혜리 on 2023/07/25.
 //
 
 import UIKit
 
-class MyYesterdayCell: UICollectionViewCell {
+class MyThatDayCell: UICollectionViewCell {
     
     private let toast = Toast()
     private let alert = SweetAlert()
@@ -15,7 +15,7 @@ class MyYesterdayCell: UICollectionViewCell {
     typealias ButtonActionBlock = (() -> Void)
     var commentMoreButtonAction: ButtonActionBlock?
     
-    private lazy var MyYesterdayCommentView: UIView = {
+    private lazy var commentView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.layer.cornerRadius = 8
@@ -23,11 +23,10 @@ class MyYesterdayCell: UICollectionViewCell {
         view.layer.borderWidth = 1
         view.layer.borderColor = #colorLiteral(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
         view.translatesAutoresizingMaskIntoConstraints = false
-        
         view.addSubview(commentContent)
         view.addSubview(commentHeartButton)
         view.addSubview(commentMoreButton)
-       return view
+        return view
     }()
     
     var commentContent: UILabel = {
@@ -35,21 +34,23 @@ class MyYesterdayCell: UICollectionViewCell {
         label.text = "모두가 당신의 힘든 점들을 모를 거라 생각하겠지만, 누군가는 분명 알고 있을 거에요."
         label.textColor = .black
         label.font = Font.air.of(size: 16)
+        label.backgroundColor = .clear
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private let commentHeartButton: UIButton = {
-        let button = UIButton()
+    private var commentHeartButton: UIButton = {
+        let button = UIButton(type: .custom)
         let image = UIImage(named: "heart")
         button.setImage(image, for: .normal)
+        button.tintColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    private let commentMoreButton: UIButton = {
-        let button = UIButton()
+    let commentMoreButton: UIButton = {
+        let button = UIButton(type: .custom)
         let image = UIImage(named: "more")
         button.setImage(image, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -74,7 +75,7 @@ class MyYesterdayCell: UICollectionViewCell {
     }
     
     private func addViews() {
-        contentView.addSubview(MyYesterdayCommentView)
+        contentView.addSubview(commentView)
     }
     
     private func setAddTarget() {
@@ -84,20 +85,20 @@ class MyYesterdayCell: UICollectionViewCell {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            MyYesterdayCommentView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            MyYesterdayCommentView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
-            MyYesterdayCommentView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
-            MyYesterdayCommentView.heightAnchor.constraint(equalToConstant: 132),
+            commentView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            commentView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
+            commentView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
+            commentView.heightAnchor.constraint(equalToConstant: 132),
             
-            commentContent.topAnchor.constraint(equalTo: MyYesterdayCommentView.topAnchor, constant: 24),
-            commentContent.leadingAnchor.constraint(equalTo: MyYesterdayCommentView.leadingAnchor, constant: 24),
-            commentContent.trailingAnchor.constraint(equalTo: MyYesterdayCommentView.trailingAnchor, constant: -24),
+            commentContent.topAnchor.constraint(equalTo: commentView.topAnchor, constant: 24),
+            commentContent.leadingAnchor.constraint(equalTo: commentView.leadingAnchor, constant: 24),
+            commentContent.trailingAnchor.constraint(equalTo: commentView.trailingAnchor, constant: -24),
             
-            commentHeartButton.bottomAnchor.constraint(equalTo: MyYesterdayCommentView.bottomAnchor, constant: -24),
-            commentHeartButton.trailingAnchor.constraint(equalTo: MyYesterdayCommentView.trailingAnchor, constant: -70),
+            commentHeartButton.bottomAnchor.constraint(equalTo: commentView.bottomAnchor, constant: -24),
+            commentHeartButton.trailingAnchor.constraint(equalTo: commentView.trailingAnchor, constant: -70),
             
-            commentMoreButton.bottomAnchor.constraint(equalTo: MyYesterdayCommentView.bottomAnchor, constant: -24),
-            commentMoreButton.trailingAnchor.constraint(equalTo: MyYesterdayCommentView.trailingAnchor, constant: -25)
+            commentMoreButton.bottomAnchor.constraint(equalTo: commentView.bottomAnchor, constant: -24),
+            commentMoreButton.trailingAnchor.constraint(equalTo: commentView.trailingAnchor, constant: -25)
         ])
     }
     
@@ -117,5 +118,3 @@ class MyYesterdayCell: UICollectionViewCell {
         commentMoreButtonAction?()
     }
 }
-
-

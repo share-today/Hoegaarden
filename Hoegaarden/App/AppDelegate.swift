@@ -19,13 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        let launchScreenVC = LaunchScreenViewController()
-        
-        // LaunchScreenViewController를 rootViewController로 설정하고, 윈도우에 등록합니다.
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = launchScreenVC
-        window?.makeKeyAndVisible()
         
         FirebaseApp.configure()
         

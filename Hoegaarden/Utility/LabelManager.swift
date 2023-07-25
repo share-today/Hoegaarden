@@ -85,11 +85,18 @@ struct OthersYesterday {
 struct BundleStory {
     static let myThatDayTitle = "나의 그날"
     static let someoneThatDayTitle = "누군가의 그날"
+    
+    static let myThatDayDate = "00년 00월 00일"
+    static let myThatDayContent = "오늘은 상사에게 후배에게 하루종일 시달려서 지쳤어요. 중간에 껴서 새우등 터지고 있는데 어디가서 말해봤자 제 이미지만 안 좋아지겠죠?"
+    static let myThatDayEmptyState = "이날은 이야기를 들려주지 않았어요."
 }
 
 
 struct Settings {
     static let unregisterContent = " 회원 탈퇴를 신청하기 전에 안내 사항을 꼭 확인해주세요.\n\n· 사용하고 계신 이메일 로그인 정보는 탈퇴할 경우 하루 동안 재가입이 불가능합니다.\n\n· 탈퇴 후 회원 정보 및 서비스 이용기록은 모두 삭제되어 복구가 불가능합니다.\n· 삭제된 데이터는 복구되지 않습니다. 삭제되는 내용을 확인하시고 필요한 데이터는 미리 백업해주세요.\n· 삭제정보: SNS 로그인 정보, 닉네임, 나의 그날 게시물, 다른 사람의 게시물에 반응한 좋아요 및 코멘트 기록"
+    
+    static let privacyMain = "개인정보 처리 방침"
+    static let privacyContent = "하루공유는 고객의 개인정보를 소중히 다루고 관련 법령을 준수하고 있습니다. 회사는 개인정보보호법 등 관련 법령에 따라 개인정보처리방침을 수립한 뒤 홈페이지에 공개하여 고객이 언제나 용이하게 열람할 수 있도록 하고 있습니다.\n\n제 1조 개인정보의 수집 및 이용에 관한 안내\n회사는 아래와 같이 제공하는 서비스에 따라 개인정보의 수집목적, 항목, 보유 및 이용기간을 달리하여 서비스 제공을 위하여 필요한 최소한의 개인정보를 수집하고 있습니다."
 }
 
 
@@ -119,7 +126,7 @@ struct AlertMessage {
     static let commentDeleteMessage = "누군가의 이야기가 맘에 들지 않나요?\n지금 즉시 삭제할 수 있어요."
     static let sendDeleteMessage = "다른 이야기를 적어보고 싶은가요?\n삭제하면 해당 이야기는 누군가에게\n전해지지 않으며, 복구가 어려워요."
     static let myTodayDeleteMessage = "다른 이야기를 적어보고 싶은가요?\n삭제하면 해당 이야기는 누군가에게\n전해지지 않으며, 복구가 어려워요."
-    static let myYesterdayDeleteMessage = "이야기를 지우고 싶은가요?\n삭제하면 복구가 어려워요."
+    static let deleteMessage = "이야기를 지우고 싶은가요?\n삭제하면 복구가 어려워요."
     
     static let cancelButton = "취소"
     static let sendButton = "보내기"

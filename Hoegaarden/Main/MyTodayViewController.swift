@@ -14,7 +14,7 @@ class MyTodayViewController: UIViewController {
     private let toast = Toast()
     private let alert = SweetAlert()
     private let toastWithButton = ToastWithButton()
-    private let modifyAndDeleteAlertAction = ModifyAndDeleteAlertAction()
+//    private let modifyAndDeleteAlertAction = ModifyAndDeleteAlertAction()
     private var isCountLabelUpdated = true
 
     private lazy var myTodayView: UIView = {
@@ -45,9 +45,6 @@ class MyTodayViewController: UIViewController {
         textView.text = HomeMain.textViewPlaceHolder
         textView.textColor = .lightGray
         textView.font = Font.air.of(size: 16)
-        textView.autocapitalizationType = .none
-        textView.autocorrectionType = .no
-        textView.spellCheckingType = .no
         textView.delegate = self
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
@@ -149,9 +146,7 @@ class MyTodayViewController: UIViewController {
     
     private func setupAddTarget() {
         sendButton.addTarget(self, action: #selector(sendButtonTapped), for: .touchUpInside)
-        fillContentWillMoreButton.addTarget(self, action: #selector(fillContentWillMoreButtonTapped), for: .touchUpInside)
-        modifyAndDeleteAlertAction.modifyButton.addTarget(self, action: #selector(modifyButtonTapped), for: .touchUpInside)
-        modifyAndDeleteAlertAction.deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+//        fillContentWillMoreButton.addTarget(self, action: #selector(fillContentWillMoreButtonTapped), for: .touchUpInside)
     }
     
     private func setConstraints() {
@@ -292,12 +287,6 @@ class MyTodayViewController: UIViewController {
                                 message: ToastMessage.sendToast)
             }
         }
-    }
-    
-    @objc private func fillContentWillMoreButtonTapped() {
-        let actionsheetVC = modifyAndDeleteAlertAction
-        actionsheetVC.modalPresentationStyle = .overFullScreen
-        self.present(actionsheetVC, animated: false)
     }
     
     @objc private func modifyButtonTapped() {

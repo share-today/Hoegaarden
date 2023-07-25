@@ -12,10 +12,7 @@ class OthersCell: UICollectionViewCell {
     private let toast = Toast()
     private let toastWithButton = ToastWithButton()
     private let alert = SweetAlert()
-    private let modifyAndDeleteAlertAction = ModifyAndDeleteAlertAction()
-    
-    var reportAndDeleteActionSheet: CustomAlertAction?
-    
+
     private var isCountLabelUpdated = true
     
     typealias ButtonActionBlock = (() -> Void)
@@ -78,6 +75,7 @@ class OthersCell: UICollectionViewCell {
         view.layer.cornerRadius = 8
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
+        
         view.addSubview(commentInputContent)
         view.addSubview(commentInputContentCountLabel)
         view.addSubview(commentSendStackView)
@@ -150,37 +148,10 @@ class OthersCell: UICollectionViewCell {
         return button
     }()
     
-    private func emptyStateView() {
-        let label = UILabel()
-        label.text = OthersYesterday.emptyState
-        label.textColor = .black
-        label.font = Font.air.of(size: 16)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(label)
-        NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: centerYAnchor)
-        ])
-    }
-
-    private func emptyStateAllDeletedView() {
-        let label = UILabel()
-        label.text = OthersYesterday.allDeleteEmptyState
-        label.textColor = .black
-        label.font = Font.air.of(size: 16)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(label)
-        NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: centerYAnchor)
-        ])
-    }
-    
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        commentInputContent.delegate = self
         setup()
         addViews()
         setTapGesture()
@@ -196,6 +167,7 @@ class OthersCell: UICollectionViewCell {
     
     private func setup() {
         backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        commentInputContent.delegate = self
     }
     
     private func addViews() {
@@ -208,8 +180,8 @@ class OthersCell: UICollectionViewCell {
     }
     
     private func setAddTarget() {
-        heartButton.addTarget(self, action: #selector(heartButtonTapped), for: .touchUpInside)
-        moreButton.addTarget(self, action: #selector(moreButtonTapped), for: .touchUpInside)
+        heartButton.addTarget(self, action: #selector(heartButtonAction), for: .touchUpInside)
+        moreButton.addTarget(self, action: #selector(showMoreInfo), for: .touchUpInside)
         commentSendButton.addTarget(self, action: #selector(commentSend), for: .touchUpInside)
         commentWillMoreButton.addTarget(self, action: #selector(moreModifyButtonTapped), for: .touchUpInside)
     }
@@ -300,11 +272,37 @@ class OthersCell: UICollectionViewCell {
         ])
     }
     
+    private func emptyStateView() {
+        let label = UILabel()
+        label.text = OthersYesterday.emptyState
+        label.textColor = .black
+        label.font = Font.air.of(size: 16)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(label)
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+    }
+
+    private func emptyStateAllDeletedView() {
+        let label = UILabel()
+        label.text = OthersYesterday.allDeleteEmptyState
+        label.textColor = .black
+        label.font = Font.air.of(size: 16)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(label)
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+    }
+    
     @objc private func didTapTextView(_ sender: Any) {
         endEditing(true)
     }
     
-    @objc private func heartButtonTapped() {
+    @objc private func heartButtonAction() {
         if heartButton.isSelected == true {
             heartButton.isSelected = false
             heartButton.setImage(UIImage(named: "heart"), for: .normal)
@@ -317,7 +315,7 @@ class OthersCell: UICollectionViewCell {
         }
     }
     
-    @objc private func moreButtonTapped() {
+    @objc private func showMoreInfo() {
         moreButtonAction?()
     }
     
