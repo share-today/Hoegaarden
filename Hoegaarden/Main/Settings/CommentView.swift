@@ -13,16 +13,16 @@ class CommentView: UIViewController {
     private let alert = SweetAlert()
     private let toast = Toast()
     
-    private var commentLabel: UILabel = {
+    private var mainLabel: UILabel = {
         let label = UILabel()
-        label.text = "의견 보내기"
+        label.text = Settings.commentLabel
         label.textColor = .black
         label.font = Font.bold.of(size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private lazy var lineView: UIView = {
+    private lazy var separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +57,7 @@ class CommentView: UIViewController {
     
     private var contentCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "0/100"
+        label.text = Settings.commentCount
         label.textColor = .black
         label.font = Font.air.of(size: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -66,7 +66,7 @@ class CommentView: UIViewController {
     
     private var sendLabel: UILabel = {
         let label = UILabel()
-        label.text = "보내기"
+        label.text = Settings.commentSend
         label.textColor = UIColor(red: 0.592, green: 0.592, blue: 0.592, alpha: 1)
         label.font = Font.bold.of(size: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -104,8 +104,8 @@ class CommentView: UIViewController {
     }
     
     private func addViews() {
-        view.addSubview(commentLabel)
-        view.addSubview(lineView)
+        view.addSubview(mainLabel)
+        view.addSubview(separatorView)
         view.addSubview(commentView)
     }
     
@@ -142,16 +142,16 @@ class CommentView: UIViewController {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            commentLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 130),
-            commentLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36),
+            mainLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 130),
+            mainLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36),
             
-            lineView.topAnchor.constraint(equalTo: commentLabel.bottomAnchor, constant: 12),
-            lineView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            lineView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            lineView.widthAnchor.constraint(equalToConstant: 351),
-            lineView.heightAnchor.constraint(equalToConstant: 1),
+            separatorView.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 12),
+            separatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            separatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            separatorView.widthAnchor.constraint(equalToConstant: 351),
+            separatorView.heightAnchor.constraint(equalToConstant: 1),
             
-            commentView.topAnchor.constraint(equalTo: lineView.topAnchor, constant: 16),
+            commentView.topAnchor.constraint(equalTo: separatorView.topAnchor, constant: 16),
             commentView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             commentView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             commentView.widthAnchor.constraint(equalToConstant: 327),
@@ -191,15 +191,18 @@ class CommentView: UIViewController {
     }
     
     @objc private func sendButtonClicked() {
-        alert.showAlert("", subTitle: "의견을 보낼까요?\n주신 의견들은 꼼꼼히 읽어볼게요.",
+        alert.showAlert("",
+                        subTitle: AlertMessage.commentMessage,
                         style: AlertStyle.customImage(imageFile: "send"),
-                        buttonTitle: "취소", buttonColor: .white,
-                        otherButtonTitle: "보내기", otherButtonColor: .black) { (isOtherButton) -> Void in
+                        buttonTitle: AlertMessage.cancelButton,
+                        buttonColor: .white,
+                        otherButtonTitle: AlertMessage.sendButton,
+                        otherButtonColor: .black) { [self] (isOtherButton) -> Void in
             if isOtherButton == true { }
             else {
-                self.dismiss(animated: false)
-                self.toast.showToast(image: UIImage(imageLiteralResourceName: "check-circle"),
-                                     message: "의견이 접수됐습니다.")
+                dismiss(animated: false)
+                toast.showToast(image: UIImage(imageLiteralResourceName: "check-circle"),
+                                message: ToastMessage.sendCommentToast)
             }
         }
     }

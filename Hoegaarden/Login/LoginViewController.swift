@@ -96,7 +96,9 @@ extension LoginViewController: ASAuthorizationControllerPresentationContextProvi
                 "accessToken": "sns로그인후_받은_액세스토큰"
             ]
             
-            AF.request(url, method: .post, parameters: parameters)
+            AF.request(url,
+                       method: .post,
+                       parameters: parameters)
                 .validate()
                 .responseJSON { response in
                     switch response.result {

@@ -121,11 +121,11 @@ class BundleStoryController: UIViewController, FSCalendarDataSource, FSCalendarD
     
     @objc func respondToSwipeGesture(_ gesture: UIGestureRecognizer){
         if let swipeGesture = gesture as? UISwipeGestureRecognizer {
-            switch swipeGesture.direction{
+            switch swipeGesture.direction {
             case UISwipeGestureRecognizer.Direction.left:
-                // 스와이프 시, 원하는 기능 구현.
                 self.dismiss(animated: true, completion: nil)
-            default: break
+            default:
+                break
             }
         }
     }

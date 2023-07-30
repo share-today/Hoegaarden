@@ -128,6 +128,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C0037072A74D9C600E0D75F /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				1C4946472A6D1D0400A57038 /* MyYesterdayCell.swift */,
+				1C4946412A6C1C1A00A57038 /* OthersCell.swift */,
+				1CD972542964460D00A4D62F /* SideMenuCell.swift */,
+				1C49464E2A6F9E4A00A57038 /* MyThatDayCell.swift */,
+				1C4946502A6FBFD600A57038 /* OthersThatDayCell.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		1C17CF3C29D2E930006988FE /* Utility */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,6 +216,7 @@
 		1CD9722D29642C6600A4D62F /* Hoegaarden */ = {
 			isa = PBXGroup;
 			children = (
+				1C0037072A74D9C600E0D75F /* Components */,
 				1C49464B2A6F8F2800A57038 /* Extension */,
 				1C1CBB5C2A5AE71A00800A63 /* Model */,
 				1CD9724329642D0500A4D62F /* Login */,
@@ -225,9 +238,7 @@
 				1CA60BCC29BC7F270009CA3C /* HomeViewController.swift */,
 				1C17CF3A29D2AC59006988FE /* MyTodayViewController.swift */,
 				1C17CF3829D2AC40006988FE /* MyYesterdayViewController.swift */,
-				1C4946472A6D1D0400A57038 /* MyYesterdayCell.swift */,
 				1C17CF3429D2A942006988FE /* OthersYesterdayViewController.swift */,
-				1C4946412A6C1C1A00A57038 /* OthersCell.swift */,
 				1C4946432A6C220400A57038 /* StoryData.swift */,
 				1CD9724B296431EC00A4D62F /* SideMenu */,
 			);
@@ -267,9 +278,7 @@
 				1CD9725C2964489600A4D62F /* BundleStoryController.swift */,
 				1CA60BC629BA16E60009CA3C /* BundleStoryView.swift */,
 				1CA60BC829BA17F00009CA3C /* MyThatDayViewController.swift */,
-				1C49464E2A6F9E4A00A57038 /* MyThatDayCell.swift */,
 				1CA60BCA29BA17F80009CA3C /* OthersThatDayViewController.swift */,
-				1C4946502A6FBFD600A57038 /* OthersThatDayCell.swift */,
 			);
 			path = BundleStory;
 			sourceTree = "<group>";
@@ -277,7 +286,6 @@
 		1CD9724B296431EC00A4D62F /* SideMenu */ = {
 			isa = PBXGroup;
 			children = (
-				1CD972542964460D00A4D62F /* SideMenuCell.swift */,
 				1CD972562964469100A4D62F /* SideMenuOptions.swift */,
 				1CA60B7629AF1A820009CA3C /* HomeSide.swift */,
 				1CD97249296431DD00A4D62F /* BundleStory */,

@@ -14,7 +14,6 @@ class MyTodayViewController: UIViewController {
     private let toast = Toast()
     private let alert = SweetAlert()
     private let toastWithButton = ToastWithButton()
-//    private let modifyAndDeleteAlertAction = ModifyAndDeleteAlertAction()
     private var isCountLabelUpdated = true
 
     private lazy var myTodayView: UIView = {
@@ -104,6 +103,17 @@ class MyTodayViewController: UIViewController {
         return button
     }()
     
+    private lazy var modifyAndDeleteAlertAction: CustomAlertAction = {
+        let actionSheet = CustomAlertAction()
+        actionSheet.setMainButtonTitle(AlertMessage.modifyButton)
+        actionSheet.mainButton.addTarget(self, action: #selector(modifyButtonAction), for: .touchUpInside)
+        
+        actionSheet.setSecondaryButtonTitle(AlertMessage.deleteButton)
+        actionSheet.secondButton.addTarget(self, action: #selector(modifyDeleteButtonAction), for: .touchUpInside)
+        
+        return actionSheet
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -116,6 +126,16 @@ class MyTodayViewController: UIViewController {
         getcurrentDate()
         completion(isOn: false)
         setupGestureRecognizer()
+        
+//        if let savedText = UserDefaults.standard.string(forKey: "fillContentWillLabelText") {
+//            fillContentWillLabel.text = savedText
+//            inputContent.isHidden = true
+//            contentCountLabel.isHidden = true
+//            sendLabel.isHidden = true
+//            sendButton.isHidden = true
+//            fillContentWillLabel.isHidden = false
+//            fillContentWillMoreButton.isHidden = false
+//        }
     }
     
     private func setup() {
@@ -146,7 +166,7 @@ class MyTodayViewController: UIViewController {
     
     private func setupAddTarget() {
         sendButton.addTarget(self, action: #selector(sendButtonTapped), for: .touchUpInside)
-//        fillContentWillMoreButton.addTarget(self, action: #selector(fillContentWillMoreButtonTapped), for: .touchUpInside)
+        fillContentWillMoreButton.addTarget(self, action: #selector(fillContentWillMoreButtonAction), for: .touchUpInside)
     }
     
     private func setConstraints() {
@@ -232,26 +252,30 @@ class MyTodayViewController: UIViewController {
     }
     
     private func sendContentToServer(content: String) {
-        let parameters: [String: Any] = [
+        let url = "https://share-today.site/diary"
+        let parameters = [
             "content": content
         ]
         
-        let url = "https://share-today.site/diary"
-        
-        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
-            .responseJSON { response in
-                switch response.result {
-                case .success(let value):
-                    if let json = value as? [String: Any],
-                       let result = json["result"] as? Bool,
-                       let data = json["data"] as? [String: Any],
-                       let diaryId = data["diaryId"] as? Int {
-                        print("다이어리 ID:", diaryId)
-                    }
-                case .failure(let error):
-                    print("요청 실패:", error)
+        AF.request(url,
+                   method: .post,
+                   parameters: parameters)
+        .validate()
+        .responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                print("Response JSOn: \(value)")
+                if let json = value as? [String: Any],
+                   let result = json["result"] as? Bool,
+                   let data = json["data"] as? [String: Any],
+                   let diaryId = data["diaryId"] as? Int {
+                    print("다이어리 ID:", diaryId)
+                    print("다이어리 content:", content)
                 }
+            case .failure(let error):
+                print("Error: \(error.localizedDescription)")
             }
+        }
     }
     
     @objc private func didTapTextView(_ sender: Any) {
@@ -270,7 +294,7 @@ class MyTodayViewController: UIViewController {
             else {
                 let content = inputContent.text
                 sendContentToServer(content: content!)
-                print(self.sendContentToServer(content: content!))
+                print("다이어리 내용", content!)
                 
                 inputContent.resignFirstResponder()
                 
@@ -282,6 +306,7 @@ class MyTodayViewController: UIViewController {
                 fillContentWillMoreButton.isHidden = false
                 
                 fillContentWillLabel.text = self.inputContent.text
+//                UserDefaults.standard.set(self.inputContent.text, forKey: "fillContentWillLabelText")
                 
                 toast.showToast(image: UIImage(imageLiteralResourceName: "send"),
                                 message: ToastMessage.sendToast)
@@ -289,7 +314,7 @@ class MyTodayViewController: UIViewController {
         }
     }
     
-    @objc private func modifyButtonTapped() {
+    @objc private func modifyButtonAction() {
         alert.showAlert("",
                         subTitle: AlertMessage.modifyMessage,
                         style: AlertStyle.customImage(imageFile: "modify"),
@@ -312,7 +337,7 @@ class MyTodayViewController: UIViewController {
         }
     }
     
-    @objc private func deleteButtonTapped() {
+    @objc private func modifyDeleteButtonAction() {
         alert.showAlert("",
                         subTitle: AlertMessage.myTodayDeleteMessage,
                         style: AlertStyle.customImage(imageFile: "trash"),
@@ -340,6 +365,11 @@ class MyTodayViewController: UIViewController {
                                 message: ToastMessage.trashToast)
             }
         }
+    }
+    
+    @objc private func fillContentWillMoreButtonAction() {
+        modifyAndDeleteAlertAction.modalPresentationStyle = .overFullScreen
+        self.present(modifyAndDeleteAlertAction, animated: false)
     }
 }
 

@@ -33,9 +33,10 @@ class SettingController: UIViewController {
         return view
     }()
     
+    // 시스템 설정 - 알림
     private var systemLabel: UILabel = {
         let label = UILabel()
-        label.text = "시스템 설정"
+        label.text = Settings.settingLabel
         label.textColor = .black
         label.font = Font.bold.of(size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -44,10 +45,9 @@ class SettingController: UIViewController {
     
     private var alertLabel: UILabel = {
         let label = UILabel()
-        label.text = "알림"
+        label.text = Settings.alertLabel
         label.textColor = .black
         label.font = Font.air.of(size: 16)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -58,12 +58,11 @@ class SettingController: UIViewController {
         alertSwitch.thumbTintColor = .white
         alertSwitch.isOn = true
         alertSwitch.layer.cornerRadius = 16
-        alertSwitch.translatesAutoresizingMaskIntoConstraints = false
         alertSwitch.addTarget(self, action: #selector(switchValueChanged(_:)), for: .touchUpInside)
         return alertSwitch
     }()
     
-    private lazy var stackView: UIStackView = {
+    private lazy var alertStackView: UIStackView = {
         let stview = UIStackView(arrangedSubviews: [alertLabel, alertControlSwitch])
         stview.spacing = 200
         stview.axis = .horizontal
@@ -73,9 +72,10 @@ class SettingController: UIViewController {
         return stview
     }()
     
+    // 고객센터 - 의견 보내기, FAQ, 응원하기
     private var csLabel: UILabel = {
         let label = UILabel()
-        label.text = "고객 센터"
+        label.text = Settings.csLabel
         label.textColor = .black
         label.font = Font.bold.of(size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -84,7 +84,7 @@ class SettingController: UIViewController {
     
     lazy var commentButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("의견 보내기", for: .normal)
+        button.setTitle(Settings.commentLabel, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
         button.titleLabel?.font = Font.air.of(size: 16)
@@ -95,7 +95,7 @@ class SettingController: UIViewController {
     
     lazy var faqButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("FAQ", for: .normal)
+        button.setTitle(Settings.faqLabel, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
         button.titleLabel?.font = Font.air.of(size: 16)
@@ -105,7 +105,7 @@ class SettingController: UIViewController {
     
     lazy var cheerButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("응원하기", for: .normal)
+        button.setTitle(Settings.cheerLabel, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
         button.titleLabel?.font = Font.air.of(size: 16)
@@ -113,9 +113,10 @@ class SettingController: UIViewController {
         return button
     }()
     
+    // 앱 정보 - 이용 약관, 개인정보 처리 방침, 오픈소스 라이센스
     private var appInfoLabel: UILabel = {
         let label = UILabel()
-        label.text = "앱 정보"
+        label.text = Settings.appInfoLabel
         label.textColor = .black
         label.font = Font.bold.of(size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -124,7 +125,7 @@ class SettingController: UIViewController {
     
     lazy var tosButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("이용 약관", for: .normal)
+        button.setTitle(Settings.tosLabel, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
         button.titleLabel?.font = Font.air.of(size: 16)
@@ -135,7 +136,7 @@ class SettingController: UIViewController {
     
     lazy var privacyButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("개인정보 처리 방침", for: .normal)
+        button.setTitle(Settings.privacyLabel, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
         button.titleLabel?.font = Font.air.of(size: 16)
@@ -146,7 +147,7 @@ class SettingController: UIViewController {
     
     lazy var openButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("오픈소스 라이센스", for: .normal)
+        button.setTitle(Settings.openLabel, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
         button.titleLabel?.font = Font.air.of(size: 16)
@@ -157,25 +158,23 @@ class SettingController: UIViewController {
     
     private var appVersionLabel: UILabel = {
         let label = UILabel()
-        label.text = "앱 버전"
+        label.text = Settings.appVersionLabel
         label.textColor = .black
         label.font = Font.air.of(size: 16)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private var versionLabel: UILabel = {
         let label = UILabel()
-        label.text = "v 1.0"
+        label.text = Settings.appVersion
         label.textColor = .lightGray
         label.font = Font.air.of(size: 16)
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private lazy var appStackView: UIStackView = {
+    private lazy var appVersionStackView: UIStackView = {
         let stview = UIStackView(arrangedSubviews: [appVersionLabel, versionLabel])
-        stview.spacing = 200
+        stview.spacing = 100
         stview.axis = .horizontal
         stview.distribution = .fill
         stview.alignment = .fill
@@ -185,7 +184,7 @@ class SettingController: UIViewController {
     
     lazy var logoutButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("로그아웃", for: .normal)
+        button.setTitle(Settings.logoutLabel, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
         button.titleLabel?.font = Font.air.of(size: 16)
@@ -196,7 +195,7 @@ class SettingController: UIViewController {
     
     lazy var unregisterButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.setTitle("회원 탈퇴", for: .normal)
+        button.setTitle(Settings.unregisterLabel, for: .normal)
         button.setTitleColor(.lightGray, for: .normal)
         button.backgroundColor = .clear
         button.titleLabel?.font = Font.air.of(size: 16)
@@ -225,7 +224,7 @@ class SettingController: UIViewController {
         backgroundImage.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(systemLabel)
-        contentView.addSubview(stackView)
+        contentView.addSubview(alertStackView)
         contentView.addSubview(csLabel)
         contentView.addSubview(commentButton)
         contentView.addSubview(faqButton)
@@ -236,9 +235,7 @@ class SettingController: UIViewController {
         contentView.addSubview(openButton)
         contentView.addSubview(logoutButton)
         contentView.addSubview(unregisterButton)
-        contentView.addSubview(appVersionLabel)
-        contentView.addSubview(versionLabel)
-        contentView.addSubview(appStackView)
+        contentView.addSubview(appVersionStackView)
     }
     
     private func enableAlerts() {
@@ -316,9 +313,9 @@ class SettingController: UIViewController {
             systemLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 60),
             systemLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
             
-            stackView.topAnchor.constraint(equalTo: systemLabel.bottomAnchor, constant: 40),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),
+            alertStackView.topAnchor.constraint(equalTo: systemLabel.bottomAnchor, constant: 40),
+            alertStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
+            alertStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),
             
             csLabel.topAnchor.constraint(equalTo: systemLabel.bottomAnchor, constant: 130),
             csLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
@@ -343,10 +340,10 @@ class SettingController: UIViewController {
             
             openButton.topAnchor.constraint(equalTo: appInfoLabel.bottomAnchor, constant: 120),
             openButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
-            
-            appStackView.topAnchor.constraint(equalTo: appInfoLabel.bottomAnchor, constant: 270),
-            appStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
-            appStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -1),
+                    
+            appVersionStackView.topAnchor.constraint(equalTo: appInfoLabel.bottomAnchor, constant: 270),
+            appVersionStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
+            appVersionStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
             
             logoutButton.topAnchor.constraint(equalTo: appInfoLabel.bottomAnchor, constant: 320),
             logoutButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
@@ -399,29 +396,37 @@ class SettingController: UIViewController {
     }
     
     @objc private func logoutButtonTapped() {
-        self.alert.showAlert("", subTitle: "로그아웃 하겠어요?",
+        self.alert.showAlert("",
+                             subTitle: AlertMessage.logoutMessage,
                              style: AlertStyle.customImage(imageFile: "warning"),
-                             buttonTitle: "취소", buttonColor: .white,
-                             otherButtonTitle: "로그아웃", otherButtonColor: .black) { (isOtherButton) -> Void in
+                             buttonTitle: AlertMessage.cancelButton,
+                             buttonColor: .white,
+                             otherButtonTitle: AlertMessage.logoutButton,
+                             otherButtonColor: .black) { (isOtherButton) -> Void in
             if isOtherButton == true { }
             else {
-                AF.request("https://share-today.site/auth/logout", method: .post, headers: ["Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjgzOTc1MTkyLCJpc3MiOiJzaGFyZS10b2RheSJ9._VamLAjuGOTeH7iQJ9C8okZAgbPuEAJ12IJ0NSbbxb4"])
+                let url = "https://share-today.site/auth/logout"
+                let parameters = [
+                    "result": true,
+                    "message": "로그아웃이 완료되었습니다"
+                ]
+                
+                AF.request(url,
+                           method: .post)
                     .validate()
                     .responseJSON { response in
                         switch response.result {
                         case .success(let value):
                             print("Response JSON: \(value)")
-                            // 토큰 삭제
-                            UserDefaults.standard.removeObject(forKey: "jwt")
+                            
+                            let loginVC = LoginViewController()
+                            loginVC.modalPresentationStyle = .overFullScreen
+                            self.present(loginVC, animated: true)
+                            
                         case .failure(let error):
                             print("Error: \(error.localizedDescription)")
                         }
                     }
-
-                
-                let loginVC = LoginViewController()
-                loginVC.modalPresentationStyle = .overFullScreen
-                self.present(loginVC, animated: true)
             }
         }
     }

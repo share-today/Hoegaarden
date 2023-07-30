@@ -14,13 +14,13 @@ class Notice: UIViewController {
         imageView.image = UIImage(named: "backgroundImage")
         imageView.isUserInteractionEnabled = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.addSubview(noticeLabel)
+        imageView.addSubview(titleLabel)
         imageView.addSubview(separatorView)
         imageView.addSubview(noticeAlertView)
         return imageView
     }()
     
-    private lazy var noticeLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = Notices.noticeMain
         label.textColor = .black
@@ -103,10 +103,10 @@ class Notice: UIViewController {
             backgroundImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             backgroundImage.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             
-            noticeLabel.topAnchor.constraint(equalTo: backgroundImage.topAnchor, constant: 80),
-            noticeLabel.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 36),
+            titleLabel.topAnchor.constraint(equalTo: backgroundImage.topAnchor, constant: 80),
+            titleLabel.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 36),
             
-            separatorView.topAnchor.constraint(equalTo: noticeLabel.bottomAnchor, constant: 12),
+            separatorView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 12),
             separatorView.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 24),
             separatorView.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor, constant: 0),
             separatorView.widthAnchor.constraint(equalToConstant: 351),

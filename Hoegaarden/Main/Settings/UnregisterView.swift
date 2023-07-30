@@ -13,14 +13,14 @@ class UnregisterView: UIViewController {
     
     private var mainLabel: UILabel = {
         let label = UILabel()
-        label.text = "회원 탈퇴"
+        label.text = Settings.unregisterLabel
         label.textColor = .black
         label.font = Font.bold.of(size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private var lineView: UIView = {
+    private var separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -48,7 +48,7 @@ class UnregisterView: UIViewController {
     
     private var checkLabel: UILabel = {
         let label = UILabel()
-        label.text = "안내 사항을 모두 확인했으며 이에 동의합니다."
+        label.text = Settings.unregisterCheckLabel
         label.textColor = .black
         label.font = Font.air.of(size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -72,7 +72,7 @@ class UnregisterView: UIViewController {
     
     private func addViews() {
         view.addSubview(mainLabel)
-        view.addSubview(lineView)
+        view.addSubview(separatorView)
         view.addSubview(contentLabel)
         view.addSubview(checkBoxButton)
         view.addSubview(checkLabel)
@@ -100,13 +100,13 @@ class UnregisterView: UIViewController {
             mainLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 140),
             mainLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36),
         
-            lineView.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 12),
-            lineView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            lineView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            lineView.widthAnchor.constraint(equalToConstant: 351),
-            lineView.heightAnchor.constraint(equalToConstant: 1),
+            separatorView.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 12),
+            separatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            separatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            separatorView.widthAnchor.constraint(equalToConstant: 351),
+            separatorView.heightAnchor.constraint(equalToConstant: 1),
         
-            contentLabel.topAnchor.constraint(equalTo: lineView.topAnchor, constant: 20),
+            contentLabel.topAnchor.constraint(equalTo: separatorView.topAnchor, constant: 20),
             contentLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             contentLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
             
@@ -148,15 +148,18 @@ class UnregisterView: UIViewController {
     }
     
     @objc private func showUnregisterAlert() {
-        alert.showAlert("", subTitle: "정말 탈퇴하겠어요?",
+        alert.showAlert("",
+                        subTitle: AlertMessage.unregisterMessage,
                         style: AlertStyle.customImage(imageFile: "warning"),
-                        buttonTitle: "취소", buttonColor: .white,
-                        otherButtonTitle: "탈퇴", otherButtonColor: .black) { (isOtherButton) -> Void in
+                        buttonTitle: AlertMessage.cancelButton,
+                        buttonColor: .white,
+                        otherButtonTitle: AlertMessage.unregisterButton,
+                        otherButtonColor: .black) { [self] (isOtherButton) -> Void in
             if isOtherButton == true { }
             else {
                 let controller = LoginViewController()
                 controller.modalPresentationStyle = .fullScreen
-                self.present(controller, animated: true, completion: nil)
+                present(controller, animated: true, completion: nil)
             }
         }
     }

@@ -21,16 +21,16 @@ class OpenView: UIViewController {
         return view
     }()
     
-    private var openLabel: UILabel = {
+    private var mainLabel: UILabel = {
         let label = UILabel()
-        label.text = "오픈소스 라이센스"
+        label.text = Settings.openLabel
         label.textColor = .black
         label.font = Font.bold.of(size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private lazy var lineView: UIView = {
+    private lazy var separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +39,7 @@ class OpenView: UIViewController {
     
     private var contentLabel: UILabel = {
         let label = UILabel()
-        label.text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        label.text = Settings.openContent
         label.numberOfLines = 0
         label.textColor = .black
         label.font = Font.air.of(size: 16)
@@ -63,8 +63,8 @@ class OpenView: UIViewController {
     private func addViews() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubview(openLabel)
-        contentView.addSubview(lineView)
+        contentView.addSubview(mainLabel)
+        contentView.addSubview(separatorView)
         contentView.addSubview(contentLabel)
     }
     
@@ -90,16 +90,16 @@ class OpenView: UIViewController {
             contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
-            openLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 60),
-            openLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
+            mainLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 60),
+            mainLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
             
-            lineView.topAnchor.constraint(equalTo: openLabel.bottomAnchor, constant: 12),
-            lineView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
-            lineView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
-            lineView.widthAnchor.constraint(equalToConstant: 351),
-            lineView.heightAnchor.constraint(equalToConstant: 1),
+            separatorView.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 12),
+            separatorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            separatorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
+            separatorView.widthAnchor.constraint(equalToConstant: 351),
+            separatorView.heightAnchor.constraint(equalToConstant: 1),
             
-            contentLabel.topAnchor.constraint(equalTo: lineView.topAnchor, constant: 20),
+            contentLabel.topAnchor.constraint(equalTo: separatorView.topAnchor, constant: 20),
             contentLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
             contentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24)
         ])

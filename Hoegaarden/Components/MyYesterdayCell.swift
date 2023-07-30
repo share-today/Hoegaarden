@@ -117,5 +117,3 @@ class MyYesterdayCell: UICollectionViewCell {
         commentMoreButtonAction?()
     }
 }
-
-

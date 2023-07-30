@@ -21,7 +21,7 @@ class PrivacyView: UIViewController {
         return view
     }()
     
-    private var privacyLabel: UILabel = {
+    private var mainLabel: UILabel = {
         let label = UILabel()
         label.text = Settings.privacyMain
         label.textColor = .black
@@ -30,7 +30,7 @@ class PrivacyView: UIViewController {
         return label
     }()
     
-    private var lineView: UIView = {
+    private var separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -65,8 +65,8 @@ class PrivacyView: UIViewController {
     private func addViews() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubview(privacyLabel)
-        contentView.addSubview(lineView)
+        contentView.addSubview(mainLabel)
+        contentView.addSubview(separatorView)
         contentView.addSubview(contentLabel)
     }
     
@@ -106,16 +106,16 @@ class PrivacyView: UIViewController {
             contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
-            privacyLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 60),
-            privacyLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
+            mainLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 60),
+            mainLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
         
-            lineView.topAnchor.constraint(equalTo: privacyLabel.bottomAnchor, constant: 12),
-            lineView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
-            lineView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
-            lineView.widthAnchor.constraint(equalToConstant: 351),
-            lineView.heightAnchor.constraint(equalToConstant: 1),
+            separatorView.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 12),
+            separatorView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
+            separatorView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
+            separatorView.widthAnchor.constraint(equalToConstant: 351),
+            separatorView.heightAnchor.constraint(equalToConstant: 1),
         
-            contentLabel.topAnchor.constraint(equalTo: lineView.topAnchor, constant: 20),
+            contentLabel.topAnchor.constraint(equalTo: separatorView.topAnchor, constant: 20),
             contentLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
             contentLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24)
         ])
