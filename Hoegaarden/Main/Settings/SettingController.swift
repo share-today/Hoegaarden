@@ -395,6 +395,36 @@ class SettingController: UIViewController {
         present(nav, animated: true, completion: nil)
     }
     
+    private func logoutRequest() {
+           let url = "https://share-today.site/auth/logout"
+           
+           // 로그아웃 요청을 위한 파라미터나 헤더 등을 설정해야 한다면 추가로 구현
+           
+           AF.request(url,
+                      method: .post)
+               .validate()
+               .responseJSON { response in
+                   switch response.result {
+                   case .success(let value):
+                       print("Logout Response JSON: \(value)")
+                       
+                       // 로그아웃 처리가 성공적으로 완료된 경우, 로컬에서 사용자 정보나 토큰을 제거
+                       // 예를 들어, 사용자 정보를 관리하는 UserDefaults나 Keychain에서 삭제
+                       // 예를 들어, 로그인 상태를 관리하는 변수를 false로 변경
+                       
+                       // 로그아웃 후 로그인 화면 또는 다른 화면으로 이동
+                       let loginVC = LoginViewController()
+                       loginVC.modalPresentationStyle = .overFullScreen
+                       self.present(loginVC, animated: true)
+                       
+                   case .failure(let error):
+                       print("Error: \(error.localizedDescription)")
+                       
+                       // 로그아웃 실패 시 에러 처리
+                   }
+               }
+       }
+    
     @objc private func logoutButtonTapped() {
         self.alert.showAlert("",
                              subTitle: AlertMessage.logoutMessage,
@@ -402,31 +432,10 @@ class SettingController: UIViewController {
                              buttonTitle: AlertMessage.cancelButton,
                              buttonColor: .white,
                              otherButtonTitle: AlertMessage.logoutButton,
-                             otherButtonColor: .black) { (isOtherButton) -> Void in
+                             otherButtonColor: .black) { [self] (isOtherButton) -> Void in
             if isOtherButton == true { }
             else {
-                let url = "https://share-today.site/auth/logout"
-                let parameters = [
-                    "result": true,
-                    "message": "로그아웃이 완료되었습니다"
-                ]
-                
-                AF.request(url,
-                           method: .post)
-                    .validate()
-                    .responseJSON { response in
-                        switch response.result {
-                        case .success(let value):
-                            print("Response JSON: \(value)")
-                            
-                            let loginVC = LoginViewController()
-                            loginVC.modalPresentationStyle = .overFullScreen
-                            self.present(loginVC, animated: true)
-                            
-                        case .failure(let error):
-                            print("Error: \(error.localizedDescription)")
-                        }
-                    }
+                logoutRequest()
             }
         }
     }

@@ -11,6 +11,7 @@ import FirebaseAuth
 import GoogleSignIn
 import KakaoSDKCommon
 import KakaoSDKAuth
+import AuthenticationServices
 
 //@main
 @UIApplicationMain
@@ -28,25 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         KakaoSDK.initSDK(appKey: "4b156aaa5781831d5b2a4dd7d4370fc1")
         
-//        let userDefaults = UserDefaults.standard
-//        if userDefaults.bool(forKey: "isLoggedIn") {
-//            let userId = userDefaults.string(forKey: "userID")
-//            print("자동 로그인 완료")
-//            let controller = HomeViewController()
-//            let nav = UINavigationController(rootViewController: controller)
-//            if let window = self.window {
-//                window.rootViewController = nav
-//                window.makeKeyAndVisible()
-//            }
-//        } else {
-//            print("자동 로그인 실패")
-//            let controller = LoginViewController()
-//            let nav = UINavigationController(rootViewController: controller)
-//            if let window = self.window {
-//                window.rootViewController = nav
-//                window.makeKeyAndVisible()
-//            }
-//        }
+        setAppleLogin()
         
         return true
     }
@@ -74,5 +57,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    }
+    
+    func setAppleLogin() {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        appleIDProvider.getCredentialState(forUserID: "001229.4a925680a3e847d18605232c7889f08b.0611") { (credentialState, error) in
+            switch credentialState {
+            case .authorized:
+                print("authorized")
+                DispatchQueue.main.async {
+                    self.window?.rootViewController = HomeViewController()
+                }
+            case .revoked:
+                print("revoked")
+            case .notFound:
+                print("notFound")
+                
+            default:
+                break
+            }
+        }
     }
 }

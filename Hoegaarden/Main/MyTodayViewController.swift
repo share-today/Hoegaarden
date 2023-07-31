@@ -15,7 +15,7 @@ class MyTodayViewController: UIViewController {
     private let alert = SweetAlert()
     private let toastWithButton = ToastWithButton()
     private var isCountLabelUpdated = true
-
+    
     private lazy var myTodayView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 8
@@ -85,7 +85,7 @@ class MyTodayViewController: UIViewController {
     }()
     
     private let fillContentWillLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.text = ""
         label.textColor = .black
         label.font = Font.air.of(size: 16)
@@ -126,16 +126,6 @@ class MyTodayViewController: UIViewController {
         getcurrentDate()
         completion(isOn: false)
         setupGestureRecognizer()
-        
-//        if let savedText = UserDefaults.standard.string(forKey: "fillContentWillLabelText") {
-//            fillContentWillLabel.text = savedText
-//            inputContent.isHidden = true
-//            contentCountLabel.isHidden = true
-//            sendLabel.isHidden = true
-//            sendButton.isHidden = true
-//            fillContentWillLabel.isHidden = false
-//            fillContentWillMoreButton.isHidden = false
-//        }
     }
     
     private func setup() {
@@ -257,14 +247,22 @@ class MyTodayViewController: UIViewController {
             "content": content
         ]
         
+        let jwtToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjkwODA0NTg4LCJpc3MiOiJzaGFyZS10b2RheSJ9.czZiXTKN7Rm4CSI-Yl5RRttasANC8CYBPWWM6FcXkUM"
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Bearer \(jwtToken)"
+        ]
+        
         AF.request(url,
                    method: .post,
-                   parameters: parameters)
+                   parameters: parameters,
+                   headers: headers)
         .validate()
         .responseJSON { response in
             switch response.result {
             case .success(let value):
-                print("Response JSOn: \(value)")
+                print("Response JSON: \(value)")
+                
                 if let json = value as? [String: Any],
                    let result = json["result"] as? Bool,
                    let data = json["data"] as? [String: Any],
@@ -272,6 +270,7 @@ class MyTodayViewController: UIViewController {
                     print("다이어리 ID:", diaryId)
                     print("다이어리 content:", content)
                 }
+                
             case .failure(let error):
                 print("Error: \(error.localizedDescription)")
             }
@@ -306,7 +305,6 @@ class MyTodayViewController: UIViewController {
                 fillContentWillMoreButton.isHidden = false
                 
                 fillContentWillLabel.text = self.inputContent.text
-//                UserDefaults.standard.set(self.inputContent.text, forKey: "fillContentWillLabelText")
                 
                 toast.showToast(image: UIImage(imageLiteralResourceName: "send"),
                                 message: ToastMessage.sendToast)
