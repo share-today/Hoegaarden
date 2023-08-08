@@ -239,25 +239,7 @@ class SettingController: UIViewController {
     }
     
     private func enableAlerts() {
-        let response = """
-          {
-              "result": true,
-              "message": "알림 설정 완료"
-          }
-          """
         
-        if let jsonData = response.data(using: .utf8),
-            let json = try? JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any],
-            let result = json["result"] as? Bool,
-            let message = json["message"] as? String {
-             if result {
-                 print(message)
-             } else {
-                 print("알림 설정 실패")
-             }
-         } else {
-             print("오류")
-         }
     }
     
     private func configureContentViewHeight() {
@@ -355,11 +337,8 @@ class SettingController: UIViewController {
     
     @objc func switchValueChanged(_ sender: UISwitch) {
         if sender.isOn {
-            // 알림 설정을 실행합니다.
             enableAlerts()
         } else {
-            // 알림 해제를 실행합니다.
-//            disableNotifications()
         }
     }
     

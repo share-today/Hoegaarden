@@ -247,33 +247,37 @@ class MyTodayViewController: UIViewController {
             "content": content
         ]
         
-        let jwtToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjkwODA0NTg4LCJpc3MiOiJzaGFyZS10b2RheSJ9.czZiXTKN7Rm4CSI-Yl5RRttasANC8CYBPWWM6FcXkUM"
-        
-        let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(jwtToken)"
-        ]
-        
-        AF.request(url,
-                   method: .post,
-                   parameters: parameters,
-                   headers: headers)
-        .validate()
-        .responseJSON { response in
-            switch response.result {
-            case .success(let value):
-                print("Response JSON: \(value)")
-                
-                if let json = value as? [String: Any],
-                   let result = json["result"] as? Bool,
-                   let data = json["data"] as? [String: Any],
-                   let diaryId = data["diaryId"] as? Int {
-                    print("다이어리 ID:", diaryId)
-                    print("다이어리 content:", content)
+        if let jwtToken = UserDefaults.standard.string(forKey: "UserJWT") {
+            let headers: HTTPHeaders = [
+                "Authorization": "Bearer \(jwtToken)"
+            ]
+            print("jwtToken: \(jwtToken)")
+            
+            AF.request(url,
+                       method: .post,
+                       parameters: parameters,
+                       headers: headers)
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                case .success(let value):
+                    print("Response JSON: \(value)")
+                    
+                    
+                    if let json = value as? [String: Any],
+                       let result = json["result"] as? Bool,
+                       let data = json["data"] as? [String: Any],
+                       let diaryId = data["diaryId"] as? Int {
+                        print("다이어리 ID:", diaryId)
+                        print("다이어리 content:", content)
+                    }
+                    
+                case .failure(let error):
+                    print("Error: \(error.localizedDescription)")
                 }
-                
-            case .failure(let error):
-                print("Error: \(error.localizedDescription)")
             }
+        } else {
+            print("JWT token not found.")
         }
     }
     

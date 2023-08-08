@@ -8,21 +8,9 @@
 import Foundation
 
 struct DiaryResponse: Codable {
-    let id: Int
-    let userId: Int
-    let content: String?
-    let likeCount: Int
-    let createdAt: String?
-    let modifiedAt: String?
-    let removedAt: String?
+    let content: String
     
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case userId = "user_id"
-        case content
-        case likeCount = "like_count"
-        case createdAt = "created_at"
-        case modifiedAt = "modified_at"
-        case removedAt = "removed_at"
+    enum CodingKeys: String, CodingKey {
+        case content = "테스트_다이어리_내용"
     }
 }

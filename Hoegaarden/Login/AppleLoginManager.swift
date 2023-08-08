@@ -66,6 +66,17 @@ class AppleLoginManager: NSObject, ASAuthorizationControllerPresentationContextP
                 switch response.result {
                 case .success(let value):
                     print("Response JSON: \(value)")
+                    
+                    if let json = value as? [String: Any],
+                       let data = json["data"] as? [String: Any],
+                       let jwt = data["jwt"] as? String {
+                        print("jwtjwtjwt: \(jwt)")
+                        
+                        let defaults = UserDefaults.standard
+                        defaults.set(jwt, forKey: "UserJWT")
+                    } else {
+                        print("JWT not found in response JSON.")
+                    }
                 case .failure(let error):
                     print("Error: \(error.localizedDescription)")
                 }

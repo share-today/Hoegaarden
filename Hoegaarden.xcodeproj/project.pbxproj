@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1C00370D2A779A5100E0D75F /* DiaryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C00370C2A779A5100E0D75F /* DiaryResponse.swift */; };
-		1C0037152A779F0700E0D75F /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0037142A779F0700E0D75F /* Api.swift */; };
+		1C00371F2A78EB4500E0D75F /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C00371E2A78EB4500E0D75F /* LoginRequest.swift */; };
+		1C0037212A78FE3100E0D75F /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0037202A78FE3100E0D75F /* LoginResponse.swift */; };
+		1C0037232A79025F00E0D75F /* DiaryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0037222A79025F00E0D75F /* DiaryRequest.swift */; };
 		1C17CF3529D2A942006988FE /* OthersYesterdayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C17CF3429D2A942006988FE /* OthersYesterdayViewController.swift */; };
 		1C17CF3929D2AC40006988FE /* MyYesterdayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C17CF3829D2AC40006988FE /* MyYesterdayViewController.swift */; };
 		1C17CF3B29D2AC59006988FE /* MyTodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C17CF3A29D2AC59006988FE /* MyTodayViewController.swift */; };
@@ -61,7 +63,9 @@
 
 /* Begin PBXFileReference section */
 		1C00370C2A779A5100E0D75F /* DiaryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryResponse.swift; sourceTree = "<group>"; };
-		1C0037142A779F0700E0D75F /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
+		1C00371E2A78EB4500E0D75F /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
+		1C0037202A78FE3100E0D75F /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
+		1C0037222A79025F00E0D75F /* DiaryRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryRequest.swift; sourceTree = "<group>"; };
 		1C17CF3429D2A942006988FE /* OthersYesterdayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthersYesterdayViewController.swift; sourceTree = "<group>"; };
 		1C17CF3829D2AC40006988FE /* MyYesterdayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyYesterdayViewController.swift; sourceTree = "<group>"; };
 		1C17CF3A29D2AC59006988FE /* MyTodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTodayViewController.swift; sourceTree = "<group>"; };
@@ -145,7 +149,7 @@
 		1C0037082A7799BF00E0D75F /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				1C0037132A779EEC00E0D75F /* Service */,
+				1C4946432A6C220400A57038 /* StoryData.swift */,
 				1C0037092A7799C500E0D75F /* Model */,
 			);
 			path = Data;
@@ -154,6 +158,7 @@
 		1C0037092A7799C500E0D75F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1C00371D2A78EB3700E0D75F /* Request */,
 				1C00370A2A7799D000E0D75F /* Response */,
 			);
 			path = Model;
@@ -162,17 +167,10 @@
 		1C00370A2A7799D000E0D75F /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				1C0037202A78FE3100E0D75F /* LoginResponse.swift */,
 				1C00370C2A779A5100E0D75F /* DiaryResponse.swift */,
 			);
 			path = Response;
-			sourceTree = "<group>";
-		};
-		1C0037132A779EEC00E0D75F /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				1C0037142A779F0700E0D75F /* Api.swift */,
-			);
-			path = Service;
 			sourceTree = "<group>";
 		};
 		1C0037162A77A0BB00E0D75F /* UI */ = {
@@ -191,6 +189,15 @@
 				1C514BDF29D56D6E0082195A /* AcceptLoginViewController.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		1C00371D2A78EB3700E0D75F /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				1C00371E2A78EB4500E0D75F /* LoginRequest.swift */,
+				1C0037222A79025F00E0D75F /* DiaryRequest.swift */,
+			);
+			path = Request;
 			sourceTree = "<group>";
 		};
 		1C17CF3C29D2E930006988FE /* Utility */ = {
@@ -251,8 +258,8 @@
 		1CD9722D29642C6600A4D62F /* Hoegaarden */ = {
 			isa = PBXGroup;
 			children = (
-				1CD9724329642D0500A4D62F /* Login */,
 				1C0037162A77A0BB00E0D75F /* UI */,
+				1CD9724329642D0500A4D62F /* Login */,
 				1C0037082A7799BF00E0D75F /* Data */,
 				1C0037072A74D9C600E0D75F /* Components */,
 				1C49464B2A6F8F2800A57038 /* Extension */,
@@ -275,7 +282,6 @@
 				1C17CF3A29D2AC59006988FE /* MyTodayViewController.swift */,
 				1C17CF3829D2AC40006988FE /* MyYesterdayViewController.swift */,
 				1C17CF3429D2A942006988FE /* OthersYesterdayViewController.swift */,
-				1C4946432A6C220400A57038 /* StoryData.swift */,
 				1CD9724B296431EC00A4D62F /* SideMenu */,
 			);
 			path = Main;
@@ -511,6 +517,7 @@
 				1CE84D32298276F1009B31BC /* TOSView.swift in Sources */,
 				1CA60BF329BF28B00009CA3C /* UnregisterView.swift in Sources */,
 				1CA60BC929BA17F00009CA3C /* MyThatDayViewController.swift in Sources */,
+				1C0037232A79025F00E0D75F /* DiaryRequest.swift in Sources */,
 				1CD9724529642D1800A4D62F /* LoginView.swift in Sources */,
 				1CD972552964460D00A4D62F /* SideMenuCell.swift in Sources */,
 				1C62F533298BADAB003EB5A7 /* Toast.swift in Sources */,
@@ -519,9 +526,9 @@
 				1CA60BCB29BA17F80009CA3C /* OthersThatDayViewController.swift in Sources */,
 				1C00370D2A779A5100E0D75F /* DiaryResponse.swift in Sources */,
 				1C3B0117299B7ACA0052C3AD /* AlertFile.swift in Sources */,
-				1C0037152A779F0700E0D75F /* Api.swift in Sources */,
 				1CDA99542976BA6400E75D92 /* Font.swift in Sources */,
 				1CD9724729642D6300A4D62F /* LoginViewController.swift in Sources */,
+				1C0037212A78FE3100E0D75F /* LoginResponse.swift in Sources */,
 				1C4946512A6FBFD600A57038 /* OthersThatDayCell.swift in Sources */,
 				1C7221B5298902A0002C326E /* OpenView.swift in Sources */,
 				1C49464F2A6F9E4A00A57038 /* MyThatDayCell.swift in Sources */,
@@ -536,6 +543,7 @@
 				1CE84D302982556A009B31BC /* CommentView.swift in Sources */,
 				1CD9723129642C6600A4D62F /* SceneDelegate.swift in Sources */,
 				1C17CF3529D2A942006988FE /* OthersYesterdayViewController.swift in Sources */,
+				1C00371F2A78EB4500E0D75F /* LoginRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
