@@ -125,6 +125,7 @@ class MyTodayViewController: UIViewController {
         setConstraints()
         getcurrentDate()
         completion(isOn: false)
+        getDiary(id: 5)
         setupGestureRecognizer()
     }
     
@@ -241,43 +242,23 @@ class MyTodayViewController: UIViewController {
                                              buttonTitle: ToastMessage.adButton)
     }
     
-    private func sendContentToServer(content: String) {
-        let url = "https://share-today.site/diary"
-        let parameters = [
-            "content": content
-        ]
-        
-        if let jwtToken = UserDefaults.standard.string(forKey: "UserJWT") {
-            let headers: HTTPHeaders = [
-                "Authorization": "Bearer \(jwtToken)"
-            ]
-            print("jwtToken: \(jwtToken)")
+    private func getDiary(id: Int) {
+        MyTodayData.shared.getMyToday(id: id) { [self] result in
             
-            AF.request(url,
-                       method: .post,
-                       parameters: parameters,
-                       headers: headers)
-            .validate()
-            .responseJSON { response in
-                switch response.result {
-                case .success(let value):
-                    print("Response JSON: \(value)")
-                    
-                    
-                    if let json = value as? [String: Any],
-                       let result = json["result"] as? Bool,
-                       let data = json["data"] as? [String: Any],
-                       let diaryId = data["diaryId"] as? Int {
-                        print("다이어리 ID:", diaryId)
-                        print("다이어리 content:", content)
-                    }
-                    
-                case .failure(let error):
-                    print("Error: \(error.localizedDescription)")
-                }
+            switch result {
+            case .success(let diaryContent):
+                fillContentWillLabel.text = diaryContent
+                
+                inputContent.isHidden = true
+                contentCountLabel.isHidden = true
+                sendLabel.isHidden = true
+                sendButton.isHidden = true
+                fillContentWillLabel.isHidden = false
+                fillContentWillMoreButton.isHidden = false
+                
+            case .failure(let error):
+                print("Get Diary Error: \(error.localizedDescription)")
             }
-        } else {
-            print("JWT token not found.")
         }
     }
     
@@ -296,20 +277,27 @@ class MyTodayViewController: UIViewController {
             if isOtherButton == true { }
             else {
                 let content = inputContent.text
-                sendContentToServer(content: content!)
-                print("다이어리 내용", content!)
-                
+                MyTodayData.shared.sendMyToday(content: content!) { result in
+                    switch result {
+                    case .success(let diaryId):
+                        print("다이어리 ID:", diaryId)
+                        print("다이어리 content:", content as Any)
+                    case .failure(let error):
+                        print("Diary Error: \(error.localizedDescription)")
+                    }
+                }
+
                 inputContent.resignFirstResponder()
-                
+
                 inputContent.isHidden = true
                 contentCountLabel.isHidden = true
                 sendLabel.isHidden = true
                 sendButton.isHidden = true
                 fillContentWillLabel.isHidden = false
                 fillContentWillMoreButton.isHidden = false
-                
+
                 fillContentWillLabel.text = self.inputContent.text
-                
+
                 toast.showToast(image: UIImage(imageLiteralResourceName: "send"),
                                 message: ToastMessage.sendToast)
             }

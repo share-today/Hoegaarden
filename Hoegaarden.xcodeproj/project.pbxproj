@@ -33,7 +33,7 @@
 		1C8F5FBD2A0F955E00A58B1F /* KakaoLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8F5FBC2A0F955E00A58B1F /* KakaoLoginManager.swift */; };
 		1C8F5FBF2A0F97D000A58B1F /* AppleLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8F5FBE2A0F97D000A58B1F /* AppleLoginManager.swift */; };
 		1CA60B7729AF1A820009CA3C /* HomeSide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA60B7629AF1A820009CA3C /* HomeSide.swift */; };
-		1CA60B9B29B484E90009CA3C /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA60B9A29B484E90009CA3C /* Notice.swift */; };
+		1CA60B9B29B484E90009CA3C /* NoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA60B9A29B484E90009CA3C /* NoticeViewController.swift */; };
 		1CA60BC729BA16E60009CA3C /* BundleStoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA60BC629BA16E60009CA3C /* BundleStoryView.swift */; };
 		1CA60BC929BA17F00009CA3C /* MyThatDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA60BC829BA17F00009CA3C /* MyThatDayViewController.swift */; };
 		1CA60BCB29BA17F80009CA3C /* OthersThatDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA60BCA29BA17F80009CA3C /* OthersThatDayViewController.swift */; };
@@ -41,6 +41,7 @@
 		1CA60BF329BF28B00009CA3C /* UnregisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA60BF229BF28B00009CA3C /* UnregisterView.swift */; };
 		1CBA1A4D2A220719007AA1CC /* Cafe24Ssurround.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CBA1A4B2A220719007AA1CC /* Cafe24Ssurround.ttf */; };
 		1CBA1A4E2A220719007AA1CC /* Cafe24SsurroundAir.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CBA1A4C2A220719007AA1CC /* Cafe24SsurroundAir.ttf */; };
+		1CC9CA282A87AF6900D47FC7 /* MyTodayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9CA272A87AF6900D47FC7 /* MyTodayData.swift */; };
 		1CD9722F29642C6600A4D62F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9722E29642C6600A4D62F /* AppDelegate.swift */; };
 		1CD9723129642C6600A4D62F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9723029642C6600A4D62F /* SceneDelegate.swift */; };
 		1CD9723629642C6600A4D62F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CD9723429642C6600A4D62F /* Main.storyboard */; };
@@ -55,7 +56,7 @@
 		1CDC90AA29A8FF1C0093A0D3 /* ToastWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDC90A929A8FF1C0093A0D3 /* ToastWithButton.swift */; };
 		1CE84D302982556A009B31BC /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84D2F2982556A009B31BC /* CommentView.swift */; };
 		1CE84D32298276F1009B31BC /* TOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84D31298276F1009B31BC /* TOSView.swift */; };
-		1CE84D34298282DE009B31BC /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84D33298282DE009B31BC /* Notification.swift */; };
+		1CE84D34298282DE009B31BC /* NoticeMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84D33298282DE009B31BC /* NoticeMainViewController.swift */; };
 		1CE84D362982845C009B31BC /* BundleSide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84D352982845C009B31BC /* BundleSide.swift */; };
 		1CE84D382983DE40009B31BC /* SettingSide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84D372983DE40009B31BC /* SettingSide.swift */; };
 		9E4913F9794E023B60247787 /* Pods_Hoegaarden.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C9E3303554DAC1473D66FCD /* Pods_Hoegaarden.framework */; };
@@ -88,7 +89,7 @@
 		1C8F5FBC2A0F955E00A58B1F /* KakaoLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginManager.swift; sourceTree = "<group>"; };
 		1C8F5FBE2A0F97D000A58B1F /* AppleLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginManager.swift; sourceTree = "<group>"; };
 		1CA60B7629AF1A820009CA3C /* HomeSide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSide.swift; sourceTree = "<group>"; };
-		1CA60B9A29B484E90009CA3C /* Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
+		1CA60B9A29B484E90009CA3C /* NoticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeViewController.swift; sourceTree = "<group>"; };
 		1CA60BC629BA16E60009CA3C /* BundleStoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleStoryView.swift; sourceTree = "<group>"; };
 		1CA60BC829BA17F00009CA3C /* MyThatDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyThatDayViewController.swift; sourceTree = "<group>"; };
 		1CA60BCA29BA17F80009CA3C /* OthersThatDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthersThatDayViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +97,7 @@
 		1CA60BF229BF28B00009CA3C /* UnregisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnregisterView.swift; sourceTree = "<group>"; };
 		1CBA1A4B2A220719007AA1CC /* Cafe24Ssurround.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cafe24Ssurround.ttf; sourceTree = "<group>"; };
 		1CBA1A4C2A220719007AA1CC /* Cafe24SsurroundAir.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cafe24SsurroundAir.ttf; sourceTree = "<group>"; };
+		1CC9CA272A87AF6900D47FC7 /* MyTodayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTodayData.swift; sourceTree = "<group>"; };
 		1CD9722B29642C6600A4D62F /* Hoegaarden.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hoegaarden.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CD9722E29642C6600A4D62F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1CD9723029642C6600A4D62F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -112,7 +114,7 @@
 		1CDC90A929A8FF1C0093A0D3 /* ToastWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWithButton.swift; sourceTree = "<group>"; };
 		1CE84D2F2982556A009B31BC /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		1CE84D31298276F1009B31BC /* TOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOSView.swift; sourceTree = "<group>"; };
-		1CE84D33298282DE009B31BC /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		1CE84D33298282DE009B31BC /* NoticeMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeMainViewController.swift; sourceTree = "<group>"; };
 		1CE84D352982845C009B31BC /* BundleSide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleSide.swift; sourceTree = "<group>"; };
 		1CE84D372983DE40009B31BC /* SettingSide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSide.swift; sourceTree = "<group>"; };
 		1F40405EB474D3B1C9DE50F6 /* Pods-Hoegaaarden.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoegaaarden.release.xcconfig"; path = "Target Support Files/Pods-Hoegaaarden/Pods-Hoegaaarden.release.xcconfig"; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				1C4946432A6C220400A57038 /* StoryData.swift */,
+				1CC9CA262A87AF0300D47FC7 /* Server */,
 				1C0037092A7799C500E0D75F /* Model */,
 			);
 			path = Data;
@@ -177,6 +180,8 @@
 			isa = PBXGroup;
 			children = (
 				1C0037172A77A13500E0D75F /* Login */,
+				1CC9CA252A849BA000D47FC7 /* Notice */,
+				1CD9724229642CF900A4D62F /* Main */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -228,13 +233,21 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		1CA60B9F29B5E82B0009CA3C /* Notification */ = {
+		1CC9CA252A849BA000D47FC7 /* Notice */ = {
 			isa = PBXGroup;
 			children = (
-				1CE84D33298282DE009B31BC /* Notification.swift */,
-				1CA60B9A29B484E90009CA3C /* Notice.swift */,
+				1CE84D33298282DE009B31BC /* NoticeMainViewController.swift */,
+				1CA60B9A29B484E90009CA3C /* NoticeViewController.swift */,
 			);
-			path = Notification;
+			path = Notice;
+			sourceTree = "<group>";
+		};
+		1CC9CA262A87AF0300D47FC7 /* Server */ = {
+			isa = PBXGroup;
+			children = (
+				1CC9CA272A87AF6900D47FC7 /* MyTodayData.swift */,
+			);
+			path = Server;
 			sourceTree = "<group>";
 		};
 		1CD9722229642C6600A4D62F = {
@@ -263,7 +276,6 @@
 				1C0037082A7799BF00E0D75F /* Data */,
 				1C0037072A74D9C600E0D75F /* Components */,
 				1C49464B2A6F8F2800A57038 /* Extension */,
-				1CD9724229642CF900A4D62F /* Main */,
 				1CDC90A829A8F4430093A0D3 /* Module */,
 				1CDA994E29764C5600E75D92 /* Font */,
 				1C17CF3C29D2E930006988FE /* Utility */,
@@ -277,12 +289,11 @@
 		1CD9724229642CF900A4D62F /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				1CA60B9F29B5E82B0009CA3C /* Notification */,
+				1CD9724B296431EC00A4D62F /* SideMenu */,
 				1CA60BCC29BC7F270009CA3C /* HomeViewController.swift */,
 				1C17CF3A29D2AC59006988FE /* MyTodayViewController.swift */,
 				1C17CF3829D2AC40006988FE /* MyYesterdayViewController.swift */,
 				1C17CF3429D2A942006988FE /* OthersYesterdayViewController.swift */,
-				1CD9724B296431EC00A4D62F /* SideMenu */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -504,13 +515,14 @@
 				1CA60BC729BA16E60009CA3C /* BundleStoryView.swift in Sources */,
 				1CA60B7729AF1A820009CA3C /* HomeSide.swift in Sources */,
 				1C514BE029D56D6E0082195A /* AcceptLoginViewController.swift in Sources */,
+				1CC9CA282A87AF6900D47FC7 /* MyTodayData.swift in Sources */,
 				1C49464D2A6F8F3700A57038 /* UILabel+Extensions.swift in Sources */,
 				1C17CF3B29D2AC59006988FE /* MyTodayViewController.swift in Sources */,
 				1C4946442A6C220400A57038 /* StoryData.swift in Sources */,
 				1C17CF3E29D2E943006988FE /* LabelManager.swift in Sources */,
 				1C8F5FBF2A0F97D000A58B1F /* AppleLoginManager.swift in Sources */,
 				1C8F5FBD2A0F955E00A58B1F /* KakaoLoginManager.swift in Sources */,
-				1CE84D34298282DE009B31BC /* Notification.swift in Sources */,
+				1CE84D34298282DE009B31BC /* NoticeMainViewController.swift in Sources */,
 				1C7221B3298901ED002C326E /* PrivacyView.swift in Sources */,
 				1CD9725D2964489600A4D62F /* BundleStoryController.swift in Sources */,
 				1CDC90AA29A8FF1C0093A0D3 /* ToastWithButton.swift in Sources */,
@@ -521,7 +533,7 @@
 				1CD9724529642D1800A4D62F /* LoginView.swift in Sources */,
 				1CD972552964460D00A4D62F /* SideMenuCell.swift in Sources */,
 				1C62F533298BADAB003EB5A7 /* Toast.swift in Sources */,
-				1CA60B9B29B484E90009CA3C /* Notice.swift in Sources */,
+				1CA60B9B29B484E90009CA3C /* NoticeViewController.swift in Sources */,
 				1C4946462A6C408700A57038 /* AlertAction.swift in Sources */,
 				1CA60BCB29BA17F80009CA3C /* OthersThatDayViewController.swift in Sources */,
 				1C00370D2A779A5100E0D75F /* DiaryResponse.swift in Sources */,

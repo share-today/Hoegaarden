@@ -187,7 +187,7 @@ class HomeViewController: UIViewController {
     }
     
     @objc private func showNotice() {
-        let noticeVC = Notification()
+        let noticeVC = NoticeMainViewController()
         noticeVC.modalPresentationStyle = .fullScreen
         let nav = UINavigationController(rootViewController: noticeVC)
         nav.modalPresentationStyle = .overFullScreen

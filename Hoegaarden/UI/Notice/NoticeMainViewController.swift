@@ -1,5 +1,5 @@
 //
-//  Notification.swift
+//  NoticeMainViewController.swift
 //  Hoegaarden
 //
 //  Created by 혜리 on 2023/01/26.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Notification: UIViewController {
+class NoticeMainViewController: UIViewController {
     
     private lazy var backgroundImage: UIImageView = {
         let imageView = UIImageView()
@@ -212,7 +212,7 @@ class Notification: UIViewController {
     }
     
     @objc private func noticeButtonClicked() {
-        let controller = Notice()
+        let controller = NoticeViewController()
         controller.modalPresentationStyle = .fullScreen
         let nav = UINavigationController(rootViewController: controller)
         nav.modalPresentationStyle = .overFullScreen

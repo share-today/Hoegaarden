@@ -1,5 +1,5 @@
 //
-//  Notice.swift
+//  NoticeViewController.swift
 //  Hoegaarden
 //
 //  Created by 혜리 on 2023/03/05.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Notice: UIViewController {
+class NoticeViewController: UIViewController {
     
     private lazy var backgroundImage: UIImageView = {
         let imageView = UIImageView()
@@ -16,7 +16,7 @@ class Notice: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.addSubview(titleLabel)
         imageView.addSubview(separatorView)
-        imageView.addSubview(noticeAlertView)
+        imageView.addSubview(noticeView)
         return imageView
     }()
     
@@ -36,7 +36,7 @@ class Notice: UIViewController {
         return view
     }()
     
-    private lazy var noticeAlertView: UIView = {
+    private lazy var noticeView: UIView = {
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: 327, height: 250)
         view.backgroundColor = .white
@@ -112,19 +112,19 @@ class Notice: UIViewController {
             separatorView.widthAnchor.constraint(equalToConstant: 351),
             separatorView.heightAnchor.constraint(equalToConstant: 1),
             
-            noticeAlertView.topAnchor.constraint(equalTo: separatorView.topAnchor, constant: 17),
-            noticeAlertView.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 24),
-            noticeAlertView.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor, constant: -24),
-            noticeAlertView.widthAnchor.constraint(equalToConstant: 327),
-            noticeAlertView.heightAnchor.constraint(equalToConstant: 250),
+            noticeView.topAnchor.constraint(equalTo: separatorView.topAnchor, constant: 17),
+            noticeView.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 24),
+            noticeView.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor, constant: -24),
+            noticeView.widthAnchor.constraint(equalToConstant: 327),
+            noticeView.heightAnchor.constraint(equalToConstant: 250),
             
-            noticeDate.topAnchor.constraint(equalTo: noticeAlertView.topAnchor, constant: 16),
-            noticeDate.leadingAnchor.constraint(equalTo: noticeAlertView.leadingAnchor, constant: 16),
+            noticeDate.topAnchor.constraint(equalTo: noticeView.topAnchor, constant: 16),
+            noticeDate.leadingAnchor.constraint(equalTo: noticeView.leadingAnchor, constant: 16),
 
-            noticeContent.topAnchor.constraint(equalTo: noticeAlertView.topAnchor, constant: 50),
-            noticeContent.bottomAnchor.constraint(equalTo: noticeAlertView.bottomAnchor, constant: -20),
-            noticeContent.leadingAnchor.constraint(equalTo: noticeAlertView.leadingAnchor, constant: 16),
-            noticeContent.trailingAnchor.constraint(equalTo: noticeAlertView.trailingAnchor, constant: -16)
+            noticeContent.topAnchor.constraint(equalTo: noticeView.topAnchor, constant: 50),
+            noticeContent.bottomAnchor.constraint(equalTo: noticeView.bottomAnchor, constant: -20),
+            noticeContent.leadingAnchor.constraint(equalTo: noticeView.leadingAnchor, constant: 16),
+            noticeContent.trailingAnchor.constraint(equalTo: noticeView.trailingAnchor, constant: -16)
         ])
     }
     

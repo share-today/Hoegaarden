@@ -238,8 +238,30 @@ class SettingController: UIViewController {
         contentView.addSubview(appVersionStackView)
     }
     
-    private func enableAlerts() {
+    private func enableAlerts(userId id: Int) {
+        let url = "https://share-today.site/user/\(id)/alert"
         
+        if let jwtToken = UserDefaults.standard.string(forKey: "UserJWT") {
+            let headers: HTTPHeaders = [
+                "Authorization": "Bearer \(jwtToken)"
+            ]
+            
+            AF.request(url,
+                       method: .put,
+                       headers: headers)
+            .validate()
+            .responseJSON { [self] response in
+                switch response.result {
+                case .success(let value):
+                    print("Alert Response JSON: \(value)")
+        
+                case .failure(let error):
+                    print("Alert Error: \(error.localizedDescription)")
+                }
+            }
+        } else {
+            print("JWT token not found.")
+        }
     }
     
     private func configureContentViewHeight() {
@@ -337,7 +359,7 @@ class SettingController: UIViewController {
     
     @objc func switchValueChanged(_ sender: UISwitch) {
         if sender.isOn {
-            enableAlerts()
+            enableAlerts(userId: 2)
         } else {
         }
     }
