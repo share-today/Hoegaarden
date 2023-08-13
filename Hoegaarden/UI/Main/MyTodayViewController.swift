@@ -15,6 +15,7 @@ class MyTodayViewController: UIViewController {
     private let alert = SweetAlert()
     private let toastWithButton = ToastWithButton()
     private var isCountLabelUpdated = true
+    private let diaryID = 32
     
     private lazy var myTodayView: UIView = {
         let view = UIView()
@@ -125,7 +126,7 @@ class MyTodayViewController: UIViewController {
         setConstraints()
         getcurrentDate()
         completion(isOn: false)
-        getDiary(id: 5)
+        getDiary(id: 32)
         setupGestureRecognizer()
     }
     
@@ -317,6 +318,18 @@ class MyTodayViewController: UIViewController {
                 dismiss(animated: false)
                 inputContent.resignFirstResponder()
                 
+                inputContent.text = fillContentWillLabel.text
+                inputContent.textColor = .black
+                
+                MyTodayData.shared.modifyMyToday(id: diaryID) { result in
+                    switch result {
+                    case .success(let diaryId):
+                        print("다이어리 ID:", diaryId)
+                    case .failure(let error):
+                        print("Diary Error: \(error.localizedDescription)")
+                    }
+                }
+                
                 inputContent.isHidden = false
                 contentCountLabel.isHidden = false
                 sendLabel.isHidden = false
@@ -338,6 +351,15 @@ class MyTodayViewController: UIViewController {
             if isOtherButton == true { }
             else {
                 dismiss(animated: false)
+                
+                MyTodayData.shared.deleteMyToday(id: diaryID) { result in
+                    switch result {
+                    case .success(let diaryId):
+                        print("다이어리 ID:", diaryId)
+                    case .failure(let error):
+                        print("Delete Diary Error: \(error.localizedDescription)")
+                    }
+                }
     
                 inputContent.isHidden = false
                 contentCountLabel.isHidden = false
@@ -373,12 +395,12 @@ extension MyTodayViewController: UITextViewDelegate {
         }
     }
 
-//    func textViewDidEndEditing(_ textView: UITextView) {
-//        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-//            textView.text = Constants.textViewPlaceHolder
-//            textView.textColor = .lightGray
-//        }
-//    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            textView.text = HomeMain.textViewPlaceHolder
+            textView.textColor = .lightGray
+        }
+    }
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         

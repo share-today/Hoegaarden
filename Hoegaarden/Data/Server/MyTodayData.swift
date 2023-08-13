@@ -14,7 +14,10 @@ class MyTodayData {
     
     private let baseURL = "https://share-today.site"
     
+    private var lastSentDate: Date?
+    
     func sendMyToday(content: String, completion: @escaping (Result<Int, Error>) -> Void) {
+        
         let url = "\(baseURL)/diary"
         
         let parameters = [
@@ -69,6 +72,57 @@ class MyTodayData {
                     }
                 case .failure(let error):
                     print("Get Diary Response JSON: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    
+    func modifyMyToday(id: Int, completion: @escaping (Result<String, Error>) -> Void) {
+        let url = "\(baseURL)/diary/\(id)"
+        
+        if let jwtToken = UserDefaults.standard.string(forKey: "UserJWT") {
+            let headers: HTTPHeaders = [
+                "Authorization": "Bearer \(jwtToken)"
+            ]
+            
+            AF.request(url,
+                       method: .put,
+                       headers: headers)
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                case .success(let value):
+                    print("Modify Diary Response JSON: \(value)")
+                case .failure(let error):
+                    if let data = response.data,
+                       let errorString = String(data: data, encoding: .utf8) {
+                        print("Modifyuuu Diary Error: \(errorString)")
+                    } else {
+                        print("Modify Diary Response JSON: \(error.localizedDescription)")
+                    }
+                }
+            }
+        }
+    }
+    
+    func deleteMyToday(id: Int, completion: @escaping (Result<String, Error>) -> Void) {
+        let url = "\(baseURL)/diary/\(id)"
+        
+        if let jwtToken = UserDefaults.standard.string(forKey: "UserJWT") {
+            let headers: HTTPHeaders = [
+                "Authorization": "Bearer \(jwtToken)"
+            ]
+        
+            AF.request(url,
+                       method: .delete,
+                       headers: headers)
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                case .success(let value):
+                    print("Delete Diary Response JSON: \(value)")
+                case .failure(let error):
+                    print("Delete Diary Error: \(error.localizedDescription)")
                 }
             }
         }
