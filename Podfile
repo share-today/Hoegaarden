@@ -14,6 +14,7 @@ target 'Hoegaarden' do
   pod 'KakaoSDKUser'
   pod 'GoogleSignIn'
   pod 'Alamofire'
+  pod 'RealmSwift'
 
 end
 
