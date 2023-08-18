@@ -213,6 +213,8 @@
 			isa = PBXGroup;
 			children = (
 				1C17CF3D29D2E943006988FE /* LabelManager.swift */,
+				1CDA99532976BA6400E75D92 /* Font.swift */,
+				1CDA994E29764C5600E75D92 /* Font */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -299,7 +301,6 @@
 				1C0037072A74D9C600E0D75F /* Components */,
 				1C49464B2A6F8F2800A57038 /* Extension */,
 				1CDC90A829A8F4430093A0D3 /* Module */,
-				1CDA994E29764C5600E75D92 /* Font */,
 				1C17CF3C29D2E930006988FE /* Utility */,
 				1CD9723C29642C6800A4D62F /* Info.plist */,
 				1C579D5429F508A40048924A /* GoogleService-Info.plist */,
@@ -371,7 +372,6 @@
 		1CDA994E29764C5600E75D92 /* Font */ = {
 			isa = PBXGroup;
 			children = (
-				1CDA99532976BA6400E75D92 /* Font.swift */,
 				1CBA1A4C2A220719007AA1CC /* Cafe24SsurroundAir.ttf */,
 				1CBA1A4B2A220719007AA1CC /* Cafe24Ssurround.ttf */,
 			);
