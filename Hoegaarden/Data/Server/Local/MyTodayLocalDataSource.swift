@@ -1,5 +1,5 @@
 //
-//  MyTodayData.swift
+//  MyTodayLocalDataSource.swift
 //  Hoegaarden
 //
 //  Created by 혜리 on 2023/08/12.
@@ -8,13 +8,11 @@
 import Foundation
 import Alamofire
 
-class MyTodayData {
+class MyTodayLocalDataSource {
     
-    static let shared = MyTodayData()
+    static let shared = MyTodayLocalDataSource()
     
     private let baseURL = "https://share-today.site"
-    
-    private var lastSentDate: Date?
     
     func sendMyToday(content: String, completion: @escaping (Result<Int, Error>) -> Void) {
         

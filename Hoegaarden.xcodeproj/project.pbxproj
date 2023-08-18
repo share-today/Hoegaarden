@@ -41,7 +41,7 @@
 		1CA60BF329BF28B00009CA3C /* UnregisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA60BF229BF28B00009CA3C /* UnregisterView.swift */; };
 		1CBA1A4D2A220719007AA1CC /* Cafe24Ssurround.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CBA1A4B2A220719007AA1CC /* Cafe24Ssurround.ttf */; };
 		1CBA1A4E2A220719007AA1CC /* Cafe24SsurroundAir.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CBA1A4C2A220719007AA1CC /* Cafe24SsurroundAir.ttf */; };
-		1CC9CA282A87AF6900D47FC7 /* MyTodayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9CA272A87AF6900D47FC7 /* MyTodayData.swift */; };
+		1CC9CA282A87AF6900D47FC7 /* MyTodayLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9CA272A87AF6900D47FC7 /* MyTodayLocalDataSource.swift */; };
 		1CC9CA2B2A8A231100D47FC7 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9CA2A2A8A231100D47FC7 /* UserData.swift */; };
 		1CC9CA2D2A8A24E200D47FC7 /* UserLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9CA2C2A8A24E200D47FC7 /* UserLocalDataSource.swift */; };
 		1CD9722F29642C6600A4D62F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9722E29642C6600A4D62F /* AppDelegate.swift */; };
@@ -99,7 +99,7 @@
 		1CA60BF229BF28B00009CA3C /* UnregisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnregisterView.swift; sourceTree = "<group>"; };
 		1CBA1A4B2A220719007AA1CC /* Cafe24Ssurround.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cafe24Ssurround.ttf; sourceTree = "<group>"; };
 		1CBA1A4C2A220719007AA1CC /* Cafe24SsurroundAir.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cafe24SsurroundAir.ttf; sourceTree = "<group>"; };
-		1CC9CA272A87AF6900D47FC7 /* MyTodayData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTodayData.swift; sourceTree = "<group>"; };
+		1CC9CA272A87AF6900D47FC7 /* MyTodayLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTodayLocalDataSource.swift; sourceTree = "<group>"; };
 		1CC9CA2A2A8A231100D47FC7 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		1CC9CA2C2A8A24E200D47FC7 /* UserLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocalDataSource.swift; sourceTree = "<group>"; };
 		1CD9722B29642C6600A4D62F /* Hoegaarden.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hoegaarden.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -258,7 +258,7 @@
 			isa = PBXGroup;
 			children = (
 				1CC9CA2C2A8A24E200D47FC7 /* UserLocalDataSource.swift */,
-				1CC9CA272A87AF6900D47FC7 /* MyTodayData.swift */,
+				1CC9CA272A87AF6900D47FC7 /* MyTodayLocalDataSource.swift */,
 				1CC9CA2F2A8A24FD00D47FC7 /* Model */,
 			);
 			path = Local;
@@ -537,7 +537,7 @@
 				1CA60BC729BA16E60009CA3C /* BundleStoryView.swift in Sources */,
 				1CA60B7729AF1A820009CA3C /* HomeSide.swift in Sources */,
 				1C514BE029D56D6E0082195A /* AcceptLoginViewController.swift in Sources */,
-				1CC9CA282A87AF6900D47FC7 /* MyTodayData.swift in Sources */,
+				1CC9CA282A87AF6900D47FC7 /* MyTodayLocalDataSource.swift in Sources */,
 				1C49464D2A6F8F3700A57038 /* UILabel+Extensions.swift in Sources */,
 				1C17CF3B29D2AC59006988FE /* MyTodayViewController.swift in Sources */,
 				1C4946442A6C220400A57038 /* StoryData.swift in Sources */,

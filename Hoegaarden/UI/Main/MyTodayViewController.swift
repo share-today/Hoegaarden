@@ -244,7 +244,7 @@ class MyTodayViewController: UIViewController {
     }
     
     private func getDiary(id: Int) {
-        MyTodayData.shared.getMyToday(id: id) { [self] result in
+        MyTodayLocalDataSource.shared.getMyToday(id: id) { [self] result in
             
             switch result {
             case .success(let diaryContent):
@@ -278,7 +278,7 @@ class MyTodayViewController: UIViewController {
             if isOtherButton == true { }
             else {
                 let content = inputContent.text
-                MyTodayData.shared.sendMyToday(content: content!) { result in
+                MyTodayLocalDataSource.shared.sendMyToday(content: content!) { result in
                     switch result {
                     case .success(let diaryId):
                         print("다이어리 ID:", diaryId)
@@ -321,7 +321,7 @@ class MyTodayViewController: UIViewController {
                 inputContent.text = fillContentWillLabel.text
                 inputContent.textColor = .black
                 
-                MyTodayData.shared.modifyMyToday(id: diaryID) { result in
+                MyTodayLocalDataSource.shared.modifyMyToday(id: diaryID) { result in
                     switch result {
                     case .success(let diaryId):
                         print("다이어리 ID:", diaryId)
@@ -352,7 +352,7 @@ class MyTodayViewController: UIViewController {
             else {
                 dismiss(animated: false)
                 
-                MyTodayData.shared.deleteMyToday(id: diaryID) { result in
+                MyTodayLocalDataSource.shared.deleteMyToday(id: diaryID) { result in
                     switch result {
                     case .success(let diaryId):
                         print("다이어리 ID:", diaryId)
