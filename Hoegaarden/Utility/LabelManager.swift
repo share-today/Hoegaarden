@@ -64,6 +64,8 @@ struct MyYesterday {
     static let yesterdayDate = "00년 00월 00일"
     
     static let emptyState = "어제는 이야기를 들려주지 않았어요."
+    
+    static let contentLabel = "오늘은 상사에게 후배에게 하루종일 시달려서 지쳤어요. 중간에 껴서 새우등 터지고 있는데 어디가서 말해봤자 제 이미지만 안좋아지겠죠?"
 }
 
 struct OthersYesterday {

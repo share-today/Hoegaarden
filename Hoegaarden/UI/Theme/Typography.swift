@@ -1,5 +1,5 @@
 //
-//  Font.swift
+//  Typography.swift
 //  Hoegaarden
 //
 //  Created by 혜리 on 2023/01/17.
@@ -20,7 +20,6 @@ struct Typography {
     static func createLabel(font: Font, fontSize: CGFloat) -> UILabel {
         let label = UILabel()
         label.font = UIFont(name: font.rawValue, size: fontSize)
-        label.textColor = color
         return label
     }
     

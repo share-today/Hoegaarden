@@ -12,44 +12,46 @@ class MyYesterdayViewController: UIViewController {
     private let toast = Toast()
     private let alert = SweetAlert()
     
-    private lazy var myYesterdayView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 0.904, green: 0.931, blue: 1, alpha: 1)
-        view.layer.cornerRadius = 8
-        view.clipsToBounds = true
-        view.addSubview(dateLabel)
-        view.addSubview(contentLabel)
-        view.addSubview(moreButton)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private var dateLabel: UILabel = {
-        let label = UILabel()
-        label.text = MyYesterday.yesterdayDate
-        label.textColor = .black
-        label.font = Font.air.of(size: 12)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private var contentLabel: UILabel = {
-        let label = UILabel()
-        label.text = "기분 꿀꿀하다. 너무 힘들다."
-        label.textColor = .black
-        label.font = Font.air.of(size: 16)
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private lazy var moreButton: UIButton = {
-        let button = UIButton()
-        let image = UIImage(named: "more")
-        button.setImage(image, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+//    private lazy var myYesterdayView: UIView = {
+//        let view = UIView()
+//        view.backgroundColor = UIColor(red: 0.904, green: 0.931, blue: 1, alpha: 1)
+//        view.layer.cornerRadius = 8
+//        view.clipsToBounds = true
+//        view.addSubview(dateLabel)
+//        view.addSubview(contentLabel)
+//        view.addSubview(moreButton)
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        return view
+//    }()
+//
+//    private var dateLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = MyYesterday.yesterdayDate
+//        label.textColor = .black
+//        label.font = Font.air.of(size: 12)
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        return label
+//    }()
+//
+//    private var contentLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = "기분 꿀꿀하다. 너무 힘들다."
+//        label.textColor = .black
+//        label.font = Font.air.of(size: 16)
+//        label.numberOfLines = 0
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        return label
+//    }()
+//
+//    private lazy var moreButton: UIButton = {
+//        let button = UIButton()
+//        let image = UIImage(named: "more")
+//        button.setImage(image, for: .normal)
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        return button
+//    }()
+
+    private let diaryView: DiaryView = DiaryView()
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -60,6 +62,7 @@ class MyYesterdayViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .clear
         collectionView.isPagingEnabled = true
+        
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
@@ -88,16 +91,40 @@ class MyYesterdayViewController: UIViewController {
         commentData(content: "이이잉"),
     ]
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setup()
         addViews()
-        setGradientLayer()
         setCollectionView()
         setupAddTarget()
         setConstraints()
+        
+        let likeClicked = ClosureButton()
+        let moreClicked = ClosureButton()
+        
+        likeClicked.onClick = {
+            print("like")
+        }
+        
+        moreClicked.onClick = {
+            print("more")
+        }
+        
+        let diaryState = DiaryState(id: "1",
+                                    dateLabel: "",
+                                    contentLabel: "혜리 존예존귀",
+                                    heartButtonState: HeartButtonState(isLike: true, isEnabled: true),
+                                    backgroundColor: .blueGradient)
+        
+        diaryView.setState(
+            diaryState: diaryState,
+            onClickLike: likeClicked,
+            onClickMore: moreClicked,
+            contentView: {
+                
+            }
+        )
     }
     
     private func setup() {
@@ -105,21 +132,8 @@ class MyYesterdayViewController: UIViewController {
     }
     
     private func addViews() {
-        view.addSubview(myYesterdayView)
+        view.addSubview(diaryView)
         view.addSubview(collectionView)
-    }
-    
-    private func setGradientLayer() {
-        let layer = CAGradientLayer()
-        layer.colors = [UIColor(red: 0.904, green: 0.931, blue: 1, alpha: 1).cgColor,
-                        UIColor(red: 0.846, green: 0.888, blue: 0.996, alpha: 1).cgColor]
-        layer.startPoint = CGPoint(x: 0.25, y: 0.5)
-        layer.endPoint = CGPoint(x: 0.75, y: 0.5)
-        layer.locations = [0, 1]
-        layer.frame = myYesterdayView.bounds
-        layer.bounds = view.bounds.insetBy(dx: -0.5 * view.bounds.size.width, dy: -0.5 * view.bounds.size.height)
-        layer.position = view.center
-        myYesterdayView.layer.insertSublayer(layer, at: 0)
     }
     
     private func setCollectionView() {
@@ -129,28 +143,28 @@ class MyYesterdayViewController: UIViewController {
     }
     
     private func setupAddTarget() {
-        moreButton.addTarget(self, action: #selector(showMoreButton), for: .touchUpInside)
+//        moreButton.addTarget(self, action: #selector(showMoreButton), for: .touchUpInside)
     }
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            myYesterdayView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
-            myYesterdayView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            myYesterdayView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            myYesterdayView.heightAnchor.constraint(equalToConstant: 242),
+            diaryView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+            diaryView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            diaryView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+//            diaryView.contentView.heightAnchor.constraint(equalToConstant: 242),
             
-            dateLabel.topAnchor.constraint(equalTo: myYesterdayView.topAnchor, constant: 24),
-            dateLabel.leadingAnchor.constraint(equalTo: myYesterdayView.leadingAnchor, constant: 24),
+//            dateLabel.topAnchor.constraint(equalTo: myYesterdayView.topAnchor, constant: 24),
+//            dateLabel.leadingAnchor.constraint(equalTo: myYesterdayView.leadingAnchor, constant: 24),
+//
+//            contentLabel.topAnchor.constraint(equalTo: myYesterdayView.topAnchor, constant: 68),
+//            contentLabel.bottomAnchor.constraint(equalTo: myYesterdayView.bottomAnchor, constant: -68),
+//            contentLabel.leadingAnchor.constraint(equalTo: myYesterdayView.leadingAnchor, constant: 24),
+//            contentLabel.trailingAnchor.constraint(equalTo: myYesterdayView.trailingAnchor, constant: -24),
+//
+//            moreButton.bottomAnchor.constraint(equalTo: myYesterdayView.bottomAnchor, constant: -24),
+//            moreButton.trailingAnchor.constraint(equalTo: myYesterdayView.trailingAnchor, constant: -30),
             
-            contentLabel.topAnchor.constraint(equalTo: myYesterdayView.topAnchor, constant: 68),
-            contentLabel.bottomAnchor.constraint(equalTo: myYesterdayView.bottomAnchor, constant: -68),
-            contentLabel.leadingAnchor.constraint(equalTo: myYesterdayView.leadingAnchor, constant: 24),
-            contentLabel.trailingAnchor.constraint(equalTo: myYesterdayView.trailingAnchor, constant: -24),
-            
-            moreButton.bottomAnchor.constraint(equalTo: myYesterdayView.bottomAnchor, constant: -24),
-            moreButton.trailingAnchor.constraint(equalTo: myYesterdayView.trailingAnchor, constant: -30),
-            
-            collectionView.topAnchor.constraint(equalTo: myYesterdayView.bottomAnchor, constant: 10),
+            collectionView.topAnchor.constraint(equalTo: diaryView.bottomAnchor, constant: 10),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -274,7 +288,7 @@ extension MyYesterdayViewController: UICollectionViewDelegate, UICollectionViewD
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyYesterdayCell", for: indexPath) as! MyYesterdayCell
         
         let data = dataArray[indexPath.item]
-        cell.commentContent.text = data.content
+        diaryView.contentLabel.text = data.content
         
         cell.commentMoreButtonAction = { [weak self] in
             if let actionSheet = self?.reportAndDeleteActionSheet {

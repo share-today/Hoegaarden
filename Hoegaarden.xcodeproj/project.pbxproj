@@ -44,6 +44,10 @@
 		1CC9CA282A87AF6900D47FC7 /* MyTodayLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9CA272A87AF6900D47FC7 /* MyTodayLocalDataSource.swift */; };
 		1CC9CA2B2A8A231100D47FC7 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9CA2A2A8A231100D47FC7 /* UserData.swift */; };
 		1CC9CA2D2A8A24E200D47FC7 /* UserLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9CA2C2A8A24E200D47FC7 /* UserLocalDataSource.swift */; };
+		1CC9CA312A90978C00D47FC7 /* DiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9CA302A90978C00D47FC7 /* DiaryView.swift */; };
+		1CC9CA332A909B6800D47FC7 /* HeartButtonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9CA322A909B6800D47FC7 /* HeartButtonState.swift */; };
+		1CC9CA352A90A2F300D47FC7 /* DiaryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9CA342A90A2F300D47FC7 /* DiaryState.swift */; };
+		1CC9CA372A90C6D300D47FC7 /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9CA362A90C6D300D47FC7 /* BackgroundColor.swift */; };
 		1CD9722F29642C6600A4D62F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9722E29642C6600A4D62F /* AppDelegate.swift */; };
 		1CD9723129642C6600A4D62F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9723029642C6600A4D62F /* SceneDelegate.swift */; };
 		1CD9723629642C6600A4D62F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CD9723429642C6600A4D62F /* Main.storyboard */; };
@@ -54,7 +58,7 @@
 		1CD972552964460D00A4D62F /* SideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD972542964460D00A4D62F /* SideMenuCell.swift */; };
 		1CD972572964469100A4D62F /* SideMenuOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD972562964469100A4D62F /* SideMenuOptions.swift */; };
 		1CD9725D2964489600A4D62F /* BundleStoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD9725C2964489600A4D62F /* BundleStoryController.swift */; };
-		1CDA99542976BA6400E75D92 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDA99532976BA6400E75D92 /* Font.swift */; };
+		1CDA99542976BA6400E75D92 /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDA99532976BA6400E75D92 /* Typography.swift */; };
 		1CDC90AA29A8FF1C0093A0D3 /* ToastWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDC90A929A8FF1C0093A0D3 /* ToastWithButton.swift */; };
 		1CE84D302982556A009B31BC /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84D2F2982556A009B31BC /* CommentView.swift */; };
 		1CE84D32298276F1009B31BC /* TOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE84D31298276F1009B31BC /* TOSView.swift */; };
@@ -102,6 +106,10 @@
 		1CC9CA272A87AF6900D47FC7 /* MyTodayLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTodayLocalDataSource.swift; sourceTree = "<group>"; };
 		1CC9CA2A2A8A231100D47FC7 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		1CC9CA2C2A8A24E200D47FC7 /* UserLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocalDataSource.swift; sourceTree = "<group>"; };
+		1CC9CA302A90978C00D47FC7 /* DiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryView.swift; sourceTree = "<group>"; };
+		1CC9CA322A909B6800D47FC7 /* HeartButtonState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartButtonState.swift; sourceTree = "<group>"; };
+		1CC9CA342A90A2F300D47FC7 /* DiaryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryState.swift; sourceTree = "<group>"; };
+		1CC9CA362A90C6D300D47FC7 /* BackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColor.swift; sourceTree = "<group>"; };
 		1CD9722B29642C6600A4D62F /* Hoegaarden.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hoegaarden.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CD9722E29642C6600A4D62F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1CD9723029642C6600A4D62F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -114,7 +122,7 @@
 		1CD972542964460D00A4D62F /* SideMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuCell.swift; sourceTree = "<group>"; };
 		1CD972562964469100A4D62F /* SideMenuOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuOptions.swift; sourceTree = "<group>"; };
 		1CD9725C2964489600A4D62F /* BundleStoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleStoryController.swift; sourceTree = "<group>"; };
-		1CDA99532976BA6400E75D92 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		1CDA99532976BA6400E75D92 /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		1CDC90A929A8FF1C0093A0D3 /* ToastWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWithButton.swift; sourceTree = "<group>"; };
 		1CE84D2F2982556A009B31BC /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		1CE84D31298276F1009B31BC /* TOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOSView.swift; sourceTree = "<group>"; };
@@ -183,6 +191,8 @@
 		1C0037162A77A0BB00E0D75F /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				1CC9CA3A2A91178C00D47FC7 /* Theme */,
+				1CC9CA382A91175B00D47FC7 /* Components */,
 				1C0037172A77A13500E0D75F /* Login */,
 				1CC9CA252A849BA000D47FC7 /* Notice */,
 				1CD9724229642CF900A4D62F /* Main */,
@@ -213,7 +223,6 @@
 			isa = PBXGroup;
 			children = (
 				1C17CF3D29D2E943006988FE /* LabelManager.swift */,
-				1CDA99532976BA6400E75D92 /* Font.swift */,
 				1CDA994E29764C5600E75D92 /* Font */,
 			);
 			path = Utility;
@@ -274,6 +283,32 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		1CC9CA382A91175B00D47FC7 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				1CC9CA392A91176900D47FC7 /* State */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		1CC9CA392A91176900D47FC7 /* State */ = {
+			isa = PBXGroup;
+			children = (
+				1CC9CA322A909B6800D47FC7 /* HeartButtonState.swift */,
+				1CC9CA342A90A2F300D47FC7 /* DiaryState.swift */,
+			);
+			path = State;
+			sourceTree = "<group>";
+		};
+		1CC9CA3A2A91178C00D47FC7 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				1CC9CA362A90C6D300D47FC7 /* BackgroundColor.swift */,
+				1CDA99532976BA6400E75D92 /* Typography.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
 		1CD9722229642C6600A4D62F = {
 			isa = PBXGroup;
 			children = (
@@ -317,6 +352,7 @@
 				1C17CF3A29D2AC59006988FE /* MyTodayViewController.swift */,
 				1C17CF3829D2AC40006988FE /* MyYesterdayViewController.swift */,
 				1C17CF3429D2A942006988FE /* OthersYesterdayViewController.swift */,
+				1CC9CA302A90978C00D47FC7 /* DiaryView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -544,6 +580,7 @@
 				1C17CF3E29D2E943006988FE /* LabelManager.swift in Sources */,
 				1C8F5FBF2A0F97D000A58B1F /* AppleLoginManager.swift in Sources */,
 				1C8F5FBD2A0F955E00A58B1F /* KakaoLoginManager.swift in Sources */,
+				1CC9CA332A909B6800D47FC7 /* HeartButtonState.swift in Sources */,
 				1CE84D34298282DE009B31BC /* NoticeMainViewController.swift in Sources */,
 				1C7221B3298901ED002C326E /* PrivacyView.swift in Sources */,
 				1CD9725D2964489600A4D62F /* BundleStoryController.swift in Sources */,
@@ -554,6 +591,7 @@
 				1C0037232A79025F00E0D75F /* DiaryRequest.swift in Sources */,
 				1CD9724529642D1800A4D62F /* LoginView.swift in Sources */,
 				1CD972552964460D00A4D62F /* SideMenuCell.swift in Sources */,
+				1CC9CA372A90C6D300D47FC7 /* BackgroundColor.swift in Sources */,
 				1C62F533298BADAB003EB5A7 /* Toast.swift in Sources */,
 				1CA60B9B29B484E90009CA3C /* NoticeViewController.swift in Sources */,
 				1C4946462A6C408700A57038 /* AlertAction.swift in Sources */,
@@ -561,7 +599,7 @@
 				1CA60BCB29BA17F80009CA3C /* OthersThatDayViewController.swift in Sources */,
 				1C00370D2A779A5100E0D75F /* DiaryResponse.swift in Sources */,
 				1C3B0117299B7ACA0052C3AD /* AlertFile.swift in Sources */,
-				1CDA99542976BA6400E75D92 /* Font.swift in Sources */,
+				1CDA99542976BA6400E75D92 /* Typography.swift in Sources */,
 				1CD9724729642D6300A4D62F /* LoginViewController.swift in Sources */,
 				1C0037212A78FE3100E0D75F /* LoginResponse.swift in Sources */,
 				1C4946512A6FBFD600A57038 /* OthersThatDayCell.swift in Sources */,
@@ -569,11 +607,13 @@
 				1CC9CA2B2A8A231100D47FC7 /* UserData.swift in Sources */,
 				1C49464F2A6F9E4A00A57038 /* MyThatDayCell.swift in Sources */,
 				1CE84D382983DE40009B31BC /* SettingSide.swift in Sources */,
+				1CC9CA352A90A2F300D47FC7 /* DiaryState.swift in Sources */,
 				1CD972572964469100A4D62F /* SideMenuOptions.swift in Sources */,
 				1C17CF3929D2AC40006988FE /* MyYesterdayViewController.swift in Sources */,
 				1CE84D362982845C009B31BC /* BundleSide.swift in Sources */,
 				1C8F5FBB2A0F935F00A58B1F /* GoogleSignInManager.swift in Sources */,
 				1CA60BCD29BC7F270009CA3C /* HomeViewController.swift in Sources */,
+				1CC9CA312A90978C00D47FC7 /* DiaryView.swift in Sources */,
 				1C1F3163297F6CC100D76B35 /* SettingController.swift in Sources */,
 				1C4946422A6C1C1A00A57038 /* OthersCell.swift in Sources */,
 				1CE84D302982556A009B31BC /* CommentView.swift in Sources */,

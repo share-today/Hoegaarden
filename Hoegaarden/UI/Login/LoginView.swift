@@ -35,7 +35,7 @@ class LoginView: UIView {
         let label = UILabel()
         label.text = Title.mainTitle
         label.textColor = .black
-        label.font = Font.bold.of(size: 40)
+        label.font = Typography.h1.font
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -71,7 +71,7 @@ class LoginView: UIView {
         button.layer.cornerRadius = 4
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor(red: 0.169, green: 0.169, blue: 0.169, alpha: 1).cgColor
-        button.titleLabel?.font = Font.bold.of(size: 16)
+        button.titleLabel?.font = Typography.subtitle2.font
         return button
     }()
     
@@ -82,7 +82,7 @@ class LoginView: UIView {
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .yellow
         button.layer.cornerRadius = 4
-        button.titleLabel?.font = Font.bold.of(size: 16)
+        button.titleLabel?.font = Typography.subtitle2.font
         return button
     }()
     
@@ -93,7 +93,7 @@ class LoginView: UIView {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .black
         button.layer.cornerRadius = 4
-        button.titleLabel?.font = Font.bold.of(size: 16)
+        button.titleLabel?.font = Typography.subtitle2.font
         return button
     }()
     

@@ -171,6 +171,7 @@ class MyTodayViewController: UIViewController {
             todayDateLabel.topAnchor.constraint(equalTo: myTodayView.topAnchor, constant: 24),
             todayDateLabel.leadingAnchor.constraint(equalTo: myTodayView.leadingAnchor, constant: 24),
             
+            
             inputContent.topAnchor.constraint(equalTo: todayDateLabel.topAnchor, constant: 68),
             inputContent.bottomAnchor.constraint(equalTo: myTodayView.bottomAnchor, constant: -68),
             inputContent.leadingAnchor.constraint(equalTo: myTodayView.leadingAnchor, constant: 24),

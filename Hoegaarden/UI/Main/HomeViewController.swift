@@ -44,11 +44,11 @@ class HomeViewController: UIViewController {
         
         segment.addTarget(self, action: #selector(changeUnderLinePosition), for: .valueChanged)
         segment.addTarget(self, action: #selector(changeValue(control:)), for: .valueChanged)
-                
+        
         segment.translatesAutoresizingMaskIntoConstraints = false
         return segment
     }()
-
+    
     private let indicatorView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
