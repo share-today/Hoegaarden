@@ -88,7 +88,7 @@ class DiaryView: UIView {
             contentLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
             
             heartButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -24),
-            heartButton.trailingAnchor.constraint(equalTo: moreButton.leadingAnchor, constant: -5),
+            heartButton.trailingAnchor.constraint(equalTo: moreButton.leadingAnchor, constant: -10),
             
             moreButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -24),
             moreButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30)
