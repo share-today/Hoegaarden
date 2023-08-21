@@ -11,45 +11,6 @@ class MyYesterdayViewController: UIViewController {
     
     private let toast = Toast()
     private let alert = SweetAlert()
-    
-//    private lazy var myYesterdayView: UIView = {
-//        let view = UIView()
-//        view.backgroundColor = UIColor(red: 0.904, green: 0.931, blue: 1, alpha: 1)
-//        view.layer.cornerRadius = 8
-//        view.clipsToBounds = true
-//        view.addSubview(dateLabel)
-//        view.addSubview(contentLabel)
-//        view.addSubview(moreButton)
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        return view
-//    }()
-//
-//    private var dateLabel: UILabel = {
-//        let label = UILabel()
-//        label.text = MyYesterday.yesterdayDate
-//        label.textColor = .black
-//        label.font = Font.air.of(size: 12)
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        return label
-//    }()
-//
-//    private var contentLabel: UILabel = {
-//        let label = UILabel()
-//        label.text = "기분 꿀꿀하다. 너무 힘들다."
-//        label.textColor = .black
-//        label.font = Font.air.of(size: 16)
-//        label.numberOfLines = 0
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        return label
-//    }()
-//
-//    private lazy var moreButton: UIButton = {
-//        let button = UIButton()
-//        let image = UIImage(named: "more")
-//        button.setImage(image, for: .normal)
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        return button
-//    }()
 
     private let diaryView: DiaryView = DiaryView()
     
@@ -96,10 +57,22 @@ class MyYesterdayViewController: UIViewController {
         
         setup()
         addViews()
+        setViews()
         setCollectionView()
         setupAddTarget()
         setConstraints()
-        
+    }
+    
+    private func setup() {
+        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    }
+    
+    private func addViews() {
+        view.addSubview(diaryView)
+        view.addSubview(collectionView)
+    }
+    
+    private func setViews() {
         let likeClicked = ClosureButton()
         let moreClicked = ClosureButton()
         
@@ -112,7 +85,7 @@ class MyYesterdayViewController: UIViewController {
         }
         
         let diaryState = DiaryState(id: "1",
-                                    dateLabel: "",
+                                    dateLabel: "23년 08월 21일",
                                     contentLabel: "혜리 존예존귀",
                                     heartButtonState: HeartButtonState(isLike: true, isEnabled: true),
                                     backgroundColor: .blueGradient)
@@ -125,15 +98,6 @@ class MyYesterdayViewController: UIViewController {
                 
             }
         )
-    }
-    
-    private func setup() {
-        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-    }
-    
-    private func addViews() {
-        view.addSubview(diaryView)
-        view.addSubview(collectionView)
     }
     
     private func setCollectionView() {
@@ -151,18 +115,7 @@ class MyYesterdayViewController: UIViewController {
             diaryView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
             diaryView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             diaryView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-//            diaryView.contentView.heightAnchor.constraint(equalToConstant: 242),
-            
-//            dateLabel.topAnchor.constraint(equalTo: myYesterdayView.topAnchor, constant: 24),
-//            dateLabel.leadingAnchor.constraint(equalTo: myYesterdayView.leadingAnchor, constant: 24),
-//
-//            contentLabel.topAnchor.constraint(equalTo: myYesterdayView.topAnchor, constant: 68),
-//            contentLabel.bottomAnchor.constraint(equalTo: myYesterdayView.bottomAnchor, constant: -68),
-//            contentLabel.leadingAnchor.constraint(equalTo: myYesterdayView.leadingAnchor, constant: 24),
-//            contentLabel.trailingAnchor.constraint(equalTo: myYesterdayView.trailingAnchor, constant: -24),
-//
-//            moreButton.bottomAnchor.constraint(equalTo: myYesterdayView.bottomAnchor, constant: -24),
-//            moreButton.trailingAnchor.constraint(equalTo: myYesterdayView.trailingAnchor, constant: -30),
+//            diaryView.heightAnchor.constraint(lessThanOrEqualToConstant: 150),
             
             collectionView.topAnchor.constraint(equalTo: diaryView.bottomAnchor, constant: 10),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -286,10 +239,7 @@ extension MyYesterdayViewController: UICollectionViewDelegate, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyYesterdayCell", for: indexPath) as! MyYesterdayCell
-        
-        let data = dataArray[indexPath.item]
-        diaryView.contentLabel.text = data.content
-        
+                
         cell.commentMoreButtonAction = { [weak self] in
             if let actionSheet = self?.reportAndDeleteActionSheet {
                 actionSheet.modalPresentationStyle = .overFullScreen

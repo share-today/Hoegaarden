@@ -53,12 +53,20 @@ class DiaryView: UIView {
         return button
     }()
     
-    
     private var state: DiaryState?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        setViews()
+        setConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setViews() {
         self.layer.cornerRadius = 8
         self.clipsToBounds = true
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -67,31 +75,23 @@ class DiaryView: UIView {
         self.addSubview(contentLabel)
         self.addSubview(heartButton)
         self.addSubview(moreButton)
-        
-        setConstraints()
-    }
-    
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            
             dateLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 24),
             dateLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             
             contentLabel.topAnchor.constraint(equalTo: dateLabel.topAnchor, constant: 30),
-            contentLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -68),
+            contentLabel.bottomAnchor.constraint(equalTo: heartButton.topAnchor),
             contentLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             contentLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
             
-            heartButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -24),
+            heartButton.bottomAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 33),
             heartButton.trailingAnchor.constraint(equalTo: moreButton.leadingAnchor, constant: -10),
             
-            moreButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -24),
-            moreButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30)
+            moreButton.bottomAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 30),
+            moreButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30),
         ])
     }
     
@@ -142,7 +142,5 @@ class DiaryView: UIView {
         
         heartButton.addTarget(heartButton, action: #selector(onClickLike.buttonClicked), for: .touchUpInside)
         moreButton.addTarget(moreButton, action: #selector(onClickMore.buttonClicked), for: .touchUpInside)
-        
-        setConstraints()
     }
 }

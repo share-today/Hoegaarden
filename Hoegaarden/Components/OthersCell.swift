@@ -19,141 +19,15 @@ class OthersCell: UICollectionViewCell {
     var moreButtonAction: ButtonActionBlock?
     var moreModifyButtonAction: ButtonActionBlock?
     
-    private lazy var othersYesterdayView: UIView = {
-        let view = UIView()
-        view.layer.cornerRadius = 8
-        view.clipsToBounds = false
-        view.backgroundColor = UIColor(red: 1, green: 0.904, blue: 0.904, alpha: 1)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(dateLabel)
-        view.addSubview(contentLabel)
-        view.addSubview(heartButton)
-        view.addSubview(moreButton)
-        view.addSubview(commentView)
-        return view
-    }()
-    
-    let dateLabel: UILabel = {
-        let label = UILabel()
-        label.text = OthersYesterday.date
-        label.textColor = .black
-        label.font = Font.air.of(size: 12)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-
-    let contentLabel: UILabel = {
-        let label = UILabel()
-        label.text = HomeMain.someoneYesterdayContent
-        label.textColor = .black
-        label.font = Font.air.of(size: 16)
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let heartButton: UIButton = {
-        let button = UIButton()
-        let image = UIImage(named: "heart")
-        button.setImage(image, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-
-    private let moreButton: UIButton = {
-        let button = UIButton()
-        let image = UIImage(named: "more")
-        button.setImage(image, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-
-    private lazy var commentView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.8)
-        view.layer.cornerRadius = 8
-        view.clipsToBounds = true
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(commentInputContent)
-        view.addSubview(commentInputContentCountLabel)
-        view.addSubview(commentSendStackView)
-        view.addSubview(commentWillContentLabel)
-        view.addSubview(commentWillMoreButton)
-        return view
-    }()
-
-    private let commentInputContent: UITextView = {
-        let textView = UITextView()
-        textView.backgroundColor = .clear
-        textView.text = OthersYesterday.textViewPlaceHolder
-        textView.textColor = .lightGray
-        textView.font = Font.air.of(size: 16)
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        return textView
-    }()
-
-    private let commentInputContentCountLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .black
-        label.font = Font.air.of(size: 12)
-        label.attributedText = NSMutableAttributedString(string: OthersYesterday.contentCount,
-                                                         attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-
-    private let commentSendLabel: UILabel = {
-        let label = UILabel()
-        label.text = OthersYesterday.contentSend
-        label.textColor = .lightGray
-        label.font = Font.bold.of(size: 14)
-        return label
-    }()
-
-    private let commentSendButton: UIButton = {
-        let button = UIButton()
-        let image = UIImage(named: "arrow-right-circle")
-        button.setImage(image, for: .normal)
-        return button
-    }()
-    
-    private lazy var commentSendStackView: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [commentSendLabel, commentSendButton])
-        view.spacing = 10
-        view.axis = .horizontal
-        view.distribution = .fill
-        view.alignment = .fill
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
-    private let commentWillContentLabel: UILabel = {
-        let label = UILabel()
-        label.text = ""
-        label.textColor = .black
-        label.font = Font.air.of(size: 16)
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-
-    private let commentWillMoreButton: UIButton = {
-        let button = UIButton()
-        let image = UIImage(named: "more")
-        button.setImage(image, for: .normal)
-        button.isHidden = true
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
+    private let diaryView: DiaryView = DiaryView()
+    private var smallDiaryView: DiaryView?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         setup()
         addViews()
+        setViews()
         setTapGesture()
         setAddTarget()
         completion(isOn: false)
@@ -167,11 +41,41 @@ class OthersCell: UICollectionViewCell {
     
     private func setup() {
         backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        commentInputContent.delegate = self
     }
     
     private func addViews() {
-        contentView.addSubview(othersYesterdayView)
+        contentView.addSubview(diaryView)
+        smallDiaryView = DiaryView(frame: .zero)
+        smallDiaryView?.backgroundColor = .white
+        self.addSubview(smallDiaryView!)
+    }
+    
+    private func setViews() {
+        let likeClicked = ClosureButton()
+        let moreClicked = ClosureButton()
+        
+        likeClicked.onClick = {
+            print("like")
+        }
+        
+        moreClicked.onClick = {
+            print("more")
+        }
+        
+        let diaryState = DiaryState(id: "1",
+                                    dateLabel: "23년 08월 20일",
+                                    contentLabel: "하고싶은 일이 있는데 뜻대로 되지 않아요. 친구들은 그저 제 배경만 보고 부러워 하지만 그 안에서의 저는 죽을 맛입니다.",
+                                    heartButtonState: HeartButtonState(isLike: false, isEnabled: true),
+                                    backgroundColor: .pinkGradient)
+        
+        diaryView.setState(
+            diaryState: diaryState,
+            onClickLike: likeClicked,
+            onClickMore: moreClicked,
+            contentView: {
+                
+            }
+        )
     }
     
     private func setTapGesture() {
@@ -180,33 +84,33 @@ class OthersCell: UICollectionViewCell {
     }
     
     private func setAddTarget() {
-        heartButton.addTarget(self, action: #selector(heartButtonAction), for: .touchUpInside)
-        moreButton.addTarget(self, action: #selector(showMoreInfo), for: .touchUpInside)
-        commentSendButton.addTarget(self, action: #selector(commentSend), for: .touchUpInside)
-        commentWillMoreButton.addTarget(self, action: #selector(moreModifyButtonTapped), for: .touchUpInside)
+//        heartButton.addTarget(self, action: #selector(heartButtonAction), for: .touchUpInside)
+//        moreButton.addTarget(self, action: #selector(showMoreInfo), for: .touchUpInside)
+//        commentSendButton.addTarget(self, action: #selector(commentSend), for: .touchUpInside)
+//        commentWillMoreButton.addTarget(self, action: #selector(moreModifyButtonTapped), for: .touchUpInside)
     }
     
     private func completion(isOn: Bool) {
-        switch isOn {
-        case true:
-            let image = UIImage(named: "arrow-right-circle_black")
-            commentSendButton.isUserInteractionEnabled = true
-            commentSendButton.setImage(image, for: .normal)
-            commentSendLabel.textColor = .black
-        case false:
-            let image = UIImage(named: "arrow-right-circle")
-            commentSendButton.isUserInteractionEnabled = false
-            commentSendButton.setImage(image, for: .normal)
-            commentSendLabel.textColor = UIColor(red: 0.592, green: 0.592, blue: 0.592, alpha: 1)
-        }
+//        switch isOn {
+//        case true:
+//            let image = UIImage(named: "arrow-right-circle_black")
+//            commentSendButton.isUserInteractionEnabled = true
+//            commentSendButton.setImage(image, for: .normal)
+//            commentSendLabel.textColor = .black
+//        case false:
+//            let image = UIImage(named: "arrow-right-circle")
+//            commentSendButton.isUserInteractionEnabled = false
+//            commentSendButton.setImage(image, for: .normal)
+//            commentSendLabel.textColor = UIColor(red: 0.592, green: 0.592, blue: 0.592, alpha: 1)
+//        }
     }
     
     private func updateCountLabel(characterCount: Int) {
-        if isCountLabelUpdated {
-            commentInputContentCountLabel.text = "\(characterCount)/\(OthersYesterday.characterCount)"
-        } else {
-            commentInputContentCountLabel.text = "\(characterCount)/\(OthersYesterday.fullCharacterCount)"
-        }
+//        if isCountLabelUpdated {
+//            commentInputContentCountLabel.text = "\(characterCount)/\(OthersYesterday.characterCount)"
+//        } else {
+//            commentInputContentCountLabel.text = "\(characterCount)/\(OthersYesterday.fullCharacterCount)"
+//        }
     }
     
     private func keyboardTopToastMessage() {
@@ -228,47 +132,57 @@ class OthersCell: UICollectionViewCell {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            othersYesterdayView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            othersYesterdayView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            othersYesterdayView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            othersYesterdayView.heightAnchor.constraint(equalToConstant: 450),
+            diaryView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            diaryView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
+            diaryView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
+            diaryView.heightAnchor.constraint(greaterThanOrEqualToConstant: 450),
             
-            dateLabel.topAnchor.constraint(equalTo: othersYesterdayView.topAnchor, constant: 24),
-            dateLabel.leadingAnchor.constraint(equalTo: othersYesterdayView.leadingAnchor, constant: 24),
-
-            contentLabel.topAnchor.constraint(equalTo: othersYesterdayView.topAnchor, constant: 68),
-            contentLabel.bottomAnchor.constraint(equalTo: othersYesterdayView.bottomAnchor, constant: -260),
-            contentLabel.leadingAnchor.constraint(equalTo: othersYesterdayView.leadingAnchor, constant: 24),
-            contentLabel.trailingAnchor.constraint(equalTo: othersYesterdayView.trailingAnchor, constant: -24),
+            smallDiaryView!.leadingAnchor.constraint(equalTo: diaryView.leadingAnchor, constant: 16),
+            smallDiaryView!.trailingAnchor.constraint(equalTo: diaryView.trailingAnchor, constant: -16),
+            smallDiaryView!.bottomAnchor.constraint(equalTo: diaryView.bottomAnchor, constant: -24),
+            smallDiaryView!.heightAnchor.constraint(equalToConstant: 200)
             
-            heartButton.topAnchor.constraint(equalTo: othersYesterdayView.topAnchor, constant: 180),
-            heartButton.trailingAnchor.constraint(equalTo: othersYesterdayView.trailingAnchor, constant: -70),
-
-            moreButton.topAnchor.constraint(equalTo: othersYesterdayView.topAnchor, constant: 180),
-            moreButton.trailingAnchor.constraint(equalTo: othersYesterdayView.trailingAnchor, constant: -30),
-
-            commentView.topAnchor.constraint(equalTo: othersYesterdayView.topAnchor, constant: 230),
-            commentView.bottomAnchor.constraint(equalTo: othersYesterdayView.bottomAnchor, constant: -24),
-            commentView.leadingAnchor.constraint(equalTo: othersYesterdayView.leadingAnchor, constant: 16),
-            commentView.trailingAnchor.constraint(equalTo: othersYesterdayView.trailingAnchor, constant: -16),
-
-            commentInputContent.topAnchor.constraint(equalTo: commentView.topAnchor, constant: 24),
-            commentInputContent.bottomAnchor.constraint(equalTo: commentView.bottomAnchor, constant: -60),
-            commentInputContent.leadingAnchor.constraint(equalTo: commentView.leadingAnchor, constant: 24),
-            commentInputContent.trailingAnchor.constraint(equalTo: commentView.trailingAnchor, constant: -24),
-
-            commentInputContentCountLabel.bottomAnchor.constraint(equalTo: commentView.bottomAnchor, constant: -24),
-            commentInputContentCountLabel.leadingAnchor.constraint(equalTo: commentView.leadingAnchor, constant: 24),
-            
-            commentSendStackView.bottomAnchor.constraint(equalTo: commentView.bottomAnchor, constant: -24),
-            commentSendStackView.trailingAnchor.constraint(equalTo: commentView.trailingAnchor, constant: -25),
-
-            commentWillContentLabel.topAnchor.constraint(equalTo: commentView.topAnchor, constant: 24),
-            commentWillContentLabel.leadingAnchor.constraint(equalTo: commentView.leadingAnchor, constant: 24),
-            commentWillContentLabel.trailingAnchor.constraint(equalTo: commentView.trailingAnchor, constant: -24),
-
-            commentWillMoreButton.bottomAnchor.constraint(equalTo: commentView.bottomAnchor, constant: -24),
-            commentWillMoreButton.trailingAnchor.constraint(equalTo: commentView.trailingAnchor, constant: -30)
+//            othersYesterdayView.topAnchor.constraint(equalTo: contentView.topAnchor),
+//            othersYesterdayView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+//            othersYesterdayView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+//            othersYesterdayView.heightAnchor.constraint(equalToConstant: 450),
+//
+//            dateLabel.topAnchor.constraint(equalTo: othersYesterdayView.topAnchor, constant: 24),
+//            dateLabel.leadingAnchor.constraint(equalTo: othersYesterdayView.leadingAnchor, constant: 24),
+//
+//            contentLabel.topAnchor.constraint(equalTo: othersYesterdayView.topAnchor, constant: 68),
+//            contentLabel.bottomAnchor.constraint(equalTo: othersYesterdayView.bottomAnchor, constant: -260),
+//            contentLabel.leadingAnchor.constraint(equalTo: othersYesterdayView.leadingAnchor, constant: 24),
+//            contentLabel.trailingAnchor.constraint(equalTo: othersYesterdayView.trailingAnchor, constant: -24),
+//
+//            heartButton.topAnchor.constraint(equalTo: othersYesterdayView.topAnchor, constant: 180),
+//            heartButton.trailingAnchor.constraint(equalTo: othersYesterdayView.trailingAnchor, constant: -70),
+//
+//            moreButton.topAnchor.constraint(equalTo: othersYesterdayView.topAnchor, constant: 180),
+//            moreButton.trailingAnchor.constraint(equalTo: othersYesterdayView.trailingAnchor, constant: -30),
+//
+//            commentView.topAnchor.constraint(equalTo: othersYesterdayView.topAnchor, constant: 230),
+//            commentView.bottomAnchor.constraint(equalTo: othersYesterdayView.bottomAnchor, constant: -24),
+//            commentView.leadingAnchor.constraint(equalTo: othersYesterdayView.leadingAnchor, constant: 16),
+//            commentView.trailingAnchor.constraint(equalTo: othersYesterdayView.trailingAnchor, constant: -16),
+//
+//            commentInputContent.topAnchor.constraint(equalTo: commentView.topAnchor, constant: 24),
+//            commentInputContent.bottomAnchor.constraint(equalTo: commentView.bottomAnchor, constant: -60),
+//            commentInputContent.leadingAnchor.constraint(equalTo: commentView.leadingAnchor, constant: 24),
+//            commentInputContent.trailingAnchor.constraint(equalTo: commentView.trailingAnchor, constant: -24),
+//
+//            commentInputContentCountLabel.bottomAnchor.constraint(equalTo: commentView.bottomAnchor, constant: -24),
+//            commentInputContentCountLabel.leadingAnchor.constraint(equalTo: commentView.leadingAnchor, constant: 24),
+//
+//            commentSendStackView.bottomAnchor.constraint(equalTo: commentView.bottomAnchor, constant: -24),
+//            commentSendStackView.trailingAnchor.constraint(equalTo: commentView.trailingAnchor, constant: -25),
+//
+//            commentWillContentLabel.topAnchor.constraint(equalTo: commentView.topAnchor, constant: 24),
+//            commentWillContentLabel.leadingAnchor.constraint(equalTo: commentView.leadingAnchor, constant: 24),
+//            commentWillContentLabel.trailingAnchor.constraint(equalTo: commentView.trailingAnchor, constant: -24),
+//
+//            commentWillMoreButton.bottomAnchor.constraint(equalTo: commentView.bottomAnchor, constant: -24),
+//            commentWillMoreButton.trailingAnchor.constraint(equalTo: commentView.trailingAnchor, constant: -30)
         ])
     }
     
@@ -303,16 +217,16 @@ class OthersCell: UICollectionViewCell {
     }
     
     @objc private func heartButtonAction() {
-        if heartButton.isSelected == true {
-            heartButton.isSelected = false
-            heartButton.setImage(UIImage(named: "heart"), for: .normal)
-            
-        } else {
-            heartButton.isSelected = true
-            heartButton.setImage(UIImage(named: "heart.selected"), for: .normal)
-            toast.showToast(image: UIImage(imageLiteralResourceName: "heart.selected"),
-                            message: ToastMessage.heartToast)
-        }
+//        if heartButton.isSelected == true {
+//            heartButton.isSelected = false
+//            heartButton.setImage(UIImage(named: "heart"), for: .normal)
+//
+//        } else {
+//            heartButton.isSelected = true
+//            heartButton.setImage(UIImage(named: "heart.selected"), for: .normal)
+//            toast.showToast(image: UIImage(imageLiteralResourceName: "heart.selected"),
+//                            message: ToastMessage.heartToast)
+//        }
     }
     
     @objc private func showMoreInfo() {
@@ -333,13 +247,13 @@ class OthersCell: UICollectionViewCell {
                         otherButtonColor: .black) { [self] (isOtherButton) -> Void in
             if isOtherButton == true { }
             else {
-                commentInputContent.isHidden = true
-                commentInputContentCountLabel.isHidden = true
-                commentSendStackView.isHidden = true
-                commentWillContentLabel.isHidden = false
-                commentWillMoreButton.isHidden = false
-
-                commentWillContentLabel.text = commentInputContent.text
+//                commentInputContent.isHidden = true
+//                commentInputContentCountLabel.isHidden = true
+//                commentSendStackView.isHidden = true
+//                commentWillContentLabel.isHidden = false
+//                commentWillMoreButton.isHidden = false
+//
+//                commentWillContentLabel.text = commentInputContent.text
 
                 toast.showToast(image: UIImage(imageLiteralResourceName: "send"),
                                 message: ToastMessage.sendToast)
@@ -353,8 +267,8 @@ extension OthersCell {
 
     private func setupGestureRecognizer() {
         let tapGetstureRecognizer = UITapGestureRecognizer(target: self, action: #selector(labelTapped))
-        commentInputContentCountLabel.addGestureRecognizer(tapGetstureRecognizer)
-        commentInputContentCountLabel.isUserInteractionEnabled = true
+//        commentInputContentCountLabel.addGestureRecognizer(tapGetstureRecognizer)
+//        commentInputContentCountLabel.isUserInteractionEnabled = true
     }
 
     @objc func labelTapped(_ tapRecognizer: UITapGestureRecognizer) {
@@ -369,7 +283,7 @@ extension OthersCell {
             else {
                 // AD
                 isCountLabelUpdated = false
-                updateCountLabel(characterCount: commentInputContent.text.count)
+//                updateCountLabel(characterCount: commentInputContent.text.count)
             }
         }
     }

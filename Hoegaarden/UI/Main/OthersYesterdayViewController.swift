@@ -70,11 +70,13 @@ class OthersYesterdayViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.register(OthersCell.self, forCellWithReuseIdentifier: "OthersCell")
         
+        collectionView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
+        
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: -30),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            collectionView.heightAnchor.constraint(greaterThanOrEqualToConstant: 450)
         ])
     }
     
@@ -153,11 +155,7 @@ extension OthersYesterdayViewController: UICollectionViewDelegate, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OthersCell", for: indexPath) as! OthersCell
-        
-        let data = dataArray[indexPath.item]
-        cell.dateLabel.text = data.date
-        cell.contentLabel.text = data.content
-        
+            
         cell.moreButtonAction = { [weak self] in
             if let actionSheet = self?.reportAndDeleteActionSheet {
                 actionSheet.modalPresentationStyle = .overFullScreen

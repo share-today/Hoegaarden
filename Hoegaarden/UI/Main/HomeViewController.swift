@@ -80,7 +80,6 @@ class HomeViewController: UIViewController {
     
     private var currentPage: Int = 0 {
         didSet {
-            print(oldValue, self.currentPage)
             let direction: UIPageViewController.NavigationDirection = oldValue <= self.currentPage ? .forward : .reverse
             self.pageViewController.setViewControllers (
                 [viewControllers[self.currentPage]],
@@ -136,7 +135,6 @@ class HomeViewController: UIViewController {
             separatorView.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 10),
             separatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             separatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            separatorView.widthAnchor.constraint(equalToConstant: 351),
             separatorView.heightAnchor.constraint(equalToConstant: 1),
             
             pageViewController.view.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 15),

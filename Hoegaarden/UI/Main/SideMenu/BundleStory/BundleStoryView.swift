@@ -136,7 +136,6 @@ class BundleStoryView: UIViewController {
             lineView.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 10),
             lineView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             lineView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            lineView.widthAnchor.constraint(equalToConstant: 351),
             lineView.heightAnchor.constraint(equalToConstant: 1),
             
             pageViewController.view.topAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 15),

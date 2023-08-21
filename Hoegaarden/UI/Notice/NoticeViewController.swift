@@ -109,7 +109,6 @@ class NoticeViewController: UIViewController {
             separatorView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 12),
             separatorView.leadingAnchor.constraint(equalTo: backgroundImage.leadingAnchor, constant: 24),
             separatorView.trailingAnchor.constraint(equalTo: backgroundImage.trailingAnchor, constant: 0),
-            separatorView.widthAnchor.constraint(equalToConstant: 351),
             separatorView.heightAnchor.constraint(equalToConstant: 1),
             
             noticeView.topAnchor.constraint(equalTo: separatorView.topAnchor, constant: 17),

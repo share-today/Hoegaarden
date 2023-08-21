@@ -103,7 +103,6 @@ class UnregisterView: UIViewController {
             separatorView.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 12),
             separatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             separatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            separatorView.widthAnchor.constraint(equalToConstant: 351),
             separatorView.heightAnchor.constraint(equalToConstant: 1),
         
             contentLabel.topAnchor.constraint(equalTo: separatorView.topAnchor, constant: 20),
