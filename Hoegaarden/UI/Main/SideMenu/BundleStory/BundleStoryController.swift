@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import FSCalendar
 
-class BundleStoryController: UIViewController, FSCalendarDataSource, FSCalendarDelegate {
+class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCalendarDelegate {
         
     private let calendar: FSCalendar = {
         let calendar = FSCalendar()

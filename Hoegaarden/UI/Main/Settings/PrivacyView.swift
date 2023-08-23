@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PrivacyView: UIViewController {
+class PrivacyView: GestureViewController {
     
     private var scrollView: UIScrollView = {
         let scrollView = UIScrollView()

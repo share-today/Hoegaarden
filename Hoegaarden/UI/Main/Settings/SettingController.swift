@@ -8,12 +8,12 @@
 import UIKit
 import Alamofire
 
-class SettingController: UIViewController {
+class SettingController: GestureViewController {
     
     private let toast = Toast()
     private let alert = SweetAlert()
     
-    private lazy var backgroundImage: UIImageView = {
+    private var backgroundImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "backgroundImage")
         imageView.isUserInteractionEnabled = true
@@ -51,14 +51,13 @@ class SettingController: UIViewController {
         return label
     }()
     
-    lazy var alertControlSwitch: UISwitch = {
+    private var alertControlSwitch: UISwitch = {
         let alertSwitch: UISwitch = UISwitch()
         alertSwitch.onTintColor = .black
         alertSwitch.tintColor = .lightGray
         alertSwitch.thumbTintColor = .white
         alertSwitch.isOn = true
         alertSwitch.layer.cornerRadius = 16
-        alertSwitch.addTarget(self, action: #selector(switchValueChanged(_:)), for: .touchUpInside)
         return alertSwitch
     }()
     
@@ -82,18 +81,17 @@ class SettingController: UIViewController {
         return label
     }()
     
-    lazy var commentButton: UIButton = {
+    private var commentButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setTitle(Settings.commentLabel, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
         button.titleLabel?.font = Font.air.of(size: 16)
-        button.addTarget(self, action: #selector(commentButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    lazy var faqButton: UIButton = {
+    private var faqButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setTitle(Settings.faqLabel, for: .normal)
         button.setTitleColor(.black, for: .normal)
@@ -103,7 +101,7 @@ class SettingController: UIViewController {
         return button
     }()
     
-    lazy var cheerButton: UIButton = {
+    private var cheerButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setTitle(Settings.cheerLabel, for: .normal)
         button.setTitleColor(.black, for: .normal)
@@ -130,29 +128,26 @@ class SettingController: UIViewController {
         button.backgroundColor = .clear
         button.titleLabel?.font = Font.air.of(size: 16)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(tosButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    lazy var privacyButton: UIButton = {
+    private var privacyButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setTitle(Settings.privacyLabel, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
         button.titleLabel?.font = Font.air.of(size: 16)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(privacyButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    lazy var openButton: UIButton = {
+    private var openButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setTitle(Settings.openLabel, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
         button.titleLabel?.font = Font.air.of(size: 16)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(openButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -182,7 +177,7 @@ class SettingController: UIViewController {
         return stview
     }()
     
-    lazy var logoutButton: UIButton = {
+    private var logoutButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setTitle(Settings.logoutLabel, for: .normal)
         button.setTitleColor(.black, for: .normal)
@@ -193,14 +188,13 @@ class SettingController: UIViewController {
         return button
     }()
     
-    lazy var unregisterButton: UIButton = {
+    private var unregisterButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setTitle(Settings.unregisterLabel, for: .normal)
         button.setTitleColor(.lightGray, for: .normal)
         button.backgroundColor = .clear
         button.titleLabel?.font = Font.air.of(size: 16)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(unregisterButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -209,6 +203,7 @@ class SettingController: UIViewController {
         
         setup()
         addViews()
+        setupAddTarget()
         configureContentViewHeight()
         configureNavigationBarButton()
         setSeparatorView()
@@ -238,30 +233,13 @@ class SettingController: UIViewController {
         contentView.addSubview(appVersionStackView)
     }
     
-    private func enableAlerts(userId id: Int) {
-        let url = "https://share-today.site/user/\(id)/alert"
-        
-        if let jwtToken = UserDefaults.standard.string(forKey: "UserJWT") {
-            let headers: HTTPHeaders = [
-                "Authorization": "Bearer \(jwtToken)"
-            ]
-            
-            AF.request(url,
-                       method: .put,
-                       headers: headers)
-            .validate()
-            .responseJSON { [self] response in
-                switch response.result {
-                case .success(let value):
-                    print("Alert Response JSON: \(value)")
-        
-                case .failure(let error):
-                    print("Alert Error: \(error.localizedDescription)")
-                }
-            }
-        } else {
-            print("JWT token not found.")
-        }
+    private func setupAddTarget() {
+        alertControlSwitch.addTarget(self, action: #selector(switchValueChanged(_:)), for: .touchUpInside)
+        commentButton.addTarget(self, action: #selector(commentButtonTapped), for: .touchUpInside)
+        tosButton.addTarget(self, action: #selector(tosButtonTapped), for: .touchUpInside)
+        privacyButton.addTarget(self, action: #selector(privacyButtonTapped), for: .touchUpInside)
+        openButton.addTarget(self, action: #selector(openButtonTapped), for: .touchUpInside)
+        unregisterButton.addTarget(self, action: #selector(unregisterButtonTapped), for: .touchUpInside)
     }
     
     private func configureContentViewHeight() {
@@ -357,45 +335,6 @@ class SettingController: UIViewController {
         ])
     }
     
-    @objc func switchValueChanged(_ sender: UISwitch) {
-        if sender.isOn {
-            enableAlerts(userId: 2)
-        } else {
-        }
-    }
-    
-    @objc private func commentButtonTapped() {
-        let commentVC = CommentView()
-        commentVC.modalPresentationStyle = .fullScreen
-        let nav = UINavigationController(rootViewController: commentVC)
-        nav.modalPresentationStyle = .overFullScreen
-        present(nav, animated: true, completion: nil)
-    }
-    
-    @objc private func tosButtonTapped() {
-        let tosVC = TOSView()
-        tosVC.modalPresentationStyle = .fullScreen
-        let nav = UINavigationController(rootViewController: tosVC)
-        nav.modalPresentationStyle = .overFullScreen
-        present(nav, animated: true, completion: nil)
-    }
-    
-    @objc private func privacyButtonTapped() {
-        let privacyVC = PrivacyView()
-        privacyVC.modalPresentationStyle = .fullScreen
-        let nav = UINavigationController(rootViewController: privacyVC)
-        nav.modalPresentationStyle = .overFullScreen
-        present(nav, animated: true, completion: nil)
-    }
-    
-    @objc private func openButtonTapped() {
-        let openVC = OpenView()
-        openVC.modalPresentationStyle = .fullScreen
-        let nav = UINavigationController(rootViewController: openVC)
-        nav.modalPresentationStyle = .overFullScreen
-        present(nav, animated: true, completion: nil)
-    }
-    
     private func logoutRequest() {
         let url = "https://share-today.site/auth/logout"
         
@@ -424,6 +363,71 @@ class SettingController: UIViewController {
         } else {
             print("JWT token not found.")
         }
+    }
+    
+    private func enableAlerts(userId id: Int) {
+        let url = "https://share-today.site/user/\(id)/alert"
+        
+        if let jwtToken = UserDefaults.standard.string(forKey: "UserJWT") {
+            let headers: HTTPHeaders = [
+                "Authorization": "Bearer \(jwtToken)"
+            ]
+            
+            AF.request(url,
+                       method: .put,
+                       headers: headers)
+            .validate()
+            .responseJSON { [self] response in
+                switch response.result {
+                case .success(let value):
+                    print("Alert Response JSON: \(value)")
+        
+                case .failure(let error):
+                    print("Alert Error: \(error.localizedDescription)")
+                }
+            }
+        } else {
+            print("JWT token not found.")
+        }
+    }
+    
+    @objc private func switchValueChanged(_ sender: UISwitch) {
+        if sender.isOn {
+            enableAlerts(userId: 2)
+        } else {
+        }
+    }
+    
+    @objc private func commentButtonTapped() {
+        let commentVC = CommentViewController()
+        commentVC.modalPresentationStyle = .fullScreen
+        let nav = UINavigationController(rootViewController: commentVC)
+        nav.modalPresentationStyle = .overFullScreen
+        present(nav, animated: true, completion: nil)
+    }
+    
+    @objc private func tosButtonTapped() {
+        let tosVC = TOSView()
+        tosVC.modalPresentationStyle = .fullScreen
+        let nav = UINavigationController(rootViewController: tosVC)
+        nav.modalPresentationStyle = .overFullScreen
+        present(nav, animated: true, completion: nil)
+    }
+    
+    @objc private func privacyButtonTapped() {
+        let privacyVC = PrivacyView()
+        privacyVC.modalPresentationStyle = .fullScreen
+        let nav = UINavigationController(rootViewController: privacyVC)
+        nav.modalPresentationStyle = .overFullScreen
+        present(nav, animated: true, completion: nil)
+    }
+    
+    @objc private func openButtonTapped() {
+        let openVC = OpenView()
+        openVC.modalPresentationStyle = .fullScreen
+        let nav = UINavigationController(rootViewController: openVC)
+        nav.modalPresentationStyle = .overFullScreen
+        present(nav, animated: true, completion: nil)
     }
     
     @objc private func logoutButtonTapped() {

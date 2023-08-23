@@ -1,5 +1,5 @@
 //
-//  UnregisterView.swift
+//  UnregisterViewController.swift
 //  Hoegaarden
 //
 //  Created by 혜리 on 2023/03/13.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UnregisterView: UIViewController {
+class UnregisterViewController: GestureViewController {
     
     private let alert = SweetAlert()
     

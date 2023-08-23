@@ -1,5 +1,5 @@
 //
-//  TOSView.swift
+//  TOSViewController.swift
 //  Hoegaarden
 //
 //  Created by 혜리 on 2023/01/26.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TOSView: UIViewController {
+class TOSViewController: GestureViewController {
     
     private var scrollView: UIScrollView = {
         let scrollView = UIScrollView()

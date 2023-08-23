@@ -87,10 +87,10 @@ class DiaryView: UIView {
             contentLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             contentLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
             
-            heartButton.bottomAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 33),
-            heartButton.trailingAnchor.constraint(equalTo: moreButton.leadingAnchor, constant: -10),
+            heartButton.bottomAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 50),
+            heartButton.trailingAnchor.constraint(equalTo: moreButton.leadingAnchor, constant: -15),
             
-            moreButton.bottomAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 30),
+            moreButton.bottomAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 40),
             moreButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30),
         ])
     }
@@ -143,4 +143,7 @@ class DiaryView: UIView {
         heartButton.addTarget(heartButton, action: #selector(onClickLike.buttonClicked), for: .touchUpInside)
         moreButton.addTarget(moreButton, action: #selector(onClickMore.buttonClicked), for: .touchUpInside)
     }
+    
+    
+    
 }

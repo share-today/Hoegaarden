@@ -115,7 +115,7 @@ class MyYesterdayViewController: UIViewController {
             diaryView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
             diaryView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             diaryView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-//            diaryView.heightAnchor.constraint(lessThanOrEqualToConstant: 150),
+            diaryView.heightAnchor.constraint(lessThanOrEqualToConstant: 150),
             
             collectionView.topAnchor.constraint(equalTo: diaryView.bottomAnchor, constant: 10),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

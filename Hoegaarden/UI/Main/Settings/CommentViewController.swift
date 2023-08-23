@@ -1,5 +1,5 @@
 //
-//  CommentView.swift
+//  CommentViewController.swift
 //  Hoegaarden
 //
 //  Created by 혜리 on 2023/01/26.
@@ -8,12 +8,12 @@
 import UIKit
 import AVFoundation
 
-class CommentView: UIViewController {
+class CommentViewController: GestureViewController {
     
     private let alert = SweetAlert()
     private let toast = Toast()
     
-    private var mainLabel: UILabel = {
+    private let mainLabel: UILabel = {
         let label = UILabel()
         label.text = Settings.commentLabel
         label.textColor = .black
@@ -22,7 +22,7 @@ class CommentView: UIViewController {
         return label
     }()
     
-    private lazy var separatorView: UIView = {
+    private let separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -64,7 +64,7 @@ class CommentView: UIViewController {
         return label
     }()
     
-    private var sendLabel: UILabel = {
+    private let sendLabel: UILabel = {
         let label = UILabel()
         label.text = Settings.commentSend
         label.textColor = UIColor(red: 0.592, green: 0.592, blue: 0.592, alpha: 1)
@@ -73,7 +73,7 @@ class CommentView: UIViewController {
         return label
     }()
     
-    private var sendButton: UIButton = {
+    private let sendButton: UIButton = {
         let button = UIButton()
         let image = UIImage(named: "arrow-right-circle")
         button.setImage(image, for: .normal)
@@ -216,7 +216,7 @@ class CommentView: UIViewController {
 }
 
 
-extension CommentView: UITextViewDelegate {
+extension CommentViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == HomeMain.commentTextViewPlaceHolder {

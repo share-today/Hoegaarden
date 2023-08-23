@@ -54,7 +54,8 @@ class MyYesterdayCell: UICollectionViewCell {
         let diaryState = DiaryState(id: "1",
                                     dateLabel: "",
                                     contentLabel: "혜리 존예존귀",
-                                    heartButtonState: HeartButtonState(isLike: true, isEnabled: true), backgroundColor: .lightGrayGradientWithStroke)
+                                    heartButtonState: HeartButtonState(isLike: true, isEnabled: true),
+                                    backgroundColor: .lightGrayGradientWithStroke)
         
         diaryView.setState(
             diaryState: diaryState,
@@ -73,9 +74,9 @@ class MyYesterdayCell: UICollectionViewCell {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            diaryView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            diaryView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
-            diaryView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
+//            diaryView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+//            diaryView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
+//            diaryView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
 //            diaryView.heightAnchor.constraint(equalToConstant: 132),
         ])
     }

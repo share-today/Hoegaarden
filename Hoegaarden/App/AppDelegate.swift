@@ -31,6 +31,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         setAppleLogin()
         
+        if let navigationController = window?.rootViewController as? UINavigationController {
+            navigationController.interactivePopGestureRecognizer?.isEnabled = true
+            navigationController.navigationBar.semanticContentAttribute = .forceLeftToRight
+        }
+        
+        print(window?.rootViewController)
+        
         return true
     }
     
