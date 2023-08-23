@@ -407,7 +407,7 @@ class SettingController: GestureViewController {
     }
     
     @objc private func tosButtonTapped() {
-        let tosVC = TOSView()
+        let tosVC = TOSViewController()
         tosVC.modalPresentationStyle = .fullScreen
         let nav = UINavigationController(rootViewController: tosVC)
         nav.modalPresentationStyle = .overFullScreen
@@ -415,7 +415,7 @@ class SettingController: GestureViewController {
     }
     
     @objc private func privacyButtonTapped() {
-        let privacyVC = PrivacyView()
+        let privacyVC = PrivacyViewController()
         privacyVC.modalPresentationStyle = .fullScreen
         let nav = UINavigationController(rootViewController: privacyVC)
         nav.modalPresentationStyle = .overFullScreen
@@ -423,7 +423,7 @@ class SettingController: GestureViewController {
     }
     
     @objc private func openButtonTapped() {
-        let openVC = OpenView()
+        let openVC = OpenViewController()
         openVC.modalPresentationStyle = .fullScreen
         let nav = UINavigationController(rootViewController: openVC)
         nav.modalPresentationStyle = .overFullScreen
@@ -446,7 +446,7 @@ class SettingController: GestureViewController {
     }
     
     @objc private func unregisterButtonTapped() {
-        let unregisterVC = UnregisterView()
+        let unregisterVC = UnregisterViewController()
         unregisterVC.modalPresentationStyle = .fullScreen
         let nav = UINavigationController(rootViewController: unregisterVC)
         nav.modalPresentationStyle = .overFullScreen

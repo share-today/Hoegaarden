@@ -27,7 +27,7 @@
 		1C514BE029D56D6E0082195A /* AcceptLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C514BDF29D56D6E0082195A /* AcceptLoginViewController.swift */; };
 		1C579D5529F508A40048924A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C579D5429F508A40048924A /* GoogleService-Info.plist */; };
 		1C62F533298BADAB003EB5A7 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C62F532298BADAB003EB5A7 /* Toast.swift */; };
-		1C7221B3298901ED002C326E /* PrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7221B2298901ED002C326E /* PrivacyView.swift */; };
+		1C7221B3298901ED002C326E /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7221B2298901ED002C326E /* PrivacyViewController.swift */; };
 		1C7221B5298902A0002C326E /* OpenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7221B4298902A0002C326E /* OpenViewController.swift */; };
 		1C8F5FBB2A0F935F00A58B1F /* GoogleSignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8F5FBA2A0F935F00A58B1F /* GoogleSignInManager.swift */; };
 		1C8F5FBD2A0F955E00A58B1F /* KakaoLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8F5FBC2A0F955E00A58B1F /* KakaoLoginManager.swift */; };
@@ -90,7 +90,7 @@
 		1C514BDF29D56D6E0082195A /* AcceptLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptLoginViewController.swift; sourceTree = "<group>"; };
 		1C579D5429F508A40048924A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1C62F532298BADAB003EB5A7 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
-		1C7221B2298901ED002C326E /* PrivacyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyView.swift; sourceTree = "<group>"; };
+		1C7221B2298901ED002C326E /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
 		1C7221B4298902A0002C326E /* OpenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenViewController.swift; sourceTree = "<group>"; };
 		1C8F5FBA2A0F935F00A58B1F /* GoogleSignInManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInManager.swift; sourceTree = "<group>"; };
 		1C8F5FBC2A0F955E00A58B1F /* KakaoLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginManager.swift; sourceTree = "<group>"; };
@@ -377,7 +377,7 @@
 				1C1F3162297F6CC100D76B35 /* SettingController.swift */,
 				1CE84D2F2982556A009B31BC /* CommentViewController.swift */,
 				1CE84D31298276F1009B31BC /* TOSViewController.swift */,
-				1C7221B2298901ED002C326E /* PrivacyView.swift */,
+				1C7221B2298901ED002C326E /* PrivacyViewController.swift */,
 				1C7221B4298902A0002C326E /* OpenViewController.swift */,
 				1CA60BF229BF28B00009CA3C /* UnregisterViewController.swift */,
 			);
@@ -585,7 +585,7 @@
 				1C8F5FBD2A0F955E00A58B1F /* KakaoLoginManager.swift in Sources */,
 				1CC9CA332A909B6800D47FC7 /* HeartButtonState.swift in Sources */,
 				1CE84D34298282DE009B31BC /* NoticeMainViewController.swift in Sources */,
-				1C7221B3298901ED002C326E /* PrivacyView.swift in Sources */,
+				1C7221B3298901ED002C326E /* PrivacyViewController.swift in Sources */,
 				1CC9CA3C2A95C70500D47FC7 /* GestureViewController.swift in Sources */,
 				1CD9725D2964489600A4D62F /* BundleStoryController.swift in Sources */,
 				1CDC90AA29A8FF1C0093A0D3 /* ToastWithButton.swift in Sources */,

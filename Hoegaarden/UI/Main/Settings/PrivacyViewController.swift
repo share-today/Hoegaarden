@@ -1,5 +1,5 @@
 //
-//  PrivacyView.swift
+//  PrivacyViewController.swift
 //  Hoegaarden
 //
 //  Created by 혜리 on 2023/01/31.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PrivacyView: GestureViewController {
+class PrivacyViewController: GestureViewController {
     
     private var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
