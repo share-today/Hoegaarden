@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NoticeMainViewController: UIViewController {
+class NoticeMainViewController: GestureViewController {
     
     private lazy var backgroundImage: UIImageView = {
         let imageView = UIImageView()
@@ -48,7 +48,7 @@ class NoticeMainViewController: UIViewController {
         return view
     }()
     
-    private lazy var yesterdayHeartDate: UILabel = {
+    private let yesterdayHeartDate: UILabel = {
         let label = UILabel()
         label.text = Notices.minuteAgo
         label.font = Font.air.of(size: 14)
@@ -57,7 +57,7 @@ class NoticeMainViewController: UIViewController {
         return label
     }()
     
-    private lazy var yesterdayHeartContent: UILabel = {
+    private var yesterdayHeartContent: UILabel = {
         let label = UILabel()
         label.text = Notices.yesterdayHeartNotice
         label.font = Font.air.of(size: 14)
@@ -76,7 +76,7 @@ class NoticeMainViewController: UIViewController {
         return view
     }()
     
-    private lazy var commentHeartDate: UILabel = {
+    private var commentHeartDate: UILabel = {
         let label = UILabel()
         label.text = Notices.dateAgo
         label.font = Font.air.of(size: 14)
@@ -85,7 +85,7 @@ class NoticeMainViewController: UIViewController {
         return label
     }()
     
-    private lazy var commentHeartContent: UILabel = {
+    private var commentHeartContent: UILabel = {
         let label = UILabel()
         label.text = Notices.heartNotice
         label.font = Font.air.of(size: 14)
@@ -107,7 +107,7 @@ class NoticeMainViewController: UIViewController {
         return view
     }()
     
-    private lazy var noticeDate: UILabel = {
+    private var noticeDate: UILabel = {
         let label = UILabel()
         label.text = Notices.dateAgo
         label.font = Font.air.of(size: 14)
@@ -116,7 +116,7 @@ class NoticeMainViewController: UIViewController {
         return label
     }()
     
-    private lazy var noticeContent: UIButton = {
+    private var noticeContent: UIButton = {
         let button = UIButton(type: .custom)
         button.setTitle(Notices.allNotice, for: .normal)
         button.setTitleColor(.black, for: .normal)

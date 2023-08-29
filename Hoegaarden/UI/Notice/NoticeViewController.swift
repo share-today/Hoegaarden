@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NoticeViewController: UIViewController {
+class NoticeViewController: GestureViewController {
     
     private lazy var backgroundImage: UIImageView = {
         let imageView = UIImageView()
@@ -20,7 +20,7 @@ class NoticeViewController: UIViewController {
         return imageView
     }()
     
-    private lazy var titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = Notices.noticeMain
         label.textColor = .black
@@ -29,7 +29,7 @@ class NoticeViewController: UIViewController {
         return label
     }()
     
-    private lazy var separatorView: UIView = {
+    private let separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -50,7 +50,7 @@ class NoticeViewController: UIViewController {
         return view
     }()
     
-    private lazy var noticeDate: UILabel = {
+    private var noticeDate: UILabel = {
         let label = UILabel()
         label.text = Notices.dateAgo
         label.font = Font.air.of(size: 14)
@@ -59,7 +59,7 @@ class NoticeViewController: UIViewController {
         return label
     }()
 
-    private lazy var noticeContent: UILabel = {
+    private var noticeContent: UILabel = {
         let label = UILabel()
         label.text = Notices.allNoticeContent
         label.font = Font.air.of(size: 14)
