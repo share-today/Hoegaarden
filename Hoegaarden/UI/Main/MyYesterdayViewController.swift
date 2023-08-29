@@ -29,7 +29,7 @@ class MyYesterdayViewController: UIViewController {
     }()
     
     private lazy var deleteActionSheet: DeleteAlertAction = {
-       let actionSheet = DeleteAlertAction()
+        let actionSheet = DeleteAlertAction()
         actionSheet.setButtonTitle(AlertMessage.deleteButton)
         actionSheet.button.addTarget(self, action: #selector(deleteButtonAction), for: .touchUpInside)
         return actionSheet
@@ -107,7 +107,7 @@ class MyYesterdayViewController: UIViewController {
     }
     
     private func setupAddTarget() {
-//        moreButton.addTarget(self, action: #selector(showMoreButton), for: .touchUpInside)
+        moreButton.addTarget(self, action: #selector(showMoreButton), for: .touchUpInside)
     }
     
     private func setConstraints() {
@@ -225,7 +225,7 @@ class MyYesterdayViewController: UIViewController {
                 dismiss(animated: false, completion: nil)
                 
                 toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
-                                     message: ToastMessage.trashToast)
+                                message: ToastMessage.trashToast)
             }
         }
     }
@@ -239,7 +239,7 @@ extension MyYesterdayViewController: UICollectionViewDelegate, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyYesterdayCell", for: indexPath) as! MyYesterdayCell
-                
+        
         cell.commentMoreButtonAction = { [weak self] in
             if let actionSheet = self?.reportAndDeleteActionSheet {
                 actionSheet.modalPresentationStyle = .overFullScreen
@@ -253,7 +253,7 @@ extension MyYesterdayViewController: UICollectionViewDelegate, UICollectionViewD
 
 extension MyYesterdayViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = collectionView.frame.width 
+        let cellWidth = collectionView.frame.width
         let cellHeight = collectionView.frame.height
         return CGSize(width: cellWidth, height: cellHeight)
     }

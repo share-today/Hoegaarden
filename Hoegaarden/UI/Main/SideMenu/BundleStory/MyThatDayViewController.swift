@@ -12,56 +12,7 @@ class MyThatDayViewController: UIViewController {
     private let toast = Toast()
     private var alert = SweetAlert()
     
-    private lazy var myThatDayView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(red: 0.904, green: 0.931, blue: 1, alpha: 1)
-        
-        let layer = CAGradientLayer()
-        layer.frame = view.bounds
-        layer.colors = [UIColor(red: 0.904, green: 0.931, blue: 1, alpha: 1),
-                        UIColor(red: 0.846, green: 0.888, blue: 0.996, alpha: 1)]
-        layer.locations = [0.5, 1.0]
-        layer.startPoint = CGPoint(x: 0.5, y: 0.0)
-        layer.endPoint = CGPoint(x: 0.5, y: 1.0)
-        view.layer.addSublayer(layer)
-        view.layer.cornerRadius = 8
-        view.clipsToBounds = true
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(dateLabel)
-        view.addSubview(contentLabel)
-        view.addSubview(moreButton)
-       
-        return view
-    }()
-    
-    private var dateLabel: UILabel = {
-        let label = UILabel()
-        label.text = BundleStory.myThatDayDate
-        label.textColor = .black
-        label.font = Font.air.of(size: 12)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private var contentLabel: UILabel = {
-        let contentLabel = UILabel()
-        contentLabel.text = BundleStory.myThatDayContent
-        contentLabel.numberOfLines = 0
-        contentLabel.textColor = .black
-        contentLabel.backgroundColor = .clear
-        contentLabel.font = Font.air.of(size: 16)
-        contentLabel.translatesAutoresizingMaskIntoConstraints = false
-        return contentLabel
-    }()
-    
-    private var moreButton: UIButton = {
-        let button = UIButton()
-        let image = UIImage(named: "more")
-        button.setImage(image, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    private let diaryView: DiaryView = DiaryView()
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -77,7 +28,7 @@ class MyThatDayViewController: UIViewController {
     }()
     
     private lazy var deleteActionSheet: DeleteAlertAction = {
-       let actionSheet = DeleteAlertAction()
+        let actionSheet = DeleteAlertAction()
         actionSheet.setButtonTitle(AlertMessage.deleteButton)
         actionSheet.button.addTarget(self, action: #selector(deleteButtonAction), for: .touchUpInside)
         return actionSheet
@@ -99,16 +50,14 @@ class MyThatDayViewController: UIViewController {
         commentData(content: "뿌아앙"),
         commentData(content: "이이잉"),
     ]
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setup()
         addViews()
-        setGradientLayer()
+        setViews()
         setCollectionView()
-        setAddTarget()
         setConstraints()
     }
     
@@ -117,21 +66,36 @@ class MyThatDayViewController: UIViewController {
     }
     
     private func addViews() {
-        view.addSubview(myThatDayView)
+        view.addSubview(diaryView)
         view.addSubview(collectionView)
     }
     
-    private func setGradientLayer() {
-        let layer = CAGradientLayer()
-        layer.colors = [UIColor(red: 0.904, green: 0.931, blue: 1, alpha: 1).cgColor,
-                        UIColor(red: 0.846, green: 0.888, blue: 0.996, alpha: 1).cgColor]
-        layer.startPoint = CGPoint(x: 0.5, y: 0.0)
-        layer.endPoint = CGPoint(x: 0.5, y: 1.0)
-        layer.locations = [0, 1]
-        layer.frame = myThatDayView.bounds
-        layer.bounds = view.bounds.insetBy(dx: -0.5 * view.bounds.size.width, dy: -0.5 * view.bounds.size.height)
-        layer.position = view.center
-        myThatDayView.layer.insertSublayer(layer, at: 0)
+    private func setViews() {
+        let likeClicked = ClosureButton()
+        let moreClicked = ClosureButton()
+        
+        likeClicked.onClick = {
+            print("like")
+        }
+        
+        moreClicked.onClick = {
+            print("more")
+        }
+        
+        let diaryState = DiaryState(id: "1",
+                                    dateLabel: "23년 08월 21일",
+                                    contentLabel: "혜리 존예존귀",
+                                    heartButtonState: HeartButtonState(isLike: true, isEnabled: true),
+                                    backgroundColor: .blueGradient)
+        
+        diaryView.setState(
+            diaryState: diaryState,
+            onClickLike: likeClicked,
+            onClickMore: moreClicked,
+            contentView: {
+                
+            }
+        )
     }
     
     private func setCollectionView() {
@@ -140,29 +104,14 @@ class MyThatDayViewController: UIViewController {
         collectionView.register(MyThatDayCell.self, forCellWithReuseIdentifier: "MyThatDayCell")
     }
     
-    private func setAddTarget() {
-        moreButton.addTarget(self, action: #selector(showMoreButton), for: .touchUpInside)
-    }
-    
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            myThatDayView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
-            myThatDayView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
-            myThatDayView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            myThatDayView.heightAnchor.constraint(equalToConstant: 242),
+            diaryView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
+            diaryView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+            diaryView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            diaryView.heightAnchor.constraint(lessThanOrEqualToConstant: 150),
             
-            dateLabel.topAnchor.constraint(equalTo: myThatDayView.topAnchor, constant: 24),
-            dateLabel.leadingAnchor.constraint(equalTo: myThatDayView.leadingAnchor, constant: 24),
-            
-            contentLabel.topAnchor.constraint(equalTo: myThatDayView.topAnchor, constant: 68),
-            contentLabel.bottomAnchor.constraint(equalTo: myThatDayView.bottomAnchor, constant: -68),
-            contentLabel.leadingAnchor.constraint(equalTo: myThatDayView.leadingAnchor, constant: 24),
-            contentLabel.trailingAnchor.constraint(equalTo: myThatDayView.trailingAnchor, constant: -24),
-            
-            moreButton.bottomAnchor.constraint(equalTo: myThatDayView.bottomAnchor, constant: -24),
-            moreButton.trailingAnchor.constraint(equalTo: myThatDayView.trailingAnchor, constant: -30),
-            
-            collectionView.topAnchor.constraint(equalTo: myThatDayView.bottomAnchor, constant: 10),
+            collectionView.topAnchor.constraint(equalTo: diaryView.bottomAnchor, constant: 10),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -236,7 +185,7 @@ class MyThatDayViewController: UIViewController {
                 dismiss(animated: false, completion: nil)
                 
                 toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
-                                     message: ToastMessage.trashToast)
+                                message: ToastMessage.trashToast)
             }
         }
     }
@@ -250,9 +199,6 @@ extension MyThatDayViewController: UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyThatDayCell", for: indexPath) as! MyThatDayCell
-        
-        let data = dataArray[indexPath.item]
-        cell.commentContent.text = data.content
         
         cell.commentMoreButtonAction = { [weak self] in
             if let actionSheet = self?.reportAndDeleteActionSheet {
