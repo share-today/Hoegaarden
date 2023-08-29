@@ -53,25 +53,11 @@ class OthersThatDayViewController: UIViewController {
         super.viewDidLoad()
         
         setup()
-        setGradientLayer()
         setCollectionView()
     }
     
     private func setup() {
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-    }
-    
-    private func setGradientLayer() {
-//        let layer = CAGradientLayer()
-//        layer.colors = [UIColor(red: 1, green: 0.904, blue: 0.904, alpha: 1).cgColor,
-//                        UIColor(red: 0.996, green: 0.846, blue: 0.846, alpha: 1).cgColor]
-//        layer.startPoint = CGPoint(x: 0.5, y: 0.0)
-//        layer.endPoint = CGPoint(x: 0.5, y: 1.0)
-//        layer.locations = [0, 1]
-//        layer.frame = someoneThatDayView.bounds
-//        layer.bounds = view.bounds.insetBy(dx: -0.5 * view.bounds.size.width, dy: -0.5 * view.bounds.size.height)
-//        layer.position = view.center
-//        someoneThatDayView.layer.insertSublayer(layer, at: 0)
     }
     
     private func setCollectionView() {
@@ -80,11 +66,13 @@ class OthersThatDayViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.register(OthersThatDayCell.self, forCellWithReuseIdentifier: "OthersThatDayCell")
         
+        collectionView.contentInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
+        
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: -30),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            collectionView.heightAnchor.constraint(greaterThanOrEqualToConstant: 450)
         ])
     }
     
@@ -164,10 +152,6 @@ extension OthersThatDayViewController: UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OthersThatDayCell", for: indexPath) as! OthersThatDayCell
-        
-        let data = dataArray[indexPath.item]
-        cell.dateLabel.text = data.date
-        cell.contentLabel.text = data.content
         
         cell.moreButtonAction = { [weak self] in
             if let actionSheet = self?.reportAndDeleteActionSheet {

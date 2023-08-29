@@ -143,7 +143,4 @@ class DiaryView: UIView {
         heartButton.addTarget(heartButton, action: #selector(onClickLike.buttonClicked), for: .touchUpInside)
         moreButton.addTarget(moreButton, action: #selector(onClickMore.buttonClicked), for: .touchUpInside)
     }
-    
-    
-    
 }
