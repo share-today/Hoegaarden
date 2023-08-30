@@ -25,7 +25,7 @@ class BundleStoryView: UIViewController {
         segment.setDividerImage(UIImage(), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
         
         segment.insertSegment(withTitle: BundleStory.myThatDayTitle, at: 0, animated: true)
-        segment.insertSegment(withTitle: BundleStory.someoneThatDayTitle, at: 1, animated: true)
+        segment.insertSegment(withTitle: BundleStory.othersThatDayTitle, at: 1, animated: true)
         
         segment.selectedSegmentIndex = 0
         

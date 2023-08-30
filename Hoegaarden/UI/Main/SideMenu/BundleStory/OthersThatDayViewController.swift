@@ -78,7 +78,7 @@ class OthersThatDayViewController: UIViewController {
     
     private func emptyStateView() {
         let label = UILabel()
-        label.text = "비어 있어요."
+        label.text = BundleStory.othersThatDayEmptyState
         label.textColor = .black
         label.font = Font.air.of(size: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
