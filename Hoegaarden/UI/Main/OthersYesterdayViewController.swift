@@ -142,7 +142,7 @@ class OthersYesterdayViewController: UIViewController {
                 dismiss(animated: false)
 
                 toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
-                                     message: ToastMessage.trashToast)
+                                message: ToastMessage.trashToast)
             }
         }
     }

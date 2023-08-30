@@ -18,6 +18,8 @@ class ClosureButton: UIButton {
 
 class DiaryView: UIView {
     
+    private var state: DiaryState?
+    
     private let dateLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
@@ -41,7 +43,6 @@ class DiaryView: UIView {
         let button = UIButton()
         let image = UIImage(named: "heart")
         button.setImage(image, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -49,11 +50,18 @@ class DiaryView: UIView {
         let button = UIButton()
         let image = UIImage(named: "more")
         button.setImage(image, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    private var state: DiaryState?
+    private lazy var buttonStackView: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [heartButton, moreButton])
+        view.spacing = 15
+        view.axis = .horizontal
+        view.distribution = .fill
+        view.alignment = .fill
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -73,8 +81,7 @@ class DiaryView: UIView {
         
         self.addSubview(dateLabel)
         self.addSubview(contentLabel)
-        self.addSubview(heartButton)
-        self.addSubview(moreButton)
+        self.addSubview(buttonStackView)
     }
     
     private func setConstraints() {
@@ -87,11 +94,8 @@ class DiaryView: UIView {
             contentLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             contentLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
             
-            heartButton.bottomAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 50),
-            heartButton.trailingAnchor.constraint(equalTo: moreButton.leadingAnchor, constant: -15),
-            
-            moreButton.bottomAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 40),
-            moreButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30),
+            buttonStackView.bottomAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 50),
+            buttonStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30),
         ])
     }
     

@@ -70,7 +70,8 @@ class MyThatDayCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             diaryView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             diaryView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
-            diaryView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24)
+            diaryView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
+            diaryView.heightAnchor.constraint(lessThanOrEqualToConstant: 242)
         ])
     }
     

@@ -23,7 +23,6 @@ class MyYesterdayCell: UICollectionViewCell {
         setup()
         addViews()
         setViews()
-        setAddTarget()
         setConstraints()
     }
     
@@ -52,7 +51,7 @@ class MyYesterdayCell: UICollectionViewCell {
         }
         
         let diaryState = DiaryState(id: "1",
-                                    dateLabel: "",
+                                    dateLabel: "23년 08월 21일",
                                     contentLabel: "혜리 존예존귀",
                                     heartButtonState: HeartButtonState(isLike: true, isEnabled: true),
                                     backgroundColor: .lightGrayGradientWithStroke)
@@ -67,17 +66,12 @@ class MyYesterdayCell: UICollectionViewCell {
         )
     }
     
-    private func setAddTarget() {
-//        commentHeartButton.addTarget(self, action: #selector(commentHeartButtonTapped), for: .touchUpInside)
-//        commentMoreButton.addTarget(self, action: #selector(commentMoreButtonTapped), for: .touchUpInside)
-    }
-    
     private func setConstraints() {
         NSLayoutConstraint.activate([
-//            diaryView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-//            diaryView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
-//            diaryView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
-//            diaryView.heightAnchor.constraint(equalToConstant: 132),
+            diaryView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            diaryView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
+            diaryView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
+            diaryView.heightAnchor.constraint(lessThanOrEqualToConstant: 150)
         ])
     }
     

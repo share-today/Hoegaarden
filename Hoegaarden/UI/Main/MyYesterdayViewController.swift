@@ -107,7 +107,6 @@ class MyYesterdayViewController: UIViewController {
     }
     
     private func setupAddTarget() {
-        moreButton.addTarget(self, action: #selector(showMoreButton), for: .touchUpInside)
     }
     
     private func setConstraints() {
@@ -120,7 +119,7 @@ class MyYesterdayViewController: UIViewController {
             collectionView.topAnchor.constraint(equalTo: diaryView.bottomAnchor, constant: 10),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
