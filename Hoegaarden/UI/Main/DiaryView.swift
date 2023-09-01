@@ -9,9 +9,8 @@ import UIKit
 
 class ClosureButton: UIButton {
     var onClick: (() -> Void)?
-    
+
     @objc func buttonClicked() {
-        print("hahahaha")
         onClick?()
     }
 }
@@ -39,17 +38,19 @@ class DiaryView: UIView {
         return label
     }()
     
-    private var heartButton: UIButton = {
-        let button = UIButton()
+    private var heartButton: ClosureButton = {
+        let button = ClosureButton()
         let image = UIImage(named: "heart")
         button.setImage(image, for: .normal)
+        button.isUserInteractionEnabled = true
         return button
     }()
     
-    private var moreButton: UIButton = {
-        let button = UIButton()
+    private var moreButton: ClosureButton = {
+        let button = ClosureButton()
         let image = UIImage(named: "more")
         button.setImage(image, for: .normal)
+        button.isUserInteractionEnabled = true
         return button
     }()
     
@@ -144,7 +145,19 @@ class DiaryView: UIView {
         heartButton.isEnabled = diaryState.heartButtonState?.isEnabled == true
         heartButton.setImage(diaryState.heartButtonState?.heartButton, for: .normal)
         
-        heartButton.addTarget(heartButton, action: #selector(onClickLike.buttonClicked), for: .touchUpInside)
-        moreButton.addTarget(moreButton, action: #selector(onClickMore.buttonClicked), for: .touchUpInside)
+        heartButton = onClickLike
+        moreButton = onClickMore
+        
+        heartButton.addTarget(self, action: #selector(buttonClicked(_:)), for: .touchUpInside)
+        moreButton.addTarget(self, action: #selector(buttonClicked(_:)), for: .touchUpInside)
+    }
+    
+    @objc func buttonClicked(_ sender: ClosureButton) {
+        // 버튼이 클릭되었을 때의 처리를 여기에 추가합니다.
+        if sender == heartButton {
+            print("Heart 버튼이 눌렸습니다.")
+        } else if sender == moreButton {
+            print("More 버튼이 눌렸습니다.")
+        }
     }
 }
