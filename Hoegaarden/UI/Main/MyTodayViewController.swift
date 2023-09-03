@@ -15,7 +15,7 @@ class MyTodayViewController: UIViewController {
     private let alert = SweetAlert()
     private let toastWithButton = ToastWithButton()
     private var isCountLabelUpdated = true
-    private let diaryID = 32
+    private let diaryID = 29
     
     private lazy var myTodayView: UIView = {
         let view = UIView()
@@ -126,7 +126,7 @@ class MyTodayViewController: UIViewController {
         setConstraints()
         getcurrentDate()
         completion(isOn: false)
-        getDiary(id: 32)
+        getDiary(id: 29)
         setupGestureRecognizer()
     }
     
@@ -327,7 +327,7 @@ class MyTodayViewController: UIViewController {
                     case .success(let diaryId):
                         print("다이어리 ID:", diaryId)
                     case .failure(let error):
-                        print("Diary Error: \(error.localizedDescription)")
+                        print("Modifyyy Diary Error: \(error.localizedDescription)")
                     }
                 }
                 

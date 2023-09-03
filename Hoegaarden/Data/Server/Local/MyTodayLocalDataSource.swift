@@ -83,8 +83,13 @@ class MyTodayLocalDataSource {
                 "Authorization": "Bearer \(jwtToken)"
             ]
             
+            let parameters = [
+                "content": "update_test"
+            ]
+            
             AF.request(url,
                        method: .put,
+                       parameters: parameters,
                        headers: headers)
             .validate()
             .responseJSON { response in
@@ -92,12 +97,8 @@ class MyTodayLocalDataSource {
                 case .success(let value):
                     print("Modify Diary Response JSON: \(value)")
                 case .failure(let error):
-                    if let data = response.data,
-                       let errorString = String(data: data, encoding: .utf8) {
-                        print("Modifyuuu Diary Error: \(errorString)")
-                    } else {
-                        print("Modify Diary Response JSON: \(error.localizedDescription)")
-                    }
+                    print("Modify Diary Error: \(error.localizedDescription)")
+                
                 }
             }
         }
