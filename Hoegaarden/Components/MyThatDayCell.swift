@@ -52,7 +52,7 @@ class MyThatDayCell: UICollectionViewCell {
         
         let diaryState = DiaryState(id: "1",
                                     dateLabel: "",
-                                    contentLabel: "혜리 존예존귀",
+                                    contentLabel: "야야야야야야야야",
                                     heartButtonState: HeartButtonState(isLike: true, isEnabled: true),
                                     backgroundColor: .lightGrayGradientWithStroke)
         

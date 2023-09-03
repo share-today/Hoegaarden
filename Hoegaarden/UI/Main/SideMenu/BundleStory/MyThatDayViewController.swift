@@ -84,7 +84,7 @@ class MyThatDayViewController: UIViewController {
         
         let diaryState = DiaryState(id: "1",
                                     dateLabel: "23년 08월 21일",
-                                    contentLabel: "혜리 존예존귀",
+                                    contentLabel: "오오오오오오",
                                     heartButtonState: HeartButtonState(isLike: true, isEnabled: true),
                                     backgroundColor: .blueGradient)
         

@@ -51,8 +51,8 @@ class MyYesterdayCell: UICollectionViewCell {
         }
         
         let diaryState = DiaryState(id: "1",
-                                    dateLabel: "23년 08월 21일",
-                                    contentLabel: "혜리 존예존귀",
+                                    dateLabel: "",
+                                    contentLabel: "아아아아아아",
                                     heartButtonState: HeartButtonState(isLike: true, isEnabled: true),
                                     backgroundColor: .lightGrayGradientWithStroke)
         
