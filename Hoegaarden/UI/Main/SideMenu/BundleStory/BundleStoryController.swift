@@ -23,14 +23,14 @@ class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCale
         calendar.appearance.headerDateFormat = "YY년 MM월"
         calendar.appearance.headerTitleColor = .black
         calendar.appearance.headerTitleAlignment = .left
-        calendar.appearance.headerTitleFont = Font.bold.of(size: 16)
+        calendar.appearance.headerTitleFont = Typography.subtitle2.font
         calendar.appearance.headerSeparatorColor = .clear
         
         calendar.appearance.weekdayTextColor = .black
-        calendar.appearance.weekdayFont = Font.air.of(size: 16)
+        calendar.appearance.weekdayFont = Typography.body2.font
         
         calendar.appearance.titleDefaultColor = .lightGray
-        calendar.appearance.titleFont = Font.air.of(size: 16)
+        calendar.appearance.titleFont = Typography.body2.font
         calendar.appearance.titleTodayColor = .black
         calendar.appearance.titleSelectionColor = .lightGray
 
@@ -107,7 +107,7 @@ class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCale
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleFontFor date: Date) -> UIFont? {
         if calendar.gregorian.isDateInToday(date) {
-            return Font.bold.of(size: 16)
+            return Typography.subtitle2.font
         }
         return nil
     }

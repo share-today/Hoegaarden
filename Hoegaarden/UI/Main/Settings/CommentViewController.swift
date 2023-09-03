@@ -17,7 +17,7 @@ class CommentViewController: GestureViewController {
         let label = UILabel()
         label.text = Settings.commentLabel
         label.textColor = .black
-        label.font = Font.bold.of(size: 16)
+        label.font = Typography.subtitle2.font
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -36,8 +36,7 @@ class CommentViewController: GestureViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(inputContent)
         view.addSubview(contentCountLabel)
-        view.addSubview(sendLabel)
-        view.addSubview(sendButton)
+        view.addSubview(sendStackView)
         return view
     }()
     
@@ -46,7 +45,7 @@ class CommentViewController: GestureViewController {
         textView.backgroundColor = .clear
         textView.text = HomeMain.commentTextViewPlaceHolder
         textView.textColor = .lightGray
-        textView.font = Font.air.of(size: 16)
+        textView.font = Typography.body2.font
         textView.autocapitalizationType = .none
         textView.autocorrectionType = .no
         textView.spellCheckingType = .no
@@ -59,7 +58,7 @@ class CommentViewController: GestureViewController {
         let label = UILabel()
         label.text = Settings.commentCount
         label.textColor = .black
-        label.font = Font.air.of(size: 12)
+        label.font = Typography.preText.font
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -68,8 +67,7 @@ class CommentViewController: GestureViewController {
         let label = UILabel()
         label.text = Settings.commentSend
         label.textColor = UIColor(red: 0.592, green: 0.592, blue: 0.592, alpha: 1)
-        label.font = Font.bold.of(size: 14)
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = Typography.boldSmall.font
         return label
     }()
     
@@ -78,13 +76,18 @@ class CommentViewController: GestureViewController {
         let image = UIImage(named: "arrow-right-circle")
         button.setImage(image, for: .normal)
         button.tintColor = .lightGray
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    private func updateCountLabel(characterCount: Int) {
-        contentCountLabel.text = "\(characterCount)/100"
-    }
+    private lazy var sendStackView: UIStackView = {
+        let view = UIStackView(arrangedSubviews: [sendLabel, sendButton])
+        view.spacing = 10
+        view.axis = .horizontal
+        view.distribution = .fill
+        view.alignment = .fill
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -153,7 +156,6 @@ class CommentViewController: GestureViewController {
             commentView.topAnchor.constraint(equalTo: separatorView.topAnchor, constant: 16),
             commentView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             commentView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            commentView.widthAnchor.constraint(equalToConstant: 327),
             commentView.heightAnchor.constraint(equalToConstant: 327),
             
             inputContent.topAnchor.constraint(equalTo: commentView.topAnchor, constant: 24),
@@ -164,13 +166,8 @@ class CommentViewController: GestureViewController {
             contentCountLabel.bottomAnchor.constraint(equalTo: commentView.bottomAnchor, constant: -24),
             contentCountLabel.leadingAnchor.constraint(equalTo: commentView.leadingAnchor, constant: 24),
             
-            sendLabel.bottomAnchor.constraint(equalTo: commentView.bottomAnchor, constant: -24),
-            sendLabel.trailingAnchor.constraint(equalTo: commentView.trailingAnchor, constant: -50),
-            
-            sendButton.bottomAnchor.constraint(equalTo: commentView.bottomAnchor, constant: -24),
-            sendButton.trailingAnchor.constraint(equalTo: commentView.trailingAnchor, constant: -25),
-            sendButton.widthAnchor.constraint(equalToConstant: 20),
-            sendButton.heightAnchor.constraint(equalToConstant: 20)
+            sendStackView.bottomAnchor.constraint(equalTo: commentView.bottomAnchor, constant: -24),
+            sendStackView.trailingAnchor.constraint(equalTo: commentView.trailingAnchor, constant: -25)
         ])
     }
     
@@ -187,6 +184,10 @@ class CommentViewController: GestureViewController {
             sendButton.setImage(image, for: .normal)
             sendLabel.textColor = UIColor(red: 0.592, green: 0.592, blue: 0.592, alpha: 1)
         }
+    }
+    
+    private func updateCountLabel(characterCount: Int) {
+        contentCountLabel.text = "\(characterCount)/100"
     }
     
     @objc private func sendButtonClicked() {

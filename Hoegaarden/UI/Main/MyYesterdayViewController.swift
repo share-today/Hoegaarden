@@ -127,7 +127,7 @@ class MyYesterdayViewController: UIViewController {
         let label = UILabel()
         label.text = MyYesterday.emptyState
         label.textColor = .black
-        label.font = Font.air.of(size: 16)
+        label.font = Typography.body2.font
         label.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(label)
         NSLayoutConstraint.activate([

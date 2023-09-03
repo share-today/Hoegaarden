@@ -33,13 +33,13 @@ class HomeViewController: UIViewController {
         // 선택 되어 있지 않을 때 폰트 및 폰트컬러
         segment.setTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor(red: 0.169, green: 0.169, blue: 0.169, alpha: 1),
-            NSAttributedString.Key.font: Font.air.of(size: 16)
+            NSAttributedString.Key.font: Typography.body2.font
         ], for: .normal)
         
         // 선택 되었을 때 폰트 및 폰트컬러
         segment.setTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.black,
-            NSAttributedString.Key.font: Font.bold.of(size: 16)
+            NSAttributedString.Key.font: Typography.subtitle2.font
         ], for: .selected)
         
         segment.addTarget(self, action: #selector(changeUnderLinePosition), for: .valueChanged)

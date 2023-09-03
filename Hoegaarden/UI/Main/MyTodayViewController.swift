@@ -34,7 +34,7 @@ class MyTodayViewController: UIViewController {
     private let todayDateLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = Font.air.of(size: 12)
+        label.font = Typography.preText.font
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -44,7 +44,7 @@ class MyTodayViewController: UIViewController {
         textView.backgroundColor = .clear
         textView.text = HomeMain.textViewPlaceHolder
         textView.textColor = .lightGray
-        textView.font = Font.air.of(size: 16)
+        textView.font = Typography.body2.font
         textView.delegate = self
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
@@ -54,7 +54,7 @@ class MyTodayViewController: UIViewController {
         let label = UILabel()
         label.text = MyToday.contentCount
         label.textColor = .black
-        label.font = Font.air.of(size: 12)
+        label.font = Typography.preText.font
         label.attributedText = NSMutableAttributedString(string: MyToday.contentCount, attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -64,7 +64,7 @@ class MyTodayViewController: UIViewController {
         let label = UILabel()
         label.text = MyToday.contentSend
         label.textColor = UIColor(red: 0.592, green: 0.592, blue: 0.592, alpha: 1)
-        label.font = Font.bold.of(size: 14)
+        label.font = Typography.boldSmall.font
         return label
     }()
     
@@ -89,7 +89,7 @@ class MyTodayViewController: UIViewController {
         let label = UILabel()
         label.text = ""
         label.textColor = .black
-        label.font = Font.air.of(size: 16)
+        label.font = Typography.body2.font
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

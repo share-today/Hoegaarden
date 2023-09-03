@@ -26,7 +26,7 @@ class NoticeMainViewController: GestureViewController {
         let label = UILabel()
         label.text = Notices.noticeMain
         label.textColor = .black
-        label.font = Font.bold.of(size: 16)
+        label.font = Typography.subtitle2.font
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -51,7 +51,7 @@ class NoticeMainViewController: GestureViewController {
     private let yesterdayHeartDate: UILabel = {
         let label = UILabel()
         label.text = Notices.minuteAgo
-        label.font = Font.air.of(size: 14)
+        label.font = Typography.smallText.font
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -60,7 +60,7 @@ class NoticeMainViewController: GestureViewController {
     private var yesterdayHeartContent: UILabel = {
         let label = UILabel()
         label.text = Notices.yesterdayHeartNotice
-        label.font = Font.air.of(size: 14)
+        label.font = Typography.smallText.font
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -79,7 +79,7 @@ class NoticeMainViewController: GestureViewController {
     private var commentHeartDate: UILabel = {
         let label = UILabel()
         label.text = Notices.dateAgo
-        label.font = Font.air.of(size: 14)
+        label.font = Typography.smallText.font
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -88,7 +88,7 @@ class NoticeMainViewController: GestureViewController {
     private var commentHeartContent: UILabel = {
         let label = UILabel()
         label.text = Notices.heartNotice
-        label.font = Font.air.of(size: 14)
+        label.font = Typography.smallText.font
         label.textColor = .black
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -110,7 +110,7 @@ class NoticeMainViewController: GestureViewController {
     private var noticeDate: UILabel = {
         let label = UILabel()
         label.text = Notices.dateAgo
-        label.font = Font.air.of(size: 14)
+        label.font = Typography.smallText.font
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -121,7 +121,7 @@ class NoticeMainViewController: GestureViewController {
         button.setTitle(Notices.allNotice, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
-        button.titleLabel?.font = Font.air.of(size: 14)
+        button.titleLabel?.font = Typography.smallText.font
         button.contentHorizontalAlignment = .left
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(noticeButtonClicked), for: .touchUpInside)

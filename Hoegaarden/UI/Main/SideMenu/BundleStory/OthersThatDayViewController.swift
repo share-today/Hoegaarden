@@ -80,7 +80,7 @@ class OthersThatDayViewController: UIViewController {
         let label = UILabel()
         label.text = BundleStory.othersThatDayEmptyState
         label.textColor = .black
-        label.font = Font.air.of(size: 16)
+        label.font = Typography.body2.font
         label.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(label)
         NSLayoutConstraint.activate([

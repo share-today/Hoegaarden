@@ -48,7 +48,7 @@ class Toast {
             label.text = message
             label.textColor = .black
             label.textAlignment = .center
-            label.font = Font.air.of(size: 14)
+            label.font = Typography.smallText.font
             label.snp.makeConstraints({
                 $0.left.equalTo(50)
                 $0.centerY.equalToSuperview()

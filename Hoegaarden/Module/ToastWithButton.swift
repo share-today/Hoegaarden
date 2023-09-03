@@ -43,7 +43,7 @@ class ToastWithButton {
             label.text = message
             label.textColor = .black
             label.textAlignment = .center
-            label.font = Font.air.of(size: 14)
+            label.font = Typography.smallText.font
             label.snp.makeConstraints({
                 $0.left.equalTo(50)
                 $0.centerY.equalToSuperview()
@@ -54,7 +54,7 @@ class ToastWithButton {
             button.setTitle(buttonTitle, for: .normal)
             button.setTitleColor(.black, for: .normal)
             button.backgroundColor = .clear
-            button.titleLabel?.font = Font.bold.of(size: 14)
+            button.titleLabel?.font = Typography.boldSmall.font
             button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
             button.snp.makeConstraints({
                 $0.left.equalTo(250)

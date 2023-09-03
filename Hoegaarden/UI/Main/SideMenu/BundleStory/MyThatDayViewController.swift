@@ -109,7 +109,7 @@ class MyThatDayViewController: UIViewController {
             diaryView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
             diaryView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             diaryView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
-            diaryView.heightAnchor.constraint(lessThanOrEqualToConstant: 242),
+            diaryView.heightAnchor.constraint(lessThanOrEqualToConstant: 150),
             
             collectionView.topAnchor.constraint(equalTo: diaryView.bottomAnchor, constant: 10),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -122,7 +122,7 @@ class MyThatDayViewController: UIViewController {
         let label = UILabel()
         label.text = BundleStory.myThatDayEmptyState
         label.textColor = .black
-        label.font = Font.air.of(size: 16)
+        label.font = Typography.body2.font
         label.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(label)
         NSLayoutConstraint.activate([

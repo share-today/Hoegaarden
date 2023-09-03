@@ -145,19 +145,7 @@ class DiaryView: UIView {
         heartButton.isEnabled = diaryState.heartButtonState?.isEnabled == true
         heartButton.setImage(diaryState.heartButtonState?.heartButton, for: .normal)
         
-        heartButton = onClickLike
-        moreButton = onClickMore
-        
-        heartButton.addTarget(self, action: #selector(buttonClicked(_:)), for: .touchUpInside)
-        moreButton.addTarget(self, action: #selector(buttonClicked(_:)), for: .touchUpInside)
-    }
-    
-    @objc func buttonClicked(_ sender: ClosureButton) {
-        // 버튼이 클릭되었을 때의 처리를 여기에 추가합니다.
-        if sender == heartButton {
-            print("Heart 버튼이 눌렸습니다.")
-        } else if sender == moreButton {
-            print("More 버튼이 눌렸습니다.")
-        }
+        heartButton.addTarget(self, action: #selector(onClickLike.buttonClicked), for: .touchUpInside)
+        moreButton.addTarget(self, action: #selector(onClickLike.buttonClicked), for: .touchUpInside)
     }
 }

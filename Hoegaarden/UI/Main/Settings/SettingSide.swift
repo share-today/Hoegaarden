@@ -126,7 +126,7 @@ extension SettingSide: UITableViewDelegate, UITableViewDataSource {
         let option = SideMenuOptions.allCases[indexPath.row]
         cell.textLabel?.text = option.sideMenuLabel
         if option == .settings {
-            cell.textLabel?.font = Font.bold.of(size: 17)
+            cell.textLabel?.font = Typography.subtitle2.font
             cell.textLabel?.textColor = .black
             cell.textLabel?.textAlignment = .center
             cell.setSettingIndicator()

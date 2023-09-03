@@ -63,14 +63,14 @@ open class SweetAlert: UIViewController {
         titleLabel.text = ""
         titleLabel.numberOfLines = 1
         titleLabel.textAlignment = .center
-        titleLabel.font = Font.bold.of(size: 16)
+        titleLabel.font = Typography.subtitle2.font
         titleLabel.textColor = .black
     }
     
     fileprivate func setupSubtitleTextView() {
         subTitleTextView.text = ""
         subTitleTextView.textAlignment = .left
-        subTitleTextView.font = Font.air.of(size: 16)
+        subTitleTextView.font = Typography.body2.font
         subTitleTextView.textColor = .black
         subTitleTextView.backgroundColor = .white
         subTitleTextView.isEditable = false
@@ -262,7 +262,7 @@ open class SweetAlert: UIViewController {
             let button: UIButton = UIButton(type: .custom)
             button.setTitle(buttonTitle, for: UIControl.State())
             button.setTitleColor(.black, for: UIControl.State())
-            button.titleLabel?.font = Font.air.of(size: 14)
+            button.titleLabel?.font = Typography.smallText.font
             button.backgroundColor = buttonColor
             button.isUserInteractionEnabled = true
             button.tag = 0
@@ -274,7 +274,7 @@ open class SweetAlert: UIViewController {
             button.frame = CGRect(x: 0, y: 0, width: 86, height: 41)
             button.setTitle(otherButtonTitle, for: UIControl.State())
             button.setTitleColor(.white, for: UIControl.State())
-            button.titleLabel?.font = Font.air.of(size: 14)
+            button.titleLabel?.font = Typography.smallText.font
             button.backgroundColor = otherButtonColor
             button.addTarget(self, action: #selector(SweetAlert.pressed(_:)), for: .touchUpInside)
             button.tag = 1

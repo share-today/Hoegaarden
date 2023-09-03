@@ -13,7 +13,7 @@ class AcceptLoginViewController: UIViewController {
         let label = UILabel()
         label.text = AcceptLogin.main
         label.textColor = .black
-        label.font = Font.bold.of(size: 16)
+        label.font = Typography.subtitle2.font
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

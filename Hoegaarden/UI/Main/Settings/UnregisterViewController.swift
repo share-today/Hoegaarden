@@ -15,7 +15,7 @@ class UnregisterViewController: GestureViewController {
         let label = UILabel()
         label.text = Settings.unregisterLabel
         label.textColor = .black
-        label.font = Font.bold.of(size: 16)
+        label.font = Typography.subtitle2.font
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -32,7 +32,7 @@ class UnregisterViewController: GestureViewController {
         label.text = Settings.unregisterContent
         label.numberOfLines = 0
         label.textColor = .black
-        label.font = Font.air.of(size: 16)
+        label.font = Typography.body2.font
         label.setLineSpacing(lineSpacing: 6.0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -50,7 +50,7 @@ class UnregisterViewController: GestureViewController {
         let label = UILabel()
         label.text = Settings.unregisterCheckLabel
         label.textColor = .black
-        label.font = Font.air.of(size: 16)
+        label.font = Typography.body2.font
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

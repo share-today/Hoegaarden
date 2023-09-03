@@ -24,7 +24,7 @@ class NoticeViewController: GestureViewController {
         let label = UILabel()
         label.text = Notices.noticeMain
         label.textColor = .black
-        label.font = Font.bold.of(size: 16)
+        label.font = Typography.subtitle2.font
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -53,7 +53,7 @@ class NoticeViewController: GestureViewController {
     private var noticeDate: UILabel = {
         let label = UILabel()
         label.text = Notices.dateAgo
-        label.font = Font.air.of(size: 14)
+        label.font = Typography.smallText.font
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -62,7 +62,7 @@ class NoticeViewController: GestureViewController {
     private var noticeContent: UILabel = {
         let label = UILabel()
         label.text = Notices.allNoticeContent
-        label.font = Font.air.of(size: 14)
+        label.font = Typography.smallText.font
         label.textColor = .black
         label.numberOfLines = 0
         label.setLineSpacing(lineSpacing: 6.0)

@@ -25,7 +25,7 @@ class TOSViewController: GestureViewController {
         let label = UILabel()
         label.text = Settings.tosLabel
         label.textColor = .black
-        label.font = Font.bold.of(size: 16)
+        label.font = Typography.subtitle2.font
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -42,7 +42,7 @@ class TOSViewController: GestureViewController {
         label.text = Settings.tosContent
         label.numberOfLines = 0
         label.textColor = .black
-        label.font = Font.air.of(size: 16)
+        label.font = Typography.body2.font
         label.setLineSpacing(lineSpacing: 6.0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -74,7 +74,7 @@ class TOSViewController: GestureViewController {
     private func particularLabel() {
         let fullText = contentLabel.text ?? ""
         let attributedString = NSMutableAttributedString(string: fullText)
-        let font = Font.bold.of(size: 16)
+        let font = Typography.subtitle2.font
         
         let keywords = ["제 1장 총칙", "제 1조 목적", "제 2조 정의", "제 3조 약관의 게시와 개정", "제 2장 회원 가입", "제 4조 회원 가입",
                         "제 5조 회원정보의 변경", "제 6조“회원”의 “아이디” 및 “비밀번호”의 관리에 대한 의무", "제 7조 “회원”에 대한 통지", "제 8조 회원탈퇴 및 자격 상실 등",

@@ -30,7 +30,7 @@ class CustomAlertAction: UIViewController {
         let button = UIButton()
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
-        button.titleLabel?.font = Font.air.of(size: 16)
+        button.titleLabel?.font = Typography.body2.font
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -39,7 +39,7 @@ class CustomAlertAction: UIViewController {
         let button = UIButton()
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
-        button.titleLabel?.font = Font.air.of(size: 16)
+        button.titleLabel?.font = Typography.body2.font
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -163,7 +163,7 @@ class DeleteAlertAction: UIViewController {
         let button = UIButton()
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
-        button.titleLabel?.font = Font.air.of(size: 16)
+        button.titleLabel?.font = Typography.body2.font
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()

@@ -12,7 +12,7 @@ class SideMenuCell: UITableViewCell {
     let sideMenuLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.font = Font.air.of(size: 17)
+        label.font = Typography.body2.font
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

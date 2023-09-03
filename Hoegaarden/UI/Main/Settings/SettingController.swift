@@ -38,7 +38,7 @@ class SettingController: GestureViewController {
         let label = UILabel()
         label.text = Settings.settingLabel
         label.textColor = .black
-        label.font = Font.bold.of(size: 16)
+        label.font = Typography.subtitle2.font
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -47,7 +47,7 @@ class SettingController: GestureViewController {
         let label = UILabel()
         label.text = Settings.alertLabel
         label.textColor = .black
-        label.font = Font.air.of(size: 16)
+        label.font = Typography.body2.font
         return label
     }()
     
@@ -76,7 +76,7 @@ class SettingController: GestureViewController {
         let label = UILabel()
         label.text = Settings.csLabel
         label.textColor = .black
-        label.font = Font.bold.of(size: 16)
+        label.font = Typography.subtitle2.font
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -86,7 +86,7 @@ class SettingController: GestureViewController {
         button.setTitle(Settings.commentLabel, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
-        button.titleLabel?.font = Font.air.of(size: 16)
+        button.titleLabel?.font = Typography.body2.font
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -96,7 +96,7 @@ class SettingController: GestureViewController {
         button.setTitle(Settings.faqLabel, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
-        button.titleLabel?.font = Font.air.of(size: 16)
+        button.titleLabel?.font = Typography.body2.font
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -106,7 +106,7 @@ class SettingController: GestureViewController {
         button.setTitle(Settings.cheerLabel, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
-        button.titleLabel?.font = Font.air.of(size: 16)
+        button.titleLabel?.font = Typography.body2.font
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -116,7 +116,7 @@ class SettingController: GestureViewController {
         let label = UILabel()
         label.text = Settings.appInfoLabel
         label.textColor = .black
-        label.font = Font.bold.of(size: 16)
+        label.font = Typography.subtitle2.font
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -126,7 +126,7 @@ class SettingController: GestureViewController {
         button.setTitle(Settings.tosLabel, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
-        button.titleLabel?.font = Font.air.of(size: 16)
+        button.titleLabel?.font = Typography.body2.font
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -136,7 +136,7 @@ class SettingController: GestureViewController {
         button.setTitle(Settings.privacyLabel, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
-        button.titleLabel?.font = Font.air.of(size: 16)
+        button.titleLabel?.font = Typography.body2.font
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -146,7 +146,7 @@ class SettingController: GestureViewController {
         button.setTitle(Settings.openLabel, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
-        button.titleLabel?.font = Font.air.of(size: 16)
+        button.titleLabel?.font = Typography.body2.font
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -155,7 +155,7 @@ class SettingController: GestureViewController {
         let label = UILabel()
         label.text = Settings.appVersionLabel
         label.textColor = .black
-        label.font = Font.air.of(size: 16)
+        label.font = Typography.body2.font
         return label
     }()
     
@@ -163,7 +163,7 @@ class SettingController: GestureViewController {
         let label = UILabel()
         label.text = Settings.appVersion
         label.textColor = .lightGray
-        label.font = Font.air.of(size: 16)
+        label.font = Typography.body2.font
         return label
     }()
     
@@ -182,7 +182,7 @@ class SettingController: GestureViewController {
         button.setTitle(Settings.logoutLabel, for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
-        button.titleLabel?.font = Font.air.of(size: 16)
+        button.titleLabel?.font = Typography.body2.font
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(logoutButtonTapped), for: .touchUpInside)
         return button
@@ -193,7 +193,7 @@ class SettingController: GestureViewController {
         button.setTitle(Settings.unregisterLabel, for: .normal)
         button.setTitleColor(.lightGray, for: .normal)
         button.backgroundColor = .clear
-        button.titleLabel?.font = Font.air.of(size: 16)
+        button.titleLabel?.font = Typography.body2.font
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()

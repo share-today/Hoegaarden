@@ -25,7 +25,7 @@ class PrivacyViewController: GestureViewController {
         let label = UILabel()
         label.text = Settings.privacyMain
         label.textColor = .black
-        label.font = Font.bold.of(size: 16)
+        label.font = Typography.subtitle2.font
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -42,7 +42,7 @@ class PrivacyViewController: GestureViewController {
         label.text = Settings.privacyContent
         label.numberOfLines = 0
         label.textColor = .black
-        label.font = Font.air.of(size: 16)
+        label.font = Typography.body2.font
         label.setLineSpacing(lineSpacing: 6.0)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -82,7 +82,7 @@ class PrivacyViewController: GestureViewController {
     private func particularLabel() {
         let fullText = contentLabel.text ?? ""
         let attributedString = NSMutableAttributedString(string: fullText)
-        let font = Font.bold.of(size: 16)
+        let font = Typography.subtitle2.font
         
         let keywords = ["제 1조 개인정보의 수집 및 이용에 관한 안내"]
         for keyword in keywords {

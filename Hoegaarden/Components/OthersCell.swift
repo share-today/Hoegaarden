@@ -190,7 +190,7 @@ class OthersCell: UICollectionViewCell {
         let label = UILabel()
         label.text = OthersYesterday.emptyState
         label.textColor = .black
-        label.font = Font.air.of(size: 16)
+        label.font = Typography.body2.font
         label.translatesAutoresizingMaskIntoConstraints = false
         addSubview(label)
         NSLayoutConstraint.activate([
@@ -203,7 +203,7 @@ class OthersCell: UICollectionViewCell {
         let label = UILabel()
         label.text = OthersYesterday.allDeleteEmptyState
         label.textColor = .black
-        label.font = Font.air.of(size: 16)
+        label.font = Typography.body2.font
         label.translatesAutoresizingMaskIntoConstraints = false
         addSubview(label)
         NSLayoutConstraint.activate([
