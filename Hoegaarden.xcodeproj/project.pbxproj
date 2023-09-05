@@ -14,6 +14,7 @@
 		1C0365112AA48E7700048C26 /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0365102AA48E7700048C26 /* DiaryViewModel.swift */; };
 		1C0365152AA4A7F400048C26 /* MyYesterdayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0365142AA4A7F400048C26 /* MyYesterdayViewModel.swift */; };
 		1C0365172AA6F4B000048C26 /* BundleStoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0365162AA6F4B000048C26 /* BundleStoryViewModel.swift */; };
+		1C0365192AA6FEEF00048C26 /* TapGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0365182AA6FEEF00048C26 /* TapGesture.swift */; };
 		1C17CF3529D2A942006988FE /* OthersYesterdayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C17CF3429D2A942006988FE /* OthersYesterdayViewController.swift */; };
 		1C17CF3929D2AC40006988FE /* MyYesterdayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C17CF3829D2AC40006988FE /* MyYesterdayViewController.swift */; };
 		1C17CF3B29D2AC59006988FE /* MyTodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C17CF3A29D2AC59006988FE /* MyTodayViewController.swift */; };
@@ -80,6 +81,7 @@
 		1C0365102AA48E7700048C26 /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
 		1C0365142AA4A7F400048C26 /* MyYesterdayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyYesterdayViewModel.swift; sourceTree = "<group>"; };
 		1C0365162AA6F4B000048C26 /* BundleStoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleStoryViewModel.swift; sourceTree = "<group>"; };
+		1C0365182AA6FEEF00048C26 /* TapGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGesture.swift; sourceTree = "<group>"; };
 		1C17CF3429D2A942006988FE /* OthersYesterdayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthersYesterdayViewController.swift; sourceTree = "<group>"; };
 		1C17CF3829D2AC40006988FE /* MyYesterdayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyYesterdayViewController.swift; sourceTree = "<group>"; };
 		1C17CF3A29D2AC59006988FE /* MyTodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTodayViewController.swift; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				1C49464C2A6F8F3700A57038 /* UILabel+Extensions.swift */,
+				1C0365182AA6FEEF00048C26 /* TapGesture.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -634,6 +637,7 @@
 				1CD972572964469100A4D62F /* SideMenuOptions.swift in Sources */,
 				1C17CF3929D2AC40006988FE /* MyYesterdayViewController.swift in Sources */,
 				1CE84D362982845C009B31BC /* BundleSide.swift in Sources */,
+				1C0365192AA6FEEF00048C26 /* TapGesture.swift in Sources */,
 				1C8F5FBB2A0F935F00A58B1F /* GoogleSignInManager.swift in Sources */,
 				1CA60BCD29BC7F270009CA3C /* HomeViewController.swift in Sources */,
 				1CC9CA312A90978C00D47FC7 /* DiaryView.swift in Sources */,

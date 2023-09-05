@@ -28,7 +28,6 @@ class OthersCell: UICollectionViewCell {
         setup()
         addViews()
         setViews()
-        setTapGesture()
         setAddTarget()
         completion(isOn: false)
         setConstraints()
@@ -76,11 +75,6 @@ class OthersCell: UICollectionViewCell {
                 
             }
         )
-    }
-    
-    private func setTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTextView(_:)))
-        addGestureRecognizer(tapGesture)
     }
     
     private func setAddTarget() {
@@ -141,48 +135,6 @@ class OthersCell: UICollectionViewCell {
             smallDiaryView!.trailingAnchor.constraint(equalTo: diaryView.trailingAnchor, constant: -16),
             smallDiaryView!.bottomAnchor.constraint(equalTo: diaryView.bottomAnchor, constant: -24),
             smallDiaryView!.heightAnchor.constraint(equalToConstant: 200)
-            
-//            othersYesterdayView.topAnchor.constraint(equalTo: contentView.topAnchor),
-//            othersYesterdayView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-//            othersYesterdayView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-//            othersYesterdayView.heightAnchor.constraint(equalToConstant: 450),
-//
-//            dateLabel.topAnchor.constraint(equalTo: othersYesterdayView.topAnchor, constant: 24),
-//            dateLabel.leadingAnchor.constraint(equalTo: othersYesterdayView.leadingAnchor, constant: 24),
-//
-//            contentLabel.topAnchor.constraint(equalTo: othersYesterdayView.topAnchor, constant: 68),
-//            contentLabel.bottomAnchor.constraint(equalTo: othersYesterdayView.bottomAnchor, constant: -260),
-//            contentLabel.leadingAnchor.constraint(equalTo: othersYesterdayView.leadingAnchor, constant: 24),
-//            contentLabel.trailingAnchor.constraint(equalTo: othersYesterdayView.trailingAnchor, constant: -24),
-//
-//            heartButton.topAnchor.constraint(equalTo: othersYesterdayView.topAnchor, constant: 180),
-//            heartButton.trailingAnchor.constraint(equalTo: othersYesterdayView.trailingAnchor, constant: -70),
-//
-//            moreButton.topAnchor.constraint(equalTo: othersYesterdayView.topAnchor, constant: 180),
-//            moreButton.trailingAnchor.constraint(equalTo: othersYesterdayView.trailingAnchor, constant: -30),
-//
-//            commentView.topAnchor.constraint(equalTo: othersYesterdayView.topAnchor, constant: 230),
-//            commentView.bottomAnchor.constraint(equalTo: othersYesterdayView.bottomAnchor, constant: -24),
-//            commentView.leadingAnchor.constraint(equalTo: othersYesterdayView.leadingAnchor, constant: 16),
-//            commentView.trailingAnchor.constraint(equalTo: othersYesterdayView.trailingAnchor, constant: -16),
-//
-//            commentInputContent.topAnchor.constraint(equalTo: commentView.topAnchor, constant: 24),
-//            commentInputContent.bottomAnchor.constraint(equalTo: commentView.bottomAnchor, constant: -60),
-//            commentInputContent.leadingAnchor.constraint(equalTo: commentView.leadingAnchor, constant: 24),
-//            commentInputContent.trailingAnchor.constraint(equalTo: commentView.trailingAnchor, constant: -24),
-//
-//            commentInputContentCountLabel.bottomAnchor.constraint(equalTo: commentView.bottomAnchor, constant: -24),
-//            commentInputContentCountLabel.leadingAnchor.constraint(equalTo: commentView.leadingAnchor, constant: 24),
-//
-//            commentSendStackView.bottomAnchor.constraint(equalTo: commentView.bottomAnchor, constant: -24),
-//            commentSendStackView.trailingAnchor.constraint(equalTo: commentView.trailingAnchor, constant: -25),
-//
-//            commentWillContentLabel.topAnchor.constraint(equalTo: commentView.topAnchor, constant: 24),
-//            commentWillContentLabel.leadingAnchor.constraint(equalTo: commentView.leadingAnchor, constant: 24),
-//            commentWillContentLabel.trailingAnchor.constraint(equalTo: commentView.trailingAnchor, constant: -24),
-//
-//            commentWillMoreButton.bottomAnchor.constraint(equalTo: commentView.bottomAnchor, constant: -24),
-//            commentWillMoreButton.trailingAnchor.constraint(equalTo: commentView.trailingAnchor, constant: -30)
         ])
     }
     
@@ -210,10 +162,6 @@ class OthersCell: UICollectionViewCell {
             label.centerXAnchor.constraint(equalTo: centerXAnchor),
             label.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
-    }
-    
-    @objc private func didTapTextView(_ sender: Any) {
-        endEditing(true)
     }
     
     @objc private func heartButtonAction() {

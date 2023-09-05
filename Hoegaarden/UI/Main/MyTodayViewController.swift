@@ -125,12 +125,13 @@ class MyTodayViewController: UIViewController {
         setup()
         addViews()
         setGradientLayer()
-        setTapGesture()
         setupAddTarget()
         setConstraints()
         completion(isOn: false)
         getDiary(id: 43)
         setupGestureRecognizer()
+        
+        addTapToDismissKeyboardGesture()
     }
     
     private func setup() {
@@ -152,11 +153,6 @@ class MyTodayViewController: UIViewController {
         layer.bounds = view.bounds.insetBy(dx: -0.5 * view.bounds.size.width, dy: -0.5 * view.bounds.size.height)
         layer.position = view.center
         myTodayView.layer.insertSublayer(layer, at: 0)
-    }
-    
-    private func setTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTextView(_:)))
-        view.addGestureRecognizer(tapGesture)
     }
     
     private func setupAddTarget() {
@@ -328,10 +324,6 @@ class MyTodayViewController: UIViewController {
                                 message: ToastMessage.trashToast)
             }
         }
-    }
-    
-    @objc private func didTapTextView(_ sender: Any) {
-        view.endEditing(true)
     }
     
     @objc private func sendButtonAction() {

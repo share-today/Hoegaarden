@@ -58,6 +58,7 @@ class OthersYesterdayViewController: UIViewController {
 
         setup()
         setCollectionView()
+        addTapToDismissKeyboardGesture()
     }
 
     private func setup() {

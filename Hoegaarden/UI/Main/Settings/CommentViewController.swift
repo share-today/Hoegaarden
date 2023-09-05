@@ -97,9 +97,10 @@ class CommentViewController: GestureViewController {
         setGradientLayer()
         setupAddTarget()
         configureNavigationBarButton()
-        setTapGesture()
         setConstraints()
         completion(isOn: false)
+        
+        addTapToDismissKeyboardGesture()
     }
     
     private func setup() {
@@ -136,11 +137,6 @@ class CommentViewController: GestureViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: image, style: .done,
             target: self, action: #selector(showPrevious))
-    }
-    
-    private func setTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTextView(_:)))
-        view.addGestureRecognizer(tapGesture)
     }
     
     private func setConstraints() {
@@ -209,10 +205,6 @@ class CommentViewController: GestureViewController {
     
     @objc private func showPrevious() {
         dismiss(animated: false)
-    }
-    
-    @objc private func didTapTextView(_ sender: Any) {
-        view.endEditing(true)
     }
 }
 
