@@ -15,7 +15,9 @@ class MyTodayViewController: UIViewController {
     private let alert = SweetAlert()
     private let toastWithButton = ToastWithButton()
     private var isCountLabelUpdated = true
-    private let diaryID = 29
+    private let diaryID = 43
+    
+    private let viewModel = DiaryViewModel()
     
     private lazy var myTodayView: UIView = {
         let view = UIView()
@@ -55,7 +57,8 @@ class MyTodayViewController: UIViewController {
         label.text = MyToday.contentCount
         label.textColor = .black
         label.font = Typography.preText.font
-        label.attributedText = NSMutableAttributedString(string: MyToday.contentCount, attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
+        label.attributedText = NSMutableAttributedString(string: MyToday.contentCount,
+                                                         attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -110,7 +113,7 @@ class MyTodayViewController: UIViewController {
         actionSheet.mainButton.addTarget(self, action: #selector(modifyButtonAction), for: .touchUpInside)
         
         actionSheet.setSecondaryButtonTitle(AlertMessage.deleteButton)
-        actionSheet.secondButton.addTarget(self, action: #selector(modifyDeleteButtonAction), for: .touchUpInside)
+        actionSheet.secondButton.addTarget(self, action: #selector(deleteButtonAction), for: .touchUpInside)
         
         return actionSheet
     }()
@@ -126,7 +129,7 @@ class MyTodayViewController: UIViewController {
         setConstraints()
         getcurrentDate()
         completion(isOn: false)
-        getDiary(id: 29)
+        getDiary(id: 43)
         setupGestureRecognizer()
     }
     
@@ -157,7 +160,7 @@ class MyTodayViewController: UIViewController {
     }
     
     private func setupAddTarget() {
-        sendButton.addTarget(self, action: #selector(sendButtonTapped), for: .touchUpInside)
+        sendButton.addTarget(self, action: #selector(sendButtonAction), for: .touchUpInside)
         fillContentWillMoreButton.addTarget(self, action: #selector(fillContentWillMoreButtonAction), for: .touchUpInside)
     }
     
@@ -203,7 +206,7 @@ class MyTodayViewController: UIViewController {
         let str = formatter.string(from: Date())
         todayDateLabel.text = "\(str)"
     }
-
+    
     private func completion(isOn: Bool) {
         switch isOn {
         case true:
@@ -245,8 +248,7 @@ class MyTodayViewController: UIViewController {
     }
     
     private func getDiary(id: Int) {
-        MyTodayLocalDataSource.shared.getMyToday(id: id) { [self] result in
-            
+        viewModel.getMyToday(id: id) { [self] result in
             switch result {
             case .success(let diaryContent):
                 fillContentWillLabel.text = diaryContent
@@ -260,48 +262,6 @@ class MyTodayViewController: UIViewController {
                 
             case .failure(let error):
                 print("Get Diary Error: \(error.localizedDescription)")
-            }
-        }
-    }
-    
-    @objc private func didTapTextView(_ sender: Any) {
-        view.endEditing(true)
-    }
-    
-    @objc private func sendButtonTapped() {
-        alert.showAlert("",
-                        subTitle: AlertMessage.myTodaySendMessage,
-                        style: AlertStyle.customImage(imageFile: "send"),
-                        buttonTitle: AlertMessage.cancelButton,
-                        buttonColor: .white,
-                        otherButtonTitle: AlertMessage.sendButton,
-                        otherButtonColor: .black) { [self] (isOtherButton) -> Void in
-            if isOtherButton == true { }
-            else {
-                let content = inputContent.text
-                MyTodayLocalDataSource.shared.sendMyToday(content: content!) { result in
-                    switch result {
-                    case .success(let diaryId):
-                        print("다이어리 ID:", diaryId)
-                        print("다이어리 content:", content as Any)
-                    case .failure(let error):
-                        print("Diary Error: \(error.localizedDescription)")
-                    }
-                }
-
-                inputContent.resignFirstResponder()
-
-                inputContent.isHidden = true
-                contentCountLabel.isHidden = true
-                sendLabel.isHidden = true
-                sendButton.isHidden = true
-                fillContentWillLabel.isHidden = false
-                fillContentWillMoreButton.isHidden = false
-
-                fillContentWillLabel.text = self.inputContent.text
-
-                toast.showToast(image: UIImage(imageLiteralResourceName: "send"),
-                                message: ToastMessage.sendToast)
             }
         }
     }
@@ -322,7 +282,7 @@ class MyTodayViewController: UIViewController {
                 inputContent.text = fillContentWillLabel.text
                 inputContent.textColor = .black
                 
-                MyTodayLocalDataSource.shared.modifyMyToday(id: diaryID) { result in
+                viewModel.modifyMyToday(id: diaryID) { result in
                     switch result {
                     case .success(let diaryId):
                         print("다이어리 ID:", diaryId)
@@ -341,7 +301,7 @@ class MyTodayViewController: UIViewController {
         }
     }
     
-    @objc private func modifyDeleteButtonAction() {
+    @objc private func deleteButtonAction() {
         alert.showAlert("",
                         subTitle: AlertMessage.myTodayDeleteMessage,
                         style: AlertStyle.customImage(imageFile: "trash"),
@@ -353,7 +313,7 @@ class MyTodayViewController: UIViewController {
             else {
                 dismiss(animated: false)
                 
-                MyTodayLocalDataSource.shared.deleteMyToday(id: diaryID) { result in
+                viewModel.deleteMyToday(id: diaryID) { result in
                     switch result {
                     case .success(let diaryId):
                         print("다이어리 ID:", diaryId)
@@ -361,14 +321,14 @@ class MyTodayViewController: UIViewController {
                         print("Delete Diary Error: \(error.localizedDescription)")
                     }
                 }
-    
+                
                 inputContent.isHidden = false
                 contentCountLabel.isHidden = false
                 sendLabel.isHidden = false
                 sendButton.isHidden = false
                 fillContentWillLabel.isHidden = true
                 fillContentWillMoreButton.isHidden = true
-
+                
                 inputContent.text = HomeMain.textViewPlaceHolder
                 inputContent.textColor = .lightGray
                 contentCountLabel.text = MyToday.contentCount
@@ -376,6 +336,48 @@ class MyTodayViewController: UIViewController {
                 
                 toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
                                 message: ToastMessage.trashToast)
+            }
+        }
+    }
+    
+    @objc private func didTapTextView(_ sender: Any) {
+        view.endEditing(true)
+    }
+    
+    @objc private func sendButtonAction() {
+        alert.showAlert("",
+                        subTitle: AlertMessage.myTodaySendMessage,
+                        style: AlertStyle.customImage(imageFile: "send"),
+                        buttonTitle: AlertMessage.cancelButton,
+                        buttonColor: .white,
+                        otherButtonTitle: AlertMessage.sendButton,
+                        otherButtonColor: .black) { [self] (isOtherButton) -> Void in
+            if isOtherButton == true { }
+            else {
+                let content = inputContent.text
+                viewModel.addMyToday(content: content!) { result in
+                    switch result {
+                    case .success(let diaryId):
+                        print("다이어리 ID:", diaryId)
+                        print("다이어리 content:", content as Any)
+                    case .failure(let error):
+                        print("Diary Error: \(error.localizedDescription)")
+                    }
+                }
+                
+                inputContent.resignFirstResponder()
+                
+                inputContent.isHidden = true
+                contentCountLabel.isHidden = true
+                sendLabel.isHidden = true
+                sendButton.isHidden = true
+                fillContentWillLabel.isHidden = false
+                fillContentWillMoreButton.isHidden = false
+                
+                fillContentWillLabel.text = self.inputContent.text
+                
+                toast.showToast(image: UIImage(imageLiteralResourceName: "send"),
+                                message: ToastMessage.sendToast)
             }
         }
     }
@@ -388,21 +390,21 @@ class MyTodayViewController: UIViewController {
 
 
 extension MyTodayViewController: UITextViewDelegate {
-
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == HomeMain.textViewPlaceHolder {
             textView.text = nil
             textView.textColor = .black
         }
     }
-
+    
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             textView.text = HomeMain.textViewPlaceHolder
             textView.textColor = .lightGray
         }
     }
-
+    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
         if text == "\n" {

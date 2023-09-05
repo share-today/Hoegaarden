@@ -12,6 +12,8 @@
 		1C0037212A78FE3100E0D75F /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0037202A78FE3100E0D75F /* LoginResponse.swift */; };
 		1C0037232A79025F00E0D75F /* DiaryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0037222A79025F00E0D75F /* DiaryRequest.swift */; };
 		1C0365112AA48E7700048C26 /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0365102AA48E7700048C26 /* DiaryViewModel.swift */; };
+		1C0365152AA4A7F400048C26 /* MyYesterdayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0365142AA4A7F400048C26 /* MyYesterdayViewModel.swift */; };
+		1C0365172AA6F4B000048C26 /* BundleStoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0365162AA6F4B000048C26 /* BundleStoryViewModel.swift */; };
 		1C17CF3529D2A942006988FE /* OthersYesterdayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C17CF3429D2A942006988FE /* OthersYesterdayViewController.swift */; };
 		1C17CF3929D2AC40006988FE /* MyYesterdayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C17CF3829D2AC40006988FE /* MyYesterdayViewController.swift */; };
 		1C17CF3B29D2AC59006988FE /* MyTodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C17CF3A29D2AC59006988FE /* MyTodayViewController.swift */; };
@@ -42,7 +44,7 @@
 		1CA60BF329BF28B00009CA3C /* UnregisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA60BF229BF28B00009CA3C /* UnregisterViewController.swift */; };
 		1CBA1A4D2A220719007AA1CC /* Cafe24Ssurround.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CBA1A4B2A220719007AA1CC /* Cafe24Ssurround.ttf */; };
 		1CBA1A4E2A220719007AA1CC /* Cafe24SsurroundAir.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CBA1A4C2A220719007AA1CC /* Cafe24SsurroundAir.ttf */; };
-		1CC9CA282A87AF6900D47FC7 /* MyTodayLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9CA272A87AF6900D47FC7 /* MyTodayLocalDataSource.swift */; };
+		1CC9CA282A87AF6900D47FC7 /* DiaryLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9CA272A87AF6900D47FC7 /* DiaryLocalDataSource.swift */; };
 		1CC9CA2B2A8A231100D47FC7 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9CA2A2A8A231100D47FC7 /* UserData.swift */; };
 		1CC9CA2D2A8A24E200D47FC7 /* UserLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9CA2C2A8A24E200D47FC7 /* UserLocalDataSource.swift */; };
 		1CC9CA312A90978C00D47FC7 /* DiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC9CA302A90978C00D47FC7 /* DiaryView.swift */; };
@@ -76,6 +78,8 @@
 		1C0037202A78FE3100E0D75F /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		1C0037222A79025F00E0D75F /* DiaryRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryRequest.swift; sourceTree = "<group>"; };
 		1C0365102AA48E7700048C26 /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
+		1C0365142AA4A7F400048C26 /* MyYesterdayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyYesterdayViewModel.swift; sourceTree = "<group>"; };
+		1C0365162AA6F4B000048C26 /* BundleStoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleStoryViewModel.swift; sourceTree = "<group>"; };
 		1C17CF3429D2A942006988FE /* OthersYesterdayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthersYesterdayViewController.swift; sourceTree = "<group>"; };
 		1C17CF3829D2AC40006988FE /* MyYesterdayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyYesterdayViewController.swift; sourceTree = "<group>"; };
 		1C17CF3A29D2AC59006988FE /* MyTodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTodayViewController.swift; sourceTree = "<group>"; };
@@ -106,7 +110,7 @@
 		1CA60BF229BF28B00009CA3C /* UnregisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnregisterViewController.swift; sourceTree = "<group>"; };
 		1CBA1A4B2A220719007AA1CC /* Cafe24Ssurround.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cafe24Ssurround.ttf; sourceTree = "<group>"; };
 		1CBA1A4C2A220719007AA1CC /* Cafe24SsurroundAir.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cafe24SsurroundAir.ttf; sourceTree = "<group>"; };
-		1CC9CA272A87AF6900D47FC7 /* MyTodayLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTodayLocalDataSource.swift; sourceTree = "<group>"; };
+		1CC9CA272A87AF6900D47FC7 /* DiaryLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryLocalDataSource.swift; sourceTree = "<group>"; };
 		1CC9CA2A2A8A231100D47FC7 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		1CC9CA2C2A8A24E200D47FC7 /* UserLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocalDataSource.swift; sourceTree = "<group>"; };
 		1CC9CA302A90978C00D47FC7 /* DiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryView.swift; sourceTree = "<group>"; };
@@ -227,6 +231,8 @@
 			isa = PBXGroup;
 			children = (
 				1C0365102AA48E7700048C26 /* DiaryViewModel.swift */,
+				1C0365142AA4A7F400048C26 /* MyYesterdayViewModel.swift */,
+				1C0365162AA6F4B000048C26 /* BundleStoryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -282,7 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				1CC9CA2C2A8A24E200D47FC7 /* UserLocalDataSource.swift */,
-				1CC9CA272A87AF6900D47FC7 /* MyTodayLocalDataSource.swift */,
+				1CC9CA272A87AF6900D47FC7 /* DiaryLocalDataSource.swift */,
 				1CC9CA2F2A8A24FD00D47FC7 /* Model */,
 			);
 			path = Local;
@@ -587,13 +593,14 @@
 				1CA60BC729BA16E60009CA3C /* BundleStoryView.swift in Sources */,
 				1CA60B7729AF1A820009CA3C /* HomeSide.swift in Sources */,
 				1C514BE029D56D6E0082195A /* AcceptLoginViewController.swift in Sources */,
-				1CC9CA282A87AF6900D47FC7 /* MyTodayLocalDataSource.swift in Sources */,
+				1CC9CA282A87AF6900D47FC7 /* DiaryLocalDataSource.swift in Sources */,
 				1C0365112AA48E7700048C26 /* DiaryViewModel.swift in Sources */,
 				1C49464D2A6F8F3700A57038 /* UILabel+Extensions.swift in Sources */,
 				1C17CF3B29D2AC59006988FE /* MyTodayViewController.swift in Sources */,
 				1C4946442A6C220400A57038 /* StoryData.swift in Sources */,
 				1C17CF3E29D2E943006988FE /* LabelManager.swift in Sources */,
 				1C8F5FBF2A0F97D000A58B1F /* AppleLoginManager.swift in Sources */,
+				1C0365172AA6F4B000048C26 /* BundleStoryViewModel.swift in Sources */,
 				1C8F5FBD2A0F955E00A58B1F /* KakaoLoginManager.swift in Sources */,
 				1CC9CA332A909B6800D47FC7 /* HeartButtonState.swift in Sources */,
 				1CE84D34298282DE009B31BC /* NoticeMainViewController.swift in Sources */,
@@ -630,6 +637,7 @@
 				1C8F5FBB2A0F935F00A58B1F /* GoogleSignInManager.swift in Sources */,
 				1CA60BCD29BC7F270009CA3C /* HomeViewController.swift in Sources */,
 				1CC9CA312A90978C00D47FC7 /* DiaryView.swift in Sources */,
+				1C0365152AA4A7F400048C26 /* MyYesterdayViewModel.swift in Sources */,
 				1C1F3163297F6CC100D76B35 /* SettingController.swift in Sources */,
 				1C4946422A6C1C1A00A57038 /* OthersCell.swift in Sources */,
 				1CE84D302982556A009B31BC /* CommentViewController.swift in Sources */,

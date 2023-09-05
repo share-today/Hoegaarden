@@ -11,13 +11,15 @@ import FSCalendar
 
 class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCalendarDelegate {
         
+    private let viewModel = BundleStoryViewModel()
+    
     private let calendar: FSCalendar = {
         let calendar = FSCalendar()
         calendar.locale = Locale(identifier: "ko_KR")
         calendar.backgroundColor = .white
         calendar.scrollEnabled = true
         calendar.pagingEnabled = false
-        calendar.placeholderType = .none      // 이번 달이 아닌 날짜 나타나지 않게 하기
+        calendar.placeholderType = .none
     
         calendar.headerHeight = 100.0
         calendar.appearance.headerDateFormat = "YY년 MM월"
@@ -47,6 +49,7 @@ class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCale
         
         setup()
         addViews()
+        setViewModel()
         configureCalendar()
         setConstraints()
         configureNavigationBarButton()
@@ -58,6 +61,17 @@ class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCale
     
     private func addViews() {
         view.addSubview(calendar)
+    }
+    
+    private func setViewModel() {
+        viewModel.getCalendar { result in
+            switch result {
+            case .success(let value):
+                print("Calendar Diary Response JSON: \(value)")
+            case .failure(let error):
+                print("Calendar Diary Error: \(error.localizedDescription)")
+            }
+        }
     }
     
     private func configureCalendar() {
@@ -98,11 +112,11 @@ class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCale
     }()
     
     func minimumDate(for calendar: FSCalendar) -> Date {
-        return self.dateFormatter.date(from: "2023-03-30")!
+        return self.dateFormatter.date(from: "2023-09-01")!
     }
         
     func maximumDate(for calendar: FSCalendar) -> Date {
-        return self.dateFormatter.date(from: "2023-12-31")!
+        return self.dateFormatter.date(from: "2023-09-30")!
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleFontFor date: Date) -> UIFont? {
