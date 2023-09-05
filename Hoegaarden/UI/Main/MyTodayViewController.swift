@@ -36,6 +36,7 @@ class MyTodayViewController: UIViewController {
     private let todayDateLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
+        label.text = MyToday.getcurrentDate()
         label.font = Typography.preText.font
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -127,7 +128,6 @@ class MyTodayViewController: UIViewController {
         setTapGesture()
         setupAddTarget()
         setConstraints()
-        getcurrentDate()
         completion(isOn: false)
         getDiary(id: 43)
         setupGestureRecognizer()
@@ -174,7 +174,6 @@ class MyTodayViewController: UIViewController {
             todayDateLabel.topAnchor.constraint(equalTo: myTodayView.topAnchor, constant: 24),
             todayDateLabel.leadingAnchor.constraint(equalTo: myTodayView.leadingAnchor, constant: 24),
             
-            
             inputContent.topAnchor.constraint(equalTo: todayDateLabel.topAnchor, constant: 68),
             inputContent.bottomAnchor.constraint(equalTo: myTodayView.bottomAnchor, constant: -68),
             inputContent.leadingAnchor.constraint(equalTo: myTodayView.leadingAnchor, constant: 24),
@@ -196,15 +195,6 @@ class MyTodayViewController: UIViewController {
             fillContentWillMoreButton.bottomAnchor.constraint(equalTo: myTodayView.bottomAnchor, constant: -24),
             fillContentWillMoreButton.trailingAnchor.constraint(equalTo: myTodayView.trailingAnchor, constant: -30)
         ])
-    }
-    
-    // 현재 날짜 가져오기
-    private func getcurrentDate() {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        formatter.dateFormat = MyToday.todayDate
-        let str = formatter.string(from: Date())
-        todayDateLabel.text = "\(str)"
     }
     
     private func completion(isOn: Bool) {

@@ -57,6 +57,14 @@ struct MyToday {
     static let todayDate = "yy년 MM월 dd일"
     static let characterCount = "100"
     static let fullCharacterCount = "500"
+    
+    static func getcurrentDate() -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.dateFormat = todayDate
+        let str = formatter.string(from: Date())
+        return str
+    }
 }
 
 

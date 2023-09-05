@@ -149,7 +149,6 @@ class DiaryLocalDataSource {
         }
     }
     
-    
     func getCalendarDiary(completion: @escaping (Result<String, Error>) -> Void) {
         let url = "\(baseURL)/calendar"
         
