@@ -12,6 +12,7 @@ class SettingController: GestureViewController {
     
     private let toast = Toast()
     private let alert = SweetAlert()
+    private let userLocalDataSource = UserLocalDataSource()
     
     private var backgroundImage: UIImageView = {
         let imageView = UIImageView()
@@ -56,7 +57,7 @@ class SettingController: GestureViewController {
         alertSwitch.onTintColor = .black
         alertSwitch.tintColor = .lightGray
         alertSwitch.thumbTintColor = .white
-        alertSwitch.isOn = true
+        alertSwitch.isOn = false
         alertSwitch.layer.cornerRadius = 16
         return alertSwitch
     }()
@@ -365,29 +366,14 @@ class SettingController: GestureViewController {
         }
     }
     
-    private func enableAlerts(userId id: Int) {
-        let url = "https://share-today.site/user/\(id)/alert"
-        
-        if let jwtToken = UserDefaults.standard.string(forKey: "UserJWT") {
-            let headers: HTTPHeaders = [
-                "Authorization": "Bearer \(jwtToken)"
-            ]
-            
-            AF.request(url,
-                       method: .put,
-                       headers: headers)
-            .validate()
-            .responseJSON { [self] response in
-                switch response.result {
-                case .success(let value):
-                    print("Alert Response JSON: \(value)")
-        
-                case .failure(let error):
-                    print("Alert Error: \(error.localizedDescription)")
-                }
+    private func enableAlerts(userId: Int) {
+        userLocalDataSource.setAlert(id: userId) { result in
+            switch result {
+            case .success(let value):
+                print("Alert Response JSON: \(value)")
+            case .failure(let error):
+                print("Alert Errorr: \(error.localizedDescription)")
             }
-        } else {
-            print("JWT token not found.")
         }
     }
     
