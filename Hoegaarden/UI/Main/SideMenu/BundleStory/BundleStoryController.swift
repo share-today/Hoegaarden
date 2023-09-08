@@ -10,8 +10,9 @@ import SnapKit
 import FSCalendar
 
 class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCalendarDelegate {
-        
+    
     private let viewModel = BundleStoryViewModel()
+    private var eventDate: [Date] = []
     
     private let calendar: FSCalendar = {
         let calendar = FSCalendar()
@@ -20,7 +21,7 @@ class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCale
         calendar.scrollEnabled = true
         calendar.pagingEnabled = false
         calendar.placeholderType = .none
-    
+        
         calendar.headerHeight = 100.0
         calendar.appearance.headerDateFormat = "YY년 MM월"
         calendar.appearance.headerTitleColor = .black
@@ -35,9 +36,11 @@ class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCale
         calendar.appearance.titleFont = Typography.body2.font
         calendar.appearance.titleTodayColor = .black
         calendar.appearance.titleSelectionColor = .lightGray
-
-        calendar.appearance.eventDefaultColor = .lightGray
-        calendar.appearance.eventSelectionColor = .black
+        
+        calendar.appearance.eventDefaultColor = .blue
+        calendar.appearance.eventSelectionColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
+        calendar.appearance.eventOffset = CGPoint(x: 0, y: -7)
+        calendar.allowsMultipleSelection = true
         
         calendar.appearance.todayColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
         calendar.appearance.selectionColor = .white
@@ -63,11 +66,35 @@ class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCale
         view.addSubview(calendar)
     }
     
+    func datesFromStrings(_ strings: [String]) -> [Date] {
+        let dateFormatter = ISO8601DateFormatter()
+        return strings.compactMap { dateFormatter.date(from: $0) }
+    }
+    
     private func setViewModel() {
-        viewModel.getCalendar { result in
+        viewModel.getCalendar { [self] result in
             switch result {
             case .success(let value):
                 print("Calendar Diary Response JSON: \(value)")
+                
+                if let json = value as? [String: Any],
+                   let data = json["data"] as? [String: Any],
+                   let calendar = data["calender"] as? [String] {
+                    print("calendar:", calendar)
+                    
+                    let eventDates = datesFromStrings(calendar)
+                    
+                    self.eventDate = eventDates
+                    
+                    for date in eventDates {
+                        self.calendar.select(date)
+                    }
+                    
+                    self.calendar.reloadData()
+                    print("dkdkdkdkdkdk \(eventDates)")
+                    print("hfjghfjh \(eventDate)")
+                }
+                
             case .failure(let error):
                 print("Calendar Diary Error: \(error.localizedDescription)")
             }
@@ -96,8 +123,11 @@ class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCale
             image: image, style: .done,
             target: self, action: #selector(showSideMenu))
     }
-
-    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+    
+    func calendar(_ calendar: FSCalendar,
+                  didSelect date: Date,
+                  at monthPosition: FSCalendarMonthPosition) {
+        
         let nextVC = BundleStoryView()
         nextVC.modalPresentationStyle = .fullScreen
         let nav = UINavigationController(rootViewController: nextVC)
@@ -111,37 +141,39 @@ class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCale
         return formatter
     }()
     
-    func minimumDate(for calendar: FSCalendar) -> Date {
-        return self.dateFormatter.date(from: "2023-09-01")!
-    }
+    func calendar(_ calendar: FSCalendar,
+                  appearance: FSCalendarAppearance,
+                  titleFontFor date: Date) -> UIFont? {
         
-    func maximumDate(for calendar: FSCalendar) -> Date {
-        return self.dateFormatter.date(from: "2023-09-30")!
-    }
-    
-    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleFontFor date: Date) -> UIFont? {
         if calendar.gregorian.isDateInToday(date) {
             return Typography.subtitle2.font
         }
         return nil
     }
     
-    func swipeRecognizer() {
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture(_:)))
-        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
-        self.view.addGestureRecognizer(swipeRight)
-        
+    func calendar(_ calendar: FSCalendar,
+                  appearance: FSCalendarAppearance,
+                  eventColorFor date: Date) -> UIColor? {
+        if eventDate.contains(date) {
+            return calendar.appearance.eventDefaultColor
+        }
+        return nil
     }
     
-    @objc func respondToSwipeGesture(_ gesture: UIGestureRecognizer){
-        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
-            switch swipeGesture.direction {
-            case UISwipeGestureRecognizer.Direction.left:
-                self.dismiss(animated: true, completion: nil)
-            default:
-                break
-            }
+    func calendar(_ calendar: FSCalendar,
+                  numberOfEventsFor date: Date) -> Int {
+        if eventDate.contains(date) {
+            return 1
         }
+        return 0
+    }
+    
+    func minimumDate(for calendar: FSCalendar) -> Date {
+        return self.dateFormatter.date(from: "2023-09-01")!
+    }
+    
+    func maximumDate(for calendar: FSCalendar) -> Date {
+        return self.dateFormatter.date(from: "2023-09-30")!
     }
     
     @objc private func showSideMenu() {
