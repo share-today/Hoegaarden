@@ -12,7 +12,9 @@ import FSCalendar
 class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCalendarDelegate {
     
     private let viewModel = BundleStoryViewModel()
-    private var eventDate: [Date] = []
+    private var eventsArray = [Date]()
+    var eventsByDate: [String: [String]] = [:]
+    
     
     private let calendar: FSCalendar = {
         let calendar = FSCalendar()
@@ -35,15 +37,10 @@ class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCale
         calendar.appearance.titleDefaultColor = .lightGray
         calendar.appearance.titleFont = Typography.body2.font
         calendar.appearance.titleTodayColor = .black
-        calendar.appearance.titleSelectionColor = .lightGray
-        
-        calendar.appearance.eventDefaultColor = .blue
-        calendar.appearance.eventSelectionColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
-        calendar.appearance.eventOffset = CGPoint(x: 0, y: -7)
-        calendar.allowsMultipleSelection = true
         
         calendar.appearance.todayColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
-        calendar.appearance.selectionColor = .white
+        calendar.appearance.selectionColor = .clear
+        
         return calendar
     }()
     
@@ -56,6 +53,9 @@ class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCale
         configureCalendar()
         setConstraints()
         configureNavigationBarButton()
+        
+        eventsByDate["2023-09-03"] = ["이벤트 1", "이벤트 2"]
+        eventsByDate["2023-09-04"] = ["이벤트 3"]
     }
     
     private func setup() {
@@ -66,13 +66,8 @@ class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCale
         view.addSubview(calendar)
     }
     
-    func datesFromStrings(_ strings: [String]) -> [Date] {
-        let dateFormatter = ISO8601DateFormatter()
-        return strings.compactMap { dateFormatter.date(from: $0) }
-    }
-    
     private func setViewModel() {
-        viewModel.getCalendar { [self] result in
+        viewModel.getCalendar { result in
             switch result {
             case .success(let value):
                 print("Calendar Diary Response JSON: \(value)")
@@ -82,21 +77,15 @@ class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCale
                    let calendar = data["calender"] as? [String] {
                     print("calendar:", calendar)
                     
-                    let eventDates = datesFromStrings(calendar)
-                    
-                    self.eventDate = eventDates
-                    
-                    for date in eventDates {
-                        self.calendar.select(date)
-                    }
-                    
-                    self.calendar.reloadData()
-                    print("dkdkdkdkdkdk \(eventDates)")
-                    print("hfjghfjh \(eventDate)")
+//                    let dateFormatter = ISO8601DateFormatter()
+//                    dateFormatter.formatOptions = [.withInternetDateTime]
+//                    eventDate = calendar.compactMap { dateFormatter.date(from: $0) }
+
+//                    self.calendar.reloadData()
                 }
                 
             case .failure(let error):
-                print("Calendar Diary Error: \(error.localizedDescription)")
+                print("Calendar Diary Errorrr: \(error.localizedDescription)")
             }
         }
     }
@@ -141,33 +130,6 @@ class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCale
         return formatter
     }()
     
-    func calendar(_ calendar: FSCalendar,
-                  appearance: FSCalendarAppearance,
-                  titleFontFor date: Date) -> UIFont? {
-        
-        if calendar.gregorian.isDateInToday(date) {
-            return Typography.subtitle2.font
-        }
-        return nil
-    }
-    
-    func calendar(_ calendar: FSCalendar,
-                  appearance: FSCalendarAppearance,
-                  eventColorFor date: Date) -> UIColor? {
-        if eventDate.contains(date) {
-            return calendar.appearance.eventDefaultColor
-        }
-        return nil
-    }
-    
-    func calendar(_ calendar: FSCalendar,
-                  numberOfEventsFor date: Date) -> Int {
-        if eventDate.contains(date) {
-            return 1
-        }
-        return 0
-    }
-    
     func minimumDate(for calendar: FSCalendar) -> Date {
         return self.dateFormatter.date(from: "2023-09-01")!
     }
@@ -180,5 +142,35 @@ class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCale
         let side = BundleSide()
         side.modalPresentationStyle = .overFullScreen
         present(side, animated: false, completion: nil)
+    }
+}
+
+extension BundleStoryController: FSCalendarDelegateAppearance {
+    
+    // 다이어리 있는 날짜 텍스트 색상
+    func calendar(_ calendar: FSCalendar,
+                  appearance: FSCalendarAppearance,
+                  titleDefaultColorFor date: Date) -> UIColor? {
+        if let events = eventsByDate[dateFormatter.string(from: date)], events.count > 0 {
+            return .black
+        }
+        
+        return nil
+    }
+    
+    // 다이어리 있는 날짜 circle 표시
+    func calendar(_ calendar: FSCalendar,
+                  appearance: FSCalendarAppearance,
+                  fillDefaultColorFor date: Date) -> UIColor? {
+        if let events = eventsByDate[dateFormatter.string(from: date)], events.count > 0 {
+            return UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
+        }
+        return nil
+    }
+    
+    func calendar(_ calendar: FSCalendar,
+                  appearance: FSCalendarAppearance,
+                  titleSelectionColorFor date: Date) -> UIColor? {
+        return nil
     }
 }

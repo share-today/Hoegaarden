@@ -53,7 +53,7 @@ class MyYesterdayCell: UICollectionViewCell {
         let diaryState = DiaryState(id: "1",
                                     dateLabel: "",
                                     contentLabel: "아아아아아아",
-                                    heartButtonState: HeartButtonState(isLike: true, isEnabled: true),
+                                    likeButtonState: LikeButtonState(isLike: true, isEnabled: true),
                                     backgroundColor: .lightGrayGradientWithStroke)
         
         diaryView.setState(
@@ -75,7 +75,7 @@ class MyYesterdayCell: UICollectionViewCell {
         ])
     }
     
-    @objc private func commentHeartButtonTapped() {
+    @objc private func commentLikeButtonStateTapped() {
 //        if commentHeartButton.isSelected == true {
 //            commentHeartButton.isSelected = false
 //            commentHeartButton.setImage(UIImage(named: "heart"), for: .normal)

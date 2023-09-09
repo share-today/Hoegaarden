@@ -38,7 +38,7 @@ class DiaryView: UIView {
         return label
     }()
     
-    private var heartButton: ClosureButton = {
+    private var likeButton: ClosureButton = {
         let button = ClosureButton()
         let image = UIImage(named: "heart")
         button.setImage(image, for: .normal)
@@ -55,7 +55,7 @@ class DiaryView: UIView {
     }()
     
     private lazy var buttonStackView: UIStackView = {
-        let view = UIStackView(arrangedSubviews: [heartButton, moreButton])
+        let view = UIStackView(arrangedSubviews: [likeButton, moreButton])
         view.spacing = 15
         view.axis = .horizontal
         view.distribution = .fill
@@ -91,7 +91,7 @@ class DiaryView: UIView {
             dateLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             
             contentLabel.topAnchor.constraint(equalTo: dateLabel.topAnchor, constant: 30),
-            contentLabel.bottomAnchor.constraint(equalTo: heartButton.topAnchor),
+            contentLabel.bottomAnchor.constraint(equalTo: likeButton.topAnchor),
             contentLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             contentLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
             
@@ -141,11 +141,11 @@ class DiaryView: UIView {
         
         contentLabel.text = diaryState.contentLabel
         
-        heartButton.isHidden = diaryState.heartButtonState == nil
-        heartButton.isEnabled = diaryState.heartButtonState?.isEnabled == true
-        heartButton.setImage(diaryState.heartButtonState?.heartButton, for: .normal)
+        likeButton.isHidden = diaryState.likeButtonState == nil
+        likeButton.isEnabled = diaryState.likeButtonState?.isEnabled == true
+        likeButton.setImage(diaryState.likeButtonState?.likeButton, for: .normal)
         
-        heartButton.addTarget(self, action: #selector(onClickLike.buttonClicked), for: .touchUpInside)
+        likeButton.addTarget(self, action: #selector(onClickLike.buttonClicked), for: .touchUpInside)
         moreButton.addTarget(self, action: #selector(onClickLike.buttonClicked), for: .touchUpInside)
     }
 }

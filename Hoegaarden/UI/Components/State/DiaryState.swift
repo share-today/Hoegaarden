@@ -11,19 +11,19 @@ class DiaryState {
     let id: String
     let dateLabel: String
     let contentLabel: String
-    let heartButtonState: HeartButtonState?
+    let likeButtonState: LikeButtonState?
     let backgroundColor: BackgroundColor?
     
     init(id: String,
          dateLabel: String,
          contentLabel: String,
-         heartButtonState: HeartButtonState?,
+         likeButtonState: LikeButtonState?,
          backgroundColor: BackgroundColor?) {
         
         self.id = id
         self.dateLabel = dateLabel
         self.contentLabel = contentLabel
-        self.heartButtonState = heartButtonState
+        self.likeButtonState = likeButtonState
         self.backgroundColor = backgroundColor
     }
 }
