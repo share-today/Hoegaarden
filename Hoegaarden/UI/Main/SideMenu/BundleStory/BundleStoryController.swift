@@ -135,7 +135,7 @@ class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCale
     }
     
     func maximumDate(for calendar: FSCalendar) -> Date {
-        return self.dateFormatter.date(from: "2023-09-30")!
+        return self.dateFormatter.date(from: "2023-10-31")!
     }
     
     @objc private func showSideMenu() {
