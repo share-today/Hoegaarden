@@ -13,6 +13,7 @@ class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCale
     
     private let viewModel = BundleStoryViewModel()
     private var dateArray: [Date] = []
+    var selectedDate: Date?
     
     private let calendar: FSCalendar = {
         let calendar = FSCalendar(frame: .zero)
@@ -157,5 +158,21 @@ extension BundleStoryController: FSCalendarDelegateAppearance {
             return UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
         }
         return nil
+    }
+    
+    func calendar(_ calendar: FSCalendar,
+                  didSelect date: Date,
+                  at monthPosition: FSCalendarMonthPosition) {
+        if checkIfDateIsInArray(date) {
+            
+            let nextVC = BundleStoryView()
+            nextVC.modalPresentationStyle = .fullScreen
+            let nav = UINavigationController(rootViewController: nextVC)
+            nav.modalPresentationStyle = .overFullScreen
+            present(nav, animated: true, completion: nil)
+            
+        } else {
+            print("이벤트가 없는 날짜")
+        }
     }
 }
