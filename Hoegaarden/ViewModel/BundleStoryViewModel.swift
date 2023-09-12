@@ -15,7 +15,7 @@ class BundleStoryViewModel {
         localDataSource = DiaryLocalDataSource.shared
     }
     
-    func getCalendar(completion: @escaping (Result<String, any Error>) -> Void) {
+    func getCalendar(completion: @escaping (Result<Data, Error>) -> Void) {
         localDataSource.getCalendarDiary(completion: completion)
     }
 }

@@ -149,8 +149,8 @@ class DiaryLocalDataSource {
         }
     }
     
-    func getCalendarDiary(completion: @escaping (Result<String, Error>) -> Void) {
-        let url = "\(baseURL)/calendar"
+    func getCalendarDiary(completion: @escaping (Result<Data, Error>) -> Void) {
+        let url = "\(baseURL)/calender"
         
         if let jwtToken = UserDefaults.standard.string(forKey: "UserJWT") {
             let headers: HTTPHeaders = [
@@ -161,12 +161,12 @@ class DiaryLocalDataSource {
                        method: .get,
                        headers: headers)
             .validate()
-            .responseJSON { response in
+            .responseData { response in
                 switch response.result {
-                case .success(let value):
-                    print("Calendar Diary Response JSON: \(value)")
+                case .success(let data):
+                    completion(.success(data))
                 case .failure(let error):
-                    print("Calendar Diary Error: \(error.localizedDescription)")
+                    completion(.failure(error))
                 }
             }
         }

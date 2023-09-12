@@ -12,12 +12,10 @@ import FSCalendar
 class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCalendarDelegate {
     
     private let viewModel = BundleStoryViewModel()
-    private var eventsArray = [Date]()
-    var eventsByDate: [String: [String]] = [:]
-    
+    private var dateArray: [Date] = []
     
     private let calendar: FSCalendar = {
-        let calendar = FSCalendar()
+        let calendar = FSCalendar(frame: .zero)
         calendar.locale = Locale(identifier: "ko_KR")
         calendar.backgroundColor = .white
         calendar.scrollEnabled = true
@@ -39,8 +37,6 @@ class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCale
         calendar.appearance.titleTodayColor = .black
         
         calendar.appearance.todayColor = UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
-        calendar.appearance.selectionColor = .clear
-        
         return calendar
     }()
     
@@ -53,9 +49,6 @@ class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCale
         configureCalendar()
         setConstraints()
         configureNavigationBarButton()
-        
-        eventsByDate["2023-09-03"] = ["이벤트 1", "이벤트 2"]
-        eventsByDate["2023-09-04"] = ["이벤트 3"]
     }
     
     private func setup() {
@@ -69,19 +62,23 @@ class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCale
     private func setViewModel() {
         viewModel.getCalendar { result in
             switch result {
-            case .success(let value):
-                print("Calendar Diary Response JSON: \(value)")
-                
-                if let json = value as? [String: Any],
-                   let data = json["data"] as? [String: Any],
-                   let calendar = data["calender"] as? [String] {
-                    print("calendar:", calendar)
-                    
-//                    let dateFormatter = ISO8601DateFormatter()
-//                    dateFormatter.formatOptions = [.withInternetDateTime]
-//                    eventDate = calendar.compactMap { dateFormatter.date(from: $0) }
+            case .success(let data):
+                do {
+                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                       let dataDict = json["data"] as? [String: Any],
+                       let calendar = dataDict["calender"] as? [String] {
+                        print("calendar:", calendar)
+                        
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+                        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+                        let dateArray = calendar.compactMap { dateFormatter.date(from: $0) }
 
-//                    self.calendar.reloadData()
+                        self.dateArray = dateArray
+                        self.calendar.reloadData()
+                    }
+                } catch {
+                    print("JSON parsing error: \(error.localizedDescription)")
                 }
                 
             case .failure(let error):
@@ -113,18 +110,7 @@ class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCale
             target: self, action: #selector(showSideMenu))
     }
     
-    func calendar(_ calendar: FSCalendar,
-                  didSelect date: Date,
-                  at monthPosition: FSCalendarMonthPosition) {
-        
-        let nextVC = BundleStoryView()
-        nextVC.modalPresentationStyle = .fullScreen
-        let nav = UINavigationController(rootViewController: nextVC)
-        nav.modalPresentationStyle = .overFullScreen
-        present(nav, animated: true, completion: nil)
-    }
-    
-    fileprivate lazy var dateFormatter: DateFormatter = {
+    fileprivate var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter
@@ -147,30 +133,29 @@ class BundleStoryController: GestureViewController, FSCalendarDataSource, FSCale
 
 extension BundleStoryController: FSCalendarDelegateAppearance {
     
+    func checkIfDateIsInArray(_ date: Date) -> Bool {
+        return dateArray.contains { eventDate in
+             Calendar.current.isDate(eventDate, inSameDayAs: date)
+         }
+    }
+
     // 다이어리 있는 날짜 텍스트 색상
     func calendar(_ calendar: FSCalendar,
                   appearance: FSCalendarAppearance,
                   titleDefaultColorFor date: Date) -> UIColor? {
-        if let events = eventsByDate[dateFormatter.string(from: date)], events.count > 0 {
+        if checkIfDateIsInArray(date) {
             return .black
         }
-        
         return nil
     }
-    
+
     // 다이어리 있는 날짜 circle 표시
     func calendar(_ calendar: FSCalendar,
                   appearance: FSCalendarAppearance,
                   fillDefaultColorFor date: Date) -> UIColor? {
-        if let events = eventsByDate[dateFormatter.string(from: date)], events.count > 0 {
+        if checkIfDateIsInArray(date) {
             return UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
         }
-        return nil
-    }
-    
-    func calendar(_ calendar: FSCalendar,
-                  appearance: FSCalendarAppearance,
-                  titleSelectionColorFor date: Date) -> UIColor? {
         return nil
     }
 }
