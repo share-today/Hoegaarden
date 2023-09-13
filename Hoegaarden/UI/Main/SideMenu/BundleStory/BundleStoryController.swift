@@ -139,6 +139,12 @@ extension BundleStoryController: FSCalendarDelegateAppearance {
              Calendar.current.isDate(eventDate, inSameDayAs: date)
          }
     }
+    
+    func isDateToday(_ date: Date) -> Bool {
+        let calendar = Calendar.current
+        let today = Date()
+        return calendar.isDate(date, inSameDayAs: today)
+    }
 
     // 다이어리 있는 날짜 텍스트 색상
     func calendar(_ calendar: FSCalendar,
@@ -174,5 +180,25 @@ extension BundleStoryController: FSCalendarDelegateAppearance {
         } else {
             print("이벤트가 없는 날짜")
         }
+    }
+    
+    func calendar(_ calendar: FSCalendar,
+                  appearance: FSCalendarAppearance,
+                  fillSelectionColorFor date: Date) -> UIColor? {
+        
+        if checkIfDateIsInArray(date) || isDateToday(date) {
+            return UIColor(red: 0.878, green: 0.914, blue: 1, alpha: 1)
+        }
+        return .clear
+    }
+    
+    func calendar(_ calendar: FSCalendar,
+                  appearance: FSCalendarAppearance,
+                  titleSelectionColorFor date: Date) -> UIColor? {
+        
+        if checkIfDateIsInArray(date) || isDateToday(date) {
+            return .black
+        }
+        return .lightGray
     }
 }
