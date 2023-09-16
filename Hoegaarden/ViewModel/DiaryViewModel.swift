@@ -30,4 +30,8 @@ class DiaryViewModel {
     func deleteMyToday(id: Int, completion: @escaping (Result<String, any Error>) -> Void) {
         localDataSource.deleteMyToday(id: id, completion: completion)
     }
+    
+    func checkHaru(completion: @escaping (Result<String, Error>) -> Void) {
+        localDataSource.checkHaru(completion: completion)
+    }
 }

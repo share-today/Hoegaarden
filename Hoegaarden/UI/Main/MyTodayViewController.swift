@@ -129,6 +129,7 @@ class MyTodayViewController: UIViewController {
         setConstraints()
         completion(isOn: false)
         getDiary(id: 43)
+        checkHaruDiary()
         setupGestureRecognizer()
         
         addTapToDismissKeyboardGesture()
@@ -248,6 +249,18 @@ class MyTodayViewController: UIViewController {
                 
             case .failure(let error):
                 print("Get Diary Error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    private func checkHaruDiary() {
+        viewModel.checkHaru { result in
+            switch result {
+            case .success(let value):
+                print("Check Haru Diary Response: \(value)")
+                
+            case .failure(let error):
+                print("Check Haru Diary Error: \(error.localizedDescription)")
             }
         }
     }
