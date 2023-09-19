@@ -71,17 +71,6 @@ class MyThatDayViewController: UIViewController {
     }
     
     private func setViews() {
-        let likeClicked = ClosureButton()
-        let moreClicked = ClosureButton()
-        
-        likeClicked.onClick = {
-            print("like")
-        }
-        
-        moreClicked.onClick = {
-            print("more")
-        }
-        
         let diaryState = DiaryState(id: "1",
                                     dateLabel: "23년 09월 07일",
                                     contentLabel: "오늘은 상사에게 후배에게 하루종일 시달려서 지쳤어요.",
@@ -90,10 +79,14 @@ class MyThatDayViewController: UIViewController {
         
         diaryView.setState(
             diaryState: diaryState,
-            onClickLike: likeClicked,
-            onClickMore: moreClicked,
+            onClickLike: {
+                print("like")
+            },
+            onClickMore: {
+                print("more")
+            },
             contentView: {
-                
+
             }
         )
     }

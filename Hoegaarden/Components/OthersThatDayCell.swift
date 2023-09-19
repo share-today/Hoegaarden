@@ -45,17 +45,6 @@ class OthersThatDayCell: UICollectionViewCell {
     }
     
     private func setViews() {
-        let likeClicked = ClosureButton()
-        let moreClicked = ClosureButton()
-        
-        likeClicked.onClick = {
-            print("like")
-        }
-        
-        moreClicked.onClick = {
-            print("more")
-        }
-        
         let diaryState = DiaryState(id: "1",
                                     dateLabel: "23년 08월 20일",
                                     contentLabel: "하고싶은 일이 있는데 뜻대로 되지 않아요. 친구들은 그저 제 배경만 보고 부러워 하지만 그 안에서의 저는 죽을 맛입니다.",
@@ -64,10 +53,14 @@ class OthersThatDayCell: UICollectionViewCell {
         
         diaryView.setState(
             diaryState: diaryState,
-            onClickLike: likeClicked,
-            onClickMore: moreClicked,
+            onClickLike: {
+                print("like")
+            },
+            onClickMore: {
+                print("more")
+            },
             contentView: {
-                
+
             }
         )
     }

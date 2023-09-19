@@ -120,8 +120,8 @@ class DiaryView: UIView {
     }
     
     func setState(diaryState: DiaryState,
-                  onClickLike: ClosureButton,
-                  onClickMore: ClosureButton,
+                  onClickLike: @escaping (() -> Void),
+                  onClickMore: @escaping (() -> Void),
                   contentView: () -> Void) {
         state = diaryState
         
@@ -145,7 +145,10 @@ class DiaryView: UIView {
         likeButton.isEnabled = diaryState.likeButtonState?.isEnabled == true
         likeButton.setImage(diaryState.likeButtonState?.likeButton, for: .normal)
         
-        likeButton.addTarget(self, action: #selector(onClickLike.buttonClicked), for: .touchUpInside)
-        moreButton.addTarget(self, action: #selector(onClickLike.buttonClicked), for: .touchUpInside)
+        likeButton.onClick = onClickLike
+        moreButton.onClick = onClickMore
+        
+        likeButton.addTarget(likeButton, action: #selector(likeButton.buttonClicked), for: .touchUpInside)
+        moreButton.addTarget(moreButton, action: #selector(moreButton.buttonClicked), for: .touchUpInside)
     }
 }
