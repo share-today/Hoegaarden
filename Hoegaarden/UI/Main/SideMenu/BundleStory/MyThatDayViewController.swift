@@ -74,7 +74,7 @@ class MyThatDayViewController: UIViewController {
         let diaryState = DiaryState(id: "1",
                                     dateLabel: "23년 09월 07일",
                                     contentLabel: "오늘은 상사에게 후배에게 하루종일 시달려서 지쳤어요.",
-                                    likeButtonState: LikeButtonState(isLike: true, isEnabled: true),
+                                    likeButtonState: nil,
                                     backgroundColor: .blueGradient)
         
         diaryView.setState(

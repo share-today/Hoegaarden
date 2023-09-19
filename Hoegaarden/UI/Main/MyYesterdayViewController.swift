@@ -76,7 +76,7 @@ class MyYesterdayViewController: UIViewController {
         let diaryState = DiaryState(id: "1",
                                     dateLabel: "23년 08월 21일",
                                     contentLabel: "이이이이이이이",
-                                    likeButtonState: LikeButtonState(isLike: true, isEnabled: true),
+                                    likeButtonState: nil,
                                     backgroundColor: .blueGradient)
         
         diaryView.setState(
