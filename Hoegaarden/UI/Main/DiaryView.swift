@@ -126,28 +126,31 @@ class DiaryView: UIView {
                   contentView: () -> Void) {
         state = diaryState
         
-        
-        if case .blueGradient = diaryState.backgroundColor {
-        }
-        
-        if case .lightGrayGradientWithStroke = diaryState.backgroundColor {
-            self.layer.borderWidth = 1
-            self.layer.borderColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1).cgColor
-        }
-        
-        setBackground(backgroundColor: diaryState.backgroundColor)
-        
         dateLabel.isHidden = diaryState.dateLabel.isEmpty
         dateLabel.text = diaryState.dateLabel
         
         contentLabel.text = diaryState.contentLabel
         
-        likeButton.isHidden = diaryState.likeButtonState == nil
-        likeButton.isEnabled = diaryState.likeButtonState?.isEnabled == true
-        likeButton.setImage(diaryState.likeButtonState?.likeButton, for: .normal)
-        
         likeButton.onClick = onClickLike
         moreButton.onClick = onClickMore
+        
+        setBackground()
+        setButton()
+    }
+    
+    private func setBackground() {
+        setBackground(backgroundColor: state?.backgroundColor)
+        
+        if case .lightGrayGradientWithStroke = state?.backgroundColor {
+            self.layer.borderWidth = 1
+            self.layer.borderColor = UIColor(red: 0.2, green: 0.2, blue: 0.2, alpha: 1).cgColor
+        }
+    }
+    
+    private func setButton() {
+        likeButton.isHidden = state?.likeButtonState == nil
+        likeButton.isEnabled = state?.likeButtonState?.isEnabled == true
+        likeButton.setImage(state?.likeButtonState?.likeButton, for: .normal)
         
         if likeButton.isSelected == true {
             likeButton.isSelected = false
