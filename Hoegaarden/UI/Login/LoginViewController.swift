@@ -18,6 +18,10 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setLogin()
+    }
+    
+    private func setLogin() {
         googleLoginResult()
         kakaoLoginResult()
         appleLoginResult()
