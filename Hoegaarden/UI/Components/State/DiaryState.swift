@@ -11,7 +11,7 @@ class DiaryState {
     let id: String
     let dateLabel: String
     let contentLabel: String
-    let likeButtonState: LikeButtonState?
+    var likeButtonState: LikeButtonState?
     let backgroundColor: BackgroundColor?
     
     init(id: String,

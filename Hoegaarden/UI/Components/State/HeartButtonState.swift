@@ -8,13 +8,19 @@
 import UIKit
 
 struct LikeButtonState {
-    let isLike: Bool
+    var isLike: Bool
     let isEnabled: Bool
-    let likeButton: UIImage
+    
+    mutating func toggle() {
+        isLike.toggle()
+    }
+    
+    var image: UIImage {
+        return UIImage(named: isLike ? "heart.selected" : "heart") ?? UIImage()
+    }
     
     init(isLike: Bool, isEnabled: Bool) {
         self.isLike = isLike
         self.isEnabled = isEnabled
-        self.likeButton = UIImage(named: isLike ? "heart.selected" : "heart") ?? UIImage()
     }
 }

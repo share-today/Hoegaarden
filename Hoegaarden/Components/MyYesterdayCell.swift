@@ -42,7 +42,7 @@ class MyYesterdayCell: UICollectionViewCell {
         let diaryState = DiaryState(id: "1",
                                     dateLabel: "",
                                     contentLabel: "아아아아아아",
-                                    likeButtonState: LikeButtonState(isLike: true, isEnabled: true),
+                                    likeButtonState: LikeButtonState(isLike: false, isEnabled: true),
                                     backgroundColor: .lightGrayGradientWithStroke)
         
         diaryView.setState(
@@ -66,18 +66,6 @@ class MyYesterdayCell: UICollectionViewCell {
             diaryView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
             diaryView.heightAnchor.constraint(lessThanOrEqualToConstant: 150)
         ])
-    }
-    
-    @objc private func commentLikeButtonStateTapped() {
-//        if commentHeartButton.isSelected == true {
-//            commentHeartButton.isSelected = false
-//            commentHeartButton.setImage(UIImage(named: "heart"), for: .normal)
-//        } else {
-//            commentHeartButton.isSelected = true
-//            commentHeartButton.setImage(UIImage(named: "heart.selected"), for: .normal)
-//            toast.showToast(image: UIImage(imageLiteralResourceName: "heart.selected"),
-//                            message: ToastMessage.heartToast)
-//        }
     }
     
     @objc private func commentMoreButtonTapped() {

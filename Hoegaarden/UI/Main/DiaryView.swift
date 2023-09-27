@@ -136,6 +136,23 @@ class DiaryView: UIView {
         
         setBackground()
         setButton()
+        
+        likeButton.onClick = { [weak self] in
+            guard var likeButtonState = self?.state?.likeButtonState else { return }
+            
+            likeButtonState.toggle()
+            self?.state?.likeButtonState = likeButtonState
+            
+            let image = likeButtonState.image
+            self?.likeButton.setImage(image, for: .normal)
+            
+            if likeButtonState.isLike {
+                self?.toast.showToast(image: UIImage(named: "heart.selected")!,
+                                      message: ToastMessage.heartToast)
+            }
+            
+            onClickLike()
+        }
     }
     
     private func setBackground() {
@@ -150,20 +167,19 @@ class DiaryView: UIView {
     private func setButton() {
         likeButton.isHidden = state?.likeButtonState == nil
         likeButton.isEnabled = state?.likeButtonState?.isEnabled == true
-        likeButton.setImage(state?.likeButtonState?.likeButton, for: .normal)
         
-        if likeButton.isSelected == true {
-            likeButton.isSelected = false
-            likeButton.setImage(UIImage(named: "heart"),
-                                for: .normal)
-            
-        } else {
-            likeButton.isSelected = true
-            likeButton.setImage(UIImage(named: "heart.selected"),
-                                for: .normal)
-            toast.showToast(image: UIImage(named: "heart.selected")!,
-                            message: ToastMessage.heartToast)
-        }
+//        if likeButton.isSelected == true {
+//            likeButton.isSelected = false
+//            likeButton.setImage(UIImage(named: "heart"),
+//                                for: .normal)
+//
+//        } else {
+//            likeButton.isSelected = true
+//            likeButton.setImage(UIImage(named: "heart.selected"),
+//                                for: .normal)
+//            toast.showToast(image: UIImage(named: "heart.selected")!,
+//                            message: ToastMessage.heartToast)
+//        }
         
         likeButton.addTarget(likeButton, action: #selector(likeButton.buttonClicked), for: .touchUpInside)
         moreButton.addTarget(moreButton, action: #selector(moreButton.buttonClicked), for: .touchUpInside)
