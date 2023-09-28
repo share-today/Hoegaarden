@@ -157,19 +157,6 @@ class OthersCell: UICollectionViewCell {
         ])
     }
     
-    @objc private func likeButtonAction() {
-//        if heartButton.isSelected == true {
-//            heartButton.isSelected = false
-//            heartButton.setImage(UIImage(named: "heart"), for: .normal)
-//
-//        } else {
-//            heartButton.isSelected = true
-//            heartButton.setImage(UIImage(named: "heart.selected"), for: .normal)
-//            toast.showToast(image: UIImage(imageLiteralResourceName: "heart.selected"),
-//                            message: ToastMessage.heartToast)
-//        }
-    }
-    
     @objc private func showMoreInfo() {
         moreButtonAction?()
     }

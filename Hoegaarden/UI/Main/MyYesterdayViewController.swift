@@ -11,6 +11,7 @@ class MyYesterdayViewController: UIViewController {
     
     private let toast = Toast()
     private let alert = SweetAlert()
+    private let alertUtils = AlertUtils()
 
     private let diaryView: DiaryView = DiaryView()
     
@@ -31,7 +32,6 @@ class MyYesterdayViewController: UIViewController {
     private lazy var deleteActionSheet: DeleteAlertAction = {
         let actionSheet = DeleteAlertAction()
         actionSheet.setButtonTitle(AlertMessage.deleteButton)
-        actionSheet.button.addTarget(self, action: #selector(deleteButtonAction), for: .touchUpInside)
         return actionSheet
     }()
     
@@ -51,13 +51,14 @@ class MyYesterdayViewController: UIViewController {
         commentData(content: "뿌아앙"),
         commentData(content: "이이잉"),
     ]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setup()
         addViews()
         setViews()
+        setMoreButtonActions()
         setCollectionView()
         setupAddTarget()
         setConstraints()
@@ -84,13 +85,26 @@ class MyYesterdayViewController: UIViewController {
             onClickLike: {
                 print("like")
             },
-            onClickMore: {
-                print("more")
+            onClickMore: { [self] in
+                deleteActionSheet.modalPresentationStyle = .overFullScreen
+                present(deleteActionSheet, animated: false)
             },
             contentView: {
 
             }
         )
+    }
+    
+    private func setMoreButtonActions() {
+        deleteActionSheet.button.addAction(UIAction(handler: { [self] _ in
+            alertUtils.showAlert(viewController: self,
+                                 message: AlertMessage.deleteMessage,
+                                 imageFile: "trash",
+                                 otherButtonTitle: AlertMessage.deleteButton) {
+                self.toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
+                                message: ToastMessage.trashToast)
+            }
+        }), for: .touchUpInside)
     }
     
     private func setCollectionView() {
@@ -165,23 +179,6 @@ class MyYesterdayViewController: UIViewController {
                 dismiss(animated: false, completion: nil)
                 toast.showToast(image: UIImage(imageLiteralResourceName: "check-circle"),
                                 message: ToastMessage.reportToast)
-            }
-        }
-    }
-    
-    @objc private func deleteButtonAction() {
-        alert.showAlert("",
-                        subTitle: AlertMessage.commentDeleteMessage,
-                        style: AlertStyle.customImage(imageFile: "trash"),
-                        buttonTitle: AlertMessage.cancelButton,
-                        buttonColor: .white,
-                        otherButtonTitle: AlertMessage.deleteButton,
-                        otherButtonColor: .black) { [self] (isOtherButton) -> Void in
-            if isOtherButton == true { }
-            else {
-                dismiss(animated: false, completion: nil)
-                toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
-                                message: ToastMessage.trashToast)
             }
         }
     }

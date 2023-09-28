@@ -168,19 +168,6 @@ class DiaryView: UIView {
         likeButton.isHidden = state?.likeButtonState == nil
         likeButton.isEnabled = state?.likeButtonState?.isEnabled == true
         
-//        if likeButton.isSelected == true {
-//            likeButton.isSelected = false
-//            likeButton.setImage(UIImage(named: "heart"),
-//                                for: .normal)
-//
-//        } else {
-//            likeButton.isSelected = true
-//            likeButton.setImage(UIImage(named: "heart.selected"),
-//                                for: .normal)
-//            toast.showToast(image: UIImage(named: "heart.selected")!,
-//                            message: ToastMessage.heartToast)
-//        }
-        
         likeButton.addTarget(likeButton, action: #selector(likeButton.buttonClicked), for: .touchUpInside)
         moreButton.addTarget(moreButton, action: #selector(moreButton.buttonClicked), for: .touchUpInside)
     }
