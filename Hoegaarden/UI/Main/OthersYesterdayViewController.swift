@@ -10,7 +10,7 @@ import UIKit
 class OthersYesterdayViewController: UIViewController {
     
     private let toast = Toast()
-    private let alert = SweetAlert()
+    private let alertUtils = AlertUtils()
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -28,22 +28,14 @@ class OthersYesterdayViewController: UIViewController {
     private lazy var reportAndDeleteActionSheet: CustomAlertAction = {
         let actionSheet = CustomAlertAction()
         actionSheet.setMainButtonTitle(AlertMessage.reportButton)
-        actionSheet.mainButton.addTarget(self, action: #selector(reportButtonTapped), for: .touchUpInside)
-        
         actionSheet.setSecondaryButtonTitle(AlertMessage.deleteButton)
-        actionSheet.secondButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
-        
         return actionSheet
     }()
     
     private lazy var modifyAndDeleteAlertAction: CustomAlertAction = {
         let actionSheet = CustomAlertAction()
         actionSheet.setMainButtonTitle(AlertMessage.modifyButton)
-        actionSheet.mainButton.addTarget(self, action: #selector(modifyButtonTapped), for: .touchUpInside)
-        
         actionSheet.setSecondaryButtonTitle(AlertMessage.deleteButton)
-        actionSheet.secondButton.addTarget(self, action: #selector(modifyDeleteButtonTapped), for: .touchUpInside)
-        
         return actionSheet
     }()
 
@@ -57,12 +49,53 @@ class OthersYesterdayViewController: UIViewController {
         super.viewDidLoad()
 
         setup()
+        setMoreButtonActions()
         setCollectionView()
         addTapToDismissKeyboardGesture()
     }
 
     private func setup() {
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    }
+    
+    private func setMoreButtonActions() {
+        reportAndDeleteActionSheet.mainButton.addAction(UIAction(handler: { [self] _ in
+            alertUtils.showAlert(viewController: self,
+                                 message: AlertMessage.reportMessage,
+                                 imageFile: "frown",
+                                 otherButtonTitle: AlertMessage.reportButton) {
+                self.toast.showToast(image: UIImage(imageLiteralResourceName: "check-circle"),
+                                     message: ToastMessage.reportToast)
+            }
+        }), for: .touchUpInside)
+        
+        reportAndDeleteActionSheet.secondButton.addAction(UIAction(handler: { [self] _ in
+            alertUtils.showAlert(viewController: self,
+                                 message: AlertMessage.commentDeleteMessage,
+                                 imageFile: "trash",
+                                 otherButtonTitle: AlertMessage.deleteButton) {
+                self.toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
+                                     message: ToastMessage.trashToast)
+            }
+        }), for: .touchUpInside)
+        
+        modifyAndDeleteAlertAction.mainButton.addAction(UIAction(handler: { [self] _ in
+            alertUtils.showAlert(viewController: self,
+                                 message: AlertMessage.modifyMessage,
+                                 imageFile: "modify",
+                                 otherButtonTitle: AlertMessage.modifyButton) {
+            }
+        }), for: .touchUpInside)
+        
+        modifyAndDeleteAlertAction.secondButton.addAction(UIAction(handler: { [self] _ in
+            alertUtils.showAlert(viewController: self,
+                                 message: AlertMessage.sendDeleteMessage,
+                                 imageFile: "trash",
+                                 otherButtonTitle: AlertMessage.deleteButton) {
+                self.toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
+                                     message: ToastMessage.trashToast)
+            }
+        }), for: .touchUpInside)
     }
     
     private func setCollectionView() {
@@ -79,73 +112,6 @@ class OthersYesterdayViewController: UIViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.heightAnchor.constraint(greaterThanOrEqualToConstant: 450)
         ])
-    }
-    
-    @objc private func reportButtonTapped() {
-        alert.showAlert("",
-                        subTitle: AlertMessage.reportMessage,
-                        style: AlertStyle.customImage(imageFile: "frown"),
-                        buttonTitle: AlertMessage.cancelButton,
-                        buttonColor: .white,
-                        otherButtonTitle: AlertMessage.reportButton,
-                        otherButtonColor: .black) { [self] (isOtherButton) -> Void in
-            if isOtherButton == true { }
-            else {
-                dismiss(animated: false, completion: nil)
-                toast.showToast(image: UIImage(imageLiteralResourceName: "check-circle"),
-                                message: ToastMessage.reportToast)
-            }
-        }
-    }
-    
-    @objc private func deleteButtonTapped() {
-        alert.showAlert("",
-                        subTitle: AlertMessage.commentDeleteMessage,
-                        style: AlertStyle.customImage(imageFile: "trash"),
-                        buttonTitle: AlertMessage.cancelButton,
-                        buttonColor: .white,
-                        otherButtonTitle: AlertMessage.deleteButton,
-                        otherButtonColor: .black) { [self] (isOtherButton) -> Void in
-            if isOtherButton == true { }
-            else {
-                dismiss(animated: false, completion: nil)
-                toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
-                                message: ToastMessage.trashToast)
-            }
-        }
-    }
-    
-    @objc private func modifyButtonTapped() {
-        alert.showAlert("",
-                        subTitle: AlertMessage.modifyMessage,
-                        style: AlertStyle.customImage(imageFile: "modify"),
-                        buttonTitle: AlertMessage.cancelButton,
-                        buttonColor: .white,
-                        otherButtonTitle: AlertMessage.modifyButton,
-                        otherButtonColor: .black) { [self] (isOtherButton) -> Void in
-            if isOtherButton == true { }
-            else {
-                dismiss(animated: false)
-            }
-        }
-    }
-    
-    @objc private func modifyDeleteButtonTapped() {
-        alert.showAlert("",
-                        subTitle: AlertMessage.sendDeleteMessage,
-                        style: AlertStyle.customImage(imageFile: "trash"),
-                        buttonTitle: AlertMessage.cancelButton,
-                        buttonColor: .white,
-                        otherButtonTitle: AlertMessage.deleteButton,
-                        otherButtonColor: .black) { [self] (isOtherButton) -> Void in
-            if isOtherButton == true { }
-            else {
-                dismiss(animated: false)
-
-                toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
-                                message: ToastMessage.trashToast)
-            }
-        }
     }
 }
 

@@ -61,8 +61,8 @@ class OthersCell: UICollectionViewCell {
             onClickLike: {
                 print("like")
             },
-            onClickMore: {
-                print("more")
+            onClickMore: { [self] in
+                moreButtonAction?()
             },
             contentView: {
 
@@ -155,10 +155,6 @@ class OthersCell: UICollectionViewCell {
             label.centerXAnchor.constraint(equalTo: centerXAnchor),
             label.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
-    }
-    
-    @objc private func showMoreInfo() {
-        moreButtonAction?()
     }
     
     @objc private func moreModifyButtonTapped() {
