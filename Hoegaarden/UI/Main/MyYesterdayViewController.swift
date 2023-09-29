@@ -10,7 +10,6 @@ import UIKit
 class MyYesterdayViewController: UIViewController {
     
     private let toast = Toast()
-    private let alert = SweetAlert()
     private let alertUtils = AlertUtils()
 
     private let diaryView: DiaryView = DiaryView()
@@ -38,11 +37,7 @@ class MyYesterdayViewController: UIViewController {
     private lazy var reportAndDeleteActionSheet: CustomAlertAction = {
         let actionSheet = CustomAlertAction()
         actionSheet.setMainButtonTitle(AlertMessage.reportButton)
-        actionSheet.mainButton.addTarget(self, action: #selector(commentReportButtonAction), for: .touchUpInside)
-        
         actionSheet.setSecondaryButtonTitle(AlertMessage.deleteButton)
-        actionSheet.secondButton.addTarget(self, action: #selector(commentDeleteButtonAction), for: .touchUpInside)
-        
         return actionSheet
     }()
     
@@ -60,7 +55,6 @@ class MyYesterdayViewController: UIViewController {
         setViews()
         setMoreButtonActions()
         setCollectionView()
-        setupAddTarget()
         setConstraints()
     }
     
@@ -102,6 +96,26 @@ class MyYesterdayViewController: UIViewController {
                                  imageFile: "trash",
                                  otherButtonTitle: AlertMessage.deleteButton) {
                 self.toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
+                                     message: ToastMessage.trashToast)
+            }
+        }), for: .touchUpInside)
+        
+        reportAndDeleteActionSheet.mainButton.addAction(UIAction(handler: { [self] _ in
+            alertUtils.showAlert(viewController: self,
+                                 message: AlertMessage.reportMessage,
+                                 imageFile: "frown",
+                                 otherButtonTitle: AlertMessage.reportButton) {
+                self.toast.showToast(image: UIImage(imageLiteralResourceName: "check-circle"),
+                                message: ToastMessage.reportToast)
+            }
+        }), for: .touchUpInside)
+        
+        reportAndDeleteActionSheet.secondButton.addAction(UIAction(handler: { [self] _ in
+            alertUtils.showAlert(viewController: self,
+                                 message: AlertMessage.commentDeleteMessage,
+                                 imageFile: "trash",
+                                 otherButtonTitle: AlertMessage.deleteButton) {
+                self.toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
                                 message: ToastMessage.trashToast)
             }
         }), for: .touchUpInside)
@@ -111,9 +125,6 @@ class MyYesterdayViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(MyYesterdayCell.self, forCellWithReuseIdentifier: "MyYesterdayCell")
-    }
-    
-    private func setupAddTarget() {
     }
     
     private func setConstraints() {
@@ -142,91 +153,17 @@ class MyYesterdayViewController: UIViewController {
             label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
-    
-    @objc private func showMoreButton() {
-        deleteActionSheet.modalPresentationStyle = .overFullScreen
-        self.present(deleteActionSheet, animated: false)
-    }
-    
-    @objc private func deleteButton() {
-        alert.showAlert("",
-                        subTitle: AlertMessage.deleteMessage,
-                        style: AlertStyle.customImage(imageFile: "trash"),
-                        buttonTitle: AlertMessage.cancelButton,
-                        buttonColor: .white,
-                        otherButtonTitle: AlertMessage.deleteButton,
-                        otherButtonColor: .black) { [self] (isOtherButton) -> Void in
-            if isOtherButton == true { }
-            else {
-                dismiss(animated: false, completion: nil)
-                
-                toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
-                                message: ToastMessage.trashToast)
-            }
-        }
-    }
-    
-    @objc private func commentReportTapped() {
-        alert.showAlert("",
-                        subTitle: AlertMessage.reportMessage,
-                        style: AlertStyle.customImage(imageFile: "frown"),
-                        buttonTitle: AlertMessage.cancelButton,
-                        buttonColor: .white,
-                        otherButtonTitle: AlertMessage.reportButton,
-                        otherButtonColor: .black) { [self] (isOtherButton) -> Void in
-            if isOtherButton == true { }
-            else {
-                dismiss(animated: false, completion: nil)
-                toast.showToast(image: UIImage(imageLiteralResourceName: "check-circle"),
-                                message: ToastMessage.reportToast)
-            }
-        }
-    }
-    
-    @objc private func commentReportButtonAction() {
-        alert.showAlert("",
-                        subTitle: AlertMessage.reportMessage,
-                        style: AlertStyle.customImage(imageFile: "frown"),
-                        buttonTitle: AlertMessage.cancelButton,
-                        buttonColor: .white,
-                        otherButtonTitle: AlertMessage.reportButton,
-                        otherButtonColor: .black) { [self] (isOtherButton) -> Void in
-            if isOtherButton == true { }
-            else {
-                dismiss(animated: false, completion: nil)
-                
-                toast.showToast(image: UIImage(imageLiteralResourceName: "check-circle"),
-                                message: ToastMessage.reportToast)
-            }
-        }
-    }
-    
-    @objc private func commentDeleteButtonAction() {
-        alert.showAlert("",
-                        subTitle: AlertMessage.commentDeleteMessage,
-                        style: AlertStyle.customImage(imageFile: "trash"),
-                        buttonTitle: AlertMessage.cancelButton,
-                        buttonColor: .white,
-                        otherButtonTitle: AlertMessage.deleteButton,
-                        otherButtonColor: .black) { [self] (isOtherButton) -> Void in
-            if isOtherButton == true { }
-            else {
-                dismiss(animated: false, completion: nil)
-                
-                toast.showToast(image: UIImage(imageLiteralResourceName: "trash"),
-                                message: ToastMessage.trashToast)
-            }
-        }
-    }
 }
 
 
 extension MyYesterdayViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
         return dataArray.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyYesterdayCell", for: indexPath) as! MyYesterdayCell
         
         cell.commentMoreButtonAction = { [weak self] in
@@ -241,7 +178,9 @@ extension MyYesterdayViewController: UICollectionViewDelegate, UICollectionViewD
 }
 
 extension MyYesterdayViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = collectionView.frame.width
         let cellHeight = collectionView.frame.height
         return CGSize(width: cellWidth, height: cellHeight)

@@ -9,9 +9,6 @@ import UIKit
 
 class MyYesterdayCell: UICollectionViewCell {
     
-    private let toast = Toast()
-    private let alert = SweetAlert()
-    
     typealias ButtonActionBlock = (() -> Void)
     var commentMoreButtonAction: ButtonActionBlock?
     
@@ -50,8 +47,8 @@ class MyYesterdayCell: UICollectionViewCell {
             onClickLike: {
                 print("like")
             },
-            onClickMore: {
-                print("more")
+            onClickMore: { [self] in
+                commentMoreButtonAction?()
             },
             contentView: {
                 
@@ -66,9 +63,5 @@ class MyYesterdayCell: UICollectionViewCell {
             diaryView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
             diaryView.heightAnchor.constraint(lessThanOrEqualToConstant: 150)
         ])
-    }
-    
-    @objc private func commentMoreButtonTapped() {
-        commentMoreButtonAction?()
     }
 }
